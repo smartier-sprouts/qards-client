@@ -3,7 +3,7 @@
     "name": "qards-client-android",
     "description": "A Game of Qards",
     "slug": "thesis-project",
-    "privacy": "private",
+    "privacy": "unlisted",
     "sdkVersion": "18.0.0",
     "version": "0.1.1",
     "orientation": "portrait",

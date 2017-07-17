@@ -10,7 +10,7 @@ This repo was started via the create-react-native-app setup. (Step 0 = Install d
 ##Notes:
 * Jake's App.js had a ref to [reactnavigation](https://reactnavigation.org/docs/intro/) so I left that in place
 * Messed with [Reactotron](https://github.com/infinitered/reactotron) a bit and it looks promising so I included that in this repo
-* If Redux is needed, at the moment there's an error on setup: `"react-redux@5.0.5" has unmet peer dependency "react@^0.14.0 || ^15.0.0-0 || ^16.0.0-0"` 
+* If Redux is needed, at the moment there's an error on setup: `"react-redux@5.0.5" has unmet peer dependency "react@^0.14.0 || ^15.0.0-0 || ^16.0.0-0"`
 
 
 ###expoMain script:
@@ -19,7 +19,7 @@ The `main:` argument in the yarn\npm package.json differs between the expo and t
 
 * create-react-native-app has a main set as >` "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",`
 
-* Expo has the 'main' package.json arg set as >`"main": "./node_modules/expo/AppEntry.js"` 
+* Expo has the 'main' package.json arg set as >`"main": "./node_modules/expo/AppEntry.js"`
 
 As a result of this, I went with the crna method, but put the Expo version in as a script called `expoMain`.
 
