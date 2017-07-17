@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "qards-client-android",
+    "description": "A Game of Qards",
+    "slug": "thesis-project",
+    "privacy": "private",
+    "sdkVersion": "18.0.0",
+    "version": "0.1.1",
+    "orientation": "portrait",
+    "primaryColor": "#cccccc",
+    "icon": "./assets/icons/app.png",
+    "loading": {
+      "icon": "./assets/icons/loading.png",
+      "hideExponentText": false
+    },
+    "packagerOpts": {
+      "assetExts": ["ttf", "mp4"]
+    },
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}

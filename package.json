@@ -1,0 +1,30 @@
+{
+  "name": "qards-client-android",
+  "version": "0.1.1",
+  "author": "The Smartiest Sprouts",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "jest-expo": "~18.0.0",
+    "react-native-scripts": "0.0.50",
+    "react-test-renderer": "16.0.0-alpha.12",
+    "reactotron-react-native": "^1.12.1"
+  },
+  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
+  "scripts": {
+    "start": "react-native-scripts start",
+    "eject": "react-native-scripts eject",
+    "android": "react-native-scripts android",
+    "test" : "node node_modules/jest/bin/jest.js --watch",
+    "expoMain": "node_modules/expo/AppEntry.js"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "dependencies": {
+    "expo": "^18.0.3",
+    "react": "16.0.0-alpha.12",
+    "react-native": "^0.45.1",
+    "react-navigation": "^1.0.0-beta.11"
+  }
+}
