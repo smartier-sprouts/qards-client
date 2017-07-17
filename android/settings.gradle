@@ -1,0 +1,3 @@
+rootProject.name = 'qards-client-android'
+
+include ':app'

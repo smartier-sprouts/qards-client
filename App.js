@@ -1,13 +1,25 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TextInput, AppRegistry, Button } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import Lobby from './components/Lobby.js';
 
-export default class App extends React.Component {
+
+class Welcome extends React.Component {
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+        <Text style={styles.title}>Welcome</Text>
+        <View style={styles.display}>
+          <Text style={styles.nameText}>Qards</Text>
+        </View>
+        <Button
+          onPress={() => navigate('Lobby')}
+          title="Let's Play"
+        />
+        <View>
+          <Text>Login</Text>
+        </View>
       </View>
     );
   }
@@ -16,8 +28,30 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
+  display: {
+    height: 150,
+    width: 150,
+    backgroundColor: 'black',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  nameText: {
+    color: 'white',
+  },
+  title: {
+    fontSize: 24
+  }
 });
+
+const SimpleApp = StackNavigator({
+  Home: { screen: Welcome },
+  Lobby: { screen: Lobby },
+});
+
+
+export default SimpleApp;
