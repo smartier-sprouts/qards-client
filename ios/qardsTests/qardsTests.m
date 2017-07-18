@@ -16,11 +16,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React Native!"
 
-@interface qards-client-androidTests : XCTestCase
+@interface qardsTests : XCTestCase
 
 @end
 
-@implementation qards-client-androidTests
+@implementation qardsTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
 {

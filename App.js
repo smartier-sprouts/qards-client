@@ -4,6 +4,8 @@ import { StackNavigator } from 'react-navigation';
 import Lobby from './components/Lobby.js';
 import Create from './components/Create.js';
 import Rules from './components/Rules.js';
+import RCTWebRCTDemo from './components/RCTWebRTCDemo.js';
+
 
 class Welcome extends React.Component {
   render() {
@@ -20,6 +22,10 @@ class Welcome extends React.Component {
         />
         <View>
           <Text>Login Button Goes Here</Text>
+          <Button
+            onPress={() => navigate('RCTWebRCTDemo')}
+            title="VIDEO TEST"
+          />
         </View>
       </View>
     );
@@ -53,7 +59,8 @@ const SimpleApp = StackNavigator({
   Home: { screen: Welcome },
   Lobby: { screen: Lobby },
   Create: { screen: Create },
-  Rules: { screen: Rules }
+  Rules: { screen: Rules },
+  RCTWebRCTDemo: { screen: RCTWebRCTDemo },
 });
 
 

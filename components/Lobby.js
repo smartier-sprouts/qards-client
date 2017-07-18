@@ -32,6 +32,10 @@ export default class Lobby extends React.Component {
         </View>
         <View>
           <Text>Join a {this.state.game} game</Text>
+            <Button
+              onPress={() => navigate('RCTWebRCTDemo')}
+              title="VIDEO TEST"
+            />
         </View>
         <Button
           onPress={() => navigate('Create')}
