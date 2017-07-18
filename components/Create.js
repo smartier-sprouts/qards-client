@@ -2,41 +2,38 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
-export default class Lobby extends React.Component {
+export default class Rules extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      game: 'Straight Gin'
+      game: 'straight gin',
+      players: '2'
     }
   }
 
   render() {
-    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Lobby</Text>
+        <Text style={styles.title}>Game Options</Text>
         <View>
           <Text>Games</Text>
           <Picker
             selectedValue={this.state.game}
             onValueChange={(itemValue, itemIndex) => this.setState({ game: itemValue })}
             style={styles.picker}>
-            <Picker.Item label="Straight Gin" value="Straight Gin" />
+            <Picker.Item label="Straight Gin" value="straight gin" />
           </Picker>
-          {console.log('this.state.game: ', this.state.game)}
-          <Button
-            onPress={() => navigate('Rules', { game: this.state.game })}
-            title="Rules"
-          />
         </View>
         <View>
-          <Text>Join a {this.state.game} game</Text>
+          <Text>Number of Players</Text>
+          <Picker
+            selectedValue={this.state.players}
+            onValueChange={(itemValue, itemIndex) => this.setState({ players: itemValue })}
+            style={styles.picker}>
+            <Picker.Item label="2" value="2" />
+          </Picker>
         </View>
-        <Button
-          onPress={() => navigate('Create')}
-          title="Create Game"
-        />
+        <Text>Button to launch game here</Text>
       </View>
     );
   }
