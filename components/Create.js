@@ -2,16 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, AppRegistry, Button } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
-export default class Lobby extends React.Component {
+export default class Create extends React.Component {
   render() {
-    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Lobby</Text>
-        <Button
-          onPress={() => navigate('Create')}
-          title="Create Game"
-        />
+        <Text style={styles.title}>Game Options</Text>
       </View>
     );
   }

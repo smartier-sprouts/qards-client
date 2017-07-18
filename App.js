@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, AppRegistry, Button } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Lobby from './components/Lobby.js';
-
+import Create from './components/Create.js';
 
 class Welcome extends React.Component {
   render() {
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
 const SimpleApp = StackNavigator({
   Home: { screen: Welcome },
   Lobby: { screen: Lobby },
+  Create: { screen: Create }
 });
 
 
