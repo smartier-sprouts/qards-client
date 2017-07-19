@@ -5,7 +5,7 @@ import Tables from './components/Tables.js';
 import Create from './components/Create.js';
 import StraightGinRules from './components/StraightGinRules.js';
 import styles from './styles/styles.js';
-import GameArea from './components/GameArea.js';
+import GameArea from './components/gameArea/GameArea.js';
 
 class Welcome extends React.Component {
   render() {
