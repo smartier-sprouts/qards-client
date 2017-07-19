@@ -13,6 +13,7 @@ export default class Create extends React.Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Game Lobby</Text>
@@ -34,7 +35,10 @@ export default class Create extends React.Component {
             <Picker.Item label="2" value="2" />
           </Picker>
         </View>
-        <Text>Button to launch game here</Text>
+        <Button
+            onPress={() => navigate('GameArea')}
+            title="Join a Game"
+          />
       </View>
     );
   }
