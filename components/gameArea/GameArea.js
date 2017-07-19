@@ -19,7 +19,7 @@ export default class GameArea extends React.Component {
         top         : 360,
         left        : 35,
     },{
-        position    : 'absolute', 
+        position    : 'absolute',
         top         : 360,
         left        : 70,
     },{
@@ -31,23 +31,23 @@ export default class GameArea extends React.Component {
         top         : 360,
         left        : 140,
     },{
-        position    : 'absolute', 
+        position    : 'absolute',
         top         : 360,
         left        : 175,
     },{
-        position    : 'absolute', 
+        position    : 'absolute',
         top         : 360,
         left        : 210,
     },{
-        position    : 'absolute', 
+        position    : 'absolute',
         top         : 360,
         left        : 245,
     },{
-        position    : 'absolute', 
+        position    : 'absolute',
         top         : 50,
         left        : 225,
     },{
-        position    : 'absolute', 
+        position    : 'absolute',
         top         : 50,
         left        : 0,
     }]
@@ -87,7 +87,7 @@ pickUpDiscard(card, handPositionVar, disOrDraw){
 
   let _this = this;
 
-  _this.state.hand.splice(handPositionVar, 0, card)  
+  _this.state.hand.splice(handPositionVar, 0, card)
 
   if (disOrDraw) {
     _this.state.discard.pop()
@@ -114,7 +114,7 @@ reOrderHand(pickedCard, handPositionVar){
 
   let pindex = _this.state.hand.indexOf(pickedCard);
   _this.state.hand.splice(pindex, 1);
-  _this.state.hand.splice(handPositionVar, 0, pickedCard); 
+  _this.state.hand.splice(handPositionVar, 0, pickedCard);
 
   _this.setState({
       hand: _this.state.hand
@@ -151,7 +151,7 @@ renderDraggable(){
    render(){
         return (
             <View style={styles.mainContainer}>
-  
+
                 {this.renderDraggable()}
             </View>
         );
