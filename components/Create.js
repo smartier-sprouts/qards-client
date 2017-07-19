@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import styles from '../styles/styles.js';
 
-export default class Rules extends React.Component {
+export default class Create extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,7 +15,7 @@ export default class Rules extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Game Options</Text>
+        <Text style={styles.title}>Game Lobby</Text>
         <View>
           <Text>Games</Text>
           <Picker
@@ -38,18 +39,3 @@ export default class Rules extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  title: {
-    fontSize: 24
-  },
-  picker: {
-    width: 150
-  }
-});
