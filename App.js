@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import Lobby from './components/Lobby.js';
+import Tables from './components/Tables.js';
 import Create from './components/Create.js';
-import Rules from './components/Rules.js';
+import StraightGinRules from './components/StraightGinRules.js';
+import styles from './styles/styles.js';
 
 class Welcome extends React.Component {
   render() {
@@ -11,11 +12,11 @@ class Welcome extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Welcome</Text>
-        <View style={styles.display}>
-          <Text style={styles.nameText}>Qards</Text>
+        <View style={styles.homePageDisplay}>
+          <Text style={{ color: 'white' }}>Qards</Text>
         </View>
         <Button
-          onPress={() => navigate('Lobby')}
+          onPress={() => navigate('Tables')}
           title="Let's Play"
         />
         <View>
@@ -26,34 +27,11 @@ class Welcome extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  display: {
-    height: 150,
-    width: 150,
-    backgroundColor: 'black',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  nameText: {
-    color: 'white',
-  },
-  title: {
-    fontSize: 24
-  }
-});
-
 const SimpleApp = StackNavigator({
   Home: { screen: Welcome },
-  Lobby: { screen: Lobby },
+  Tables: { screen: Tables },
   Create: { screen: Create },
-  Rules: { screen: Rules }
+  StraightGinRules: { screen: StraightGinRules }
 });
 
 
