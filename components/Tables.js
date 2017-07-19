@@ -9,7 +9,7 @@ export default class Tables extends React.Component {
 
     this.state = {
       game: 'Straight Gin',
-      tables: ['A Game!']
+      tables: [{ type: 'Straight Gin', name: 'A Game!' }, { type: 'Straight Gin', name: 'Another Game!' }]
     }
   }
 
@@ -17,7 +17,7 @@ export default class Tables extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Tables</Text>
+        <Text style={styles.title}>Lobby</Text>
           <View>
             <Text>Games</Text>
             <Picker
@@ -32,7 +32,8 @@ export default class Tables extends React.Component {
             />
           </View>
           <View>
-            <Text>Join a {this.state.game} game</Text>
+            <Text style={{ fontSize: 20 }}>Join a {this.state.game} game</Text>
+            { this.state.tables.map((table, i) => <Text key={i}>{table.name}</Text>) }
           </View>
           <Button
             onPress={() => navigate('Create')}
