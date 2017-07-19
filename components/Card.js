@@ -36,7 +36,6 @@ export default class Card extends Component {
           if (gesture.moveX > 200 && gesture.moveY < 200) {
               // replace dropped card with discard card remove from hand
               let _this = this;
-              console.log('triggering dicard', this.props.hand)
               
               this.props.dropCardToDiscard(this.props.hand, function(){
 
@@ -69,7 +68,6 @@ export default class Card extends Component {
               handPositionVar = 7
             }
 
-            console.log('Window', Window)
 
             this.props.reOrderHand(this.props.hand, handPositionVar)
 
@@ -183,22 +181,6 @@ let Window = Dimensions.get('window');
 let styles = StyleSheet.create({
     mainContainer: {
         flex    : 1
-    },
-    dropZone    : {
-        height         : 100,
-        backgroundColor:'#2c3e50'
-    },
-    text        : {
-        marginTop   : 25,
-        marginLeft  : 5,
-        marginRight : 5,
-        textAlign   : 'center',
-        color       : '#fff'
-    },
-    draggableContainer: {
-        position    : 'absolute',
-        top         : 20,
-        left        : 20,
     },
     circle      : {
         width               : 90,

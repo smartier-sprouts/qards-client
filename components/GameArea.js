@@ -6,50 +6,52 @@ import Below from './Below.js';
 import Pack from './Pack.js';
 import Bottom from './Bottom.js';
 
+
 export default class GameArea extends React.Component {
   constructor(props){
     super(props);
 
+  
    this.originPos = [{
         position    : 'absolute',
-        top         : 360,
-        left        : 0,
+        top         : Window.height*(360/568),
+        left        : Window.width*(0/320),
     },{
         position    : 'absolute',
-        top         : 360,
-        left        : 35,
+        top         : Window.height*(360/568),
+        left        : Window.width*(35/320),
     },{
         position    : 'absolute', 
-        top         : 360,
-        left        : 70,
+        top         : Window.height*(360/568),
+        left        : Window.width*(70/320),
     },{
         position    : 'absolute',
-        top         : 360,
-        left        : 105,
+        top         : Window.height*(360/568),
+        left        : Window.width*(105/320),
     },{
         position    : 'absolute',
-        top         : 360,
-        left        : 140,
+        top         : Window.height*(360/568),
+        left        : Window.width*(140/320),
     },{
         position    : 'absolute', 
-        top         : 360,
-        left        : 175,
+        top         : Window.height*(360/568),
+        left        : Window.width*(175/320),
     },{
         position    : 'absolute', 
-        top         : 360,
-        left        : 210,
+        top         : Window.height*(360/568),
+        left        : Window.width*(210/320),
     },{
         position    : 'absolute', 
-        top         : 360,
-        left        : 245,
+        top         : Window.height*(360/568),
+        left        : Window.width*(245/320),
     },{
         position    : 'absolute', 
-        top         : 50,
-        left        : 225,
+        top         : Window.height*(50/568),
+        left        : Window.width*(225/320),
     },{
         position    : 'absolute', 
-        top         : 50,
-        left        : 0,
+        top         : Window.height*(50/568),
+        left        : Window.width*(0/320),
     }]
 
     this.state = {
@@ -73,7 +75,6 @@ dropCardToDiscard(discardCard, callback){
   let newHand = _this.state.hand.splice(index, 1)
 
   _this.state.discard.push(discardCard)
-
 
   _this.setState({
     hand : _this.state.hand,
@@ -151,7 +152,6 @@ renderDraggable(){
    render(){
         return (
             <View style={styles.mainContainer}>
-  
                 {this.renderDraggable()}
             </View>
         );
@@ -159,22 +159,11 @@ renderDraggable(){
 }
 
 
+
 let Window = Dimensions.get('window');
-console.log('Window', Window)
 let styles = StyleSheet.create({
     mainContainer: {
         flex    : 1
-    },
-    dropZone    : {
-        height         : 100,
-        backgroundColor:'#2c3e50'
-    },
-    text        : {
-        marginTop   : 25,
-        marginLeft  : 5,
-        marginRight : 5,
-        textAlign   : 'center',
-        color       : '#fff'
     },
     circle      : {
         width               : 72,
