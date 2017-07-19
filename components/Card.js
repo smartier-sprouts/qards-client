@@ -69,6 +69,8 @@ export default class Card extends Component {
               handPositionVar = 7
             }
 
+            console.log('Window', Window)
+
             this.props.reOrderHand(this.props.hand, handPositionVar)
 
             Animated.timing(           

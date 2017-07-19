@@ -159,7 +159,8 @@ renderDraggable(){
 }
 
 
-
+let Window = Dimensions.get('window');
+console.log('Window', Window)
 let styles = StyleSheet.create({
     mainContainer: {
         flex    : 1
