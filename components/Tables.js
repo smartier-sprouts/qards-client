@@ -19,23 +19,27 @@ export default class Tables extends React.Component {
       <View style={styles.container}>
         <Text style={styles.title}>Lobby</Text>
           <View>
-            <Text>Games</Text>
+            <Text style={styles.smallTitle}>Games</Text>
+            <View style={styles.pickerView}>
             <Picker
               selectedValue={this.state.game}
               onValueChange={(itemValue, itemIndex) => this.setState({ game: itemValue })}
               style={styles.picker}>
               <Picker.Item label="Straight Gin" value="Straight Gin" />
             </Picker>
+            </View>
             <Button
+              color='darkviolet'
               onPress={() => navigate(this.state.game.split(' ').join('') + 'Rules')}
               title="Rules"
             />
           </View>
           <View>
-            <Text style={{ fontSize: 20 }}>Join a {this.state.game} game</Text>
-            { this.state.tables.map((table, i) => <Text key={i}>{table.name}</Text>) }
+            <Text style={styles.smallTitle}>Join a {this.state.game} Game</Text>
+            { this.state.tables.filter((table) => table.type === this.state.game).map((table, i) => <Text style={{ fontSize: 16, color: 'white' }} key={i}>{table.name}</Text>) }
           </View>
           <Button
+            color='darkviolet'
             onPress={() => navigate('Create')}
             title="Create a Game"
           />

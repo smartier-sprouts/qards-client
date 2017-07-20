@@ -5,11 +5,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'black'
   },
   title: {
-    fontSize: 24,
-    alignSelf: 'center'
+    fontSize: 40,
+    alignSelf: 'center',
+    color: 'green'
   },
   picker: {
     width: 150
@@ -19,6 +21,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     height: 44,
   },
+  pickerView: {
+    backgroundColor: 'white'
+  },
+  smallTitle: {
+    fontSize: 20,
+    color: 'white'
+  }
 });
 
 export default styles;

@@ -18,24 +18,29 @@ export default class Create extends React.Component {
       <View style={styles.container}>
         <Text style={styles.title}>Game Options</Text>
         <View>
-          <Text>Games</Text>
-          <Picker
-            selectedValue={this.state.game}
-            onValueChange={(itemValue, itemIndex) => this.setState({ game: itemValue })}
-            style={styles.picker}>
-            <Picker.Item label="Straight Gin" value="straight gin" />
-          </Picker>
+          <Text style={styles.smallTitle}>Games</Text>
+          <View style={styles.pickerView}>
+            <Picker
+              selectedValue={this.state.game}
+              onValueChange={(itemValue, itemIndex) => this.setState({ game: itemValue })}
+              style={styles.picker}>
+              <Picker.Item label="Straight Gin" value="straight gin" />
+            </Picker>
+          </View>
         </View>
         <View>
-          <Text>Number of Players</Text>
-          <Picker
-            selectedValue={this.state.players}
-            onValueChange={(itemValue, itemIndex) => this.setState({ players: itemValue })}
-            style={styles.picker}>
-            <Picker.Item label="2" value="2" />
-          </Picker>
+          <Text style={styles.smallTitle}>Number of Players</Text>
+          <View style={styles.pickerView}>
+            <Picker
+              selectedValue={this.state.players}
+              onValueChange={(itemValue, itemIndex) => this.setState({ players: itemValue })}
+              style={styles.picker}>
+              <Picker.Item label="2" value="2" />
+            </Picker>
+          </View>
         </View>
         <Button
+            color='darkviolet'
             onPress={() => navigate('GameArea')}
             title="Launch Game"
           />

@@ -11,19 +11,13 @@ class Welcome extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={{
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        backgroundColor: 'black'
-      }}>
+      <View style={styles.container}>
         <View style={{ justifyContent: 'center' }}>
           <Image
             style={{ width: 170, height: 202 }}
             source={require('./components/other-images/cards_PNG8479.png')}
           />
-          <Text style={{ color: 'royalblue', alignSelf: 'center', fontSize: 120, position: 'absolute' }}>Qards</Text>
+          <Text style={{ color: 'green', alignSelf: 'center', fontSize: 120, position: 'absolute' }}>Qards</Text>
         </View>
         <Button
           color='darkviolet'
