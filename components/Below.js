@@ -4,7 +4,7 @@ import { Image, Stylesheet, PanResponder, Dimensions, StyleSheet, Text, Animated
 
 export default class Bottom extends Component {
   constructor(props){
-    super(props); 
+    super(props);  
     };
 
 renderDraggable(){
@@ -29,13 +29,13 @@ renderDraggable(){
 }
 
 
-
+let Window = Dimensions.get('window');
 let styles = StyleSheet.create({
     mainContainer: {
         flex    : 1
     },
     circle      : {
-        width   : 90,
-        height  : 100
+        height  : Window.height*(100/568),
+        width   : Window.width*(90/320)
     }
 });

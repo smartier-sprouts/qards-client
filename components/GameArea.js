@@ -166,7 +166,8 @@ let styles = StyleSheet.create({
         flex    : 1
     },
     circle      : {
-        width               : 72,
-        height              : 70
+        height              : Window.height*(70/568),
+        width               : Window.width*(72/320)
     }
 });
+

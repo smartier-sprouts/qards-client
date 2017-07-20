@@ -33,7 +33,11 @@ export default class Card extends Component {
           console.log('Y', Ycord)
 
 
-          if (gesture.moveX > 200 && gesture.moveY < 200) {
+  
+
+
+          if (Window.width*(gesture.moveX/320) > Window.width*(200/320) && 
+            Window.height*(gesture.moveY/568) < Window.height*(220/568)) {
               // replace dropped card with discard card remove from hand
               let _this = this;
               
@@ -46,28 +50,26 @@ export default class Card extends Component {
 
               });
 
-
-          } else if (gesture.moveY > 400) {
+          } else if (Window.height*(gesture.moveY/568) > Window.height*(400/568)) {
           let handPositionVar = 0
 
-           if (gesture.moveX < 35) {
+           if (Window.width*(gesture.moveX/320) < Window.width*(35/320)) {
               handPositionVar = 0
-            } else if (gesture.moveX < 70) {
+            } else if (Window.width*(gesture.moveX/320) < Window.width*(70/320)) {
               handPositionVar = 1
-            } else if (gesture.moveX < 105) {
+            } else if (Window.width*(gesture.moveX/320) < Window.width*(105/320)) {
               handPositionVar = 2
-            } else if (gesture.moveX < 140) {
+            } else if (Window.width*(gesture.moveX/320) < Window.width*(140/320)) {
               handPositionVar = 3
-            } else if (gesture.moveX < 175) {
+            } else if (Window.width*(gesture.moveX/320) < Window.width*(175/320)) {
               handPositionVar = 4
-            } else if (gesture.moveX < 210) {
+            } else if (Window.width*(gesture.moveX/320) < Window.width*(210/320)) {
               handPositionVar = 5
-            } else if (gesture.moveX < 245) {
+            } else if (Window.width*(gesture.moveX/320) < Window.width*(245/320)) {
               handPositionVar = 6
-            } else if (gesture.moveX > 245) {
+            } else if (Window.width*(gesture.moveX/320) > Window.width*(245/320)) {
               handPositionVar = 7
             }
-
 
             this.props.reOrderHand(this.props.hand, handPositionVar)
 
@@ -183,7 +185,7 @@ let styles = StyleSheet.create({
         flex    : 1
     },
     circle      : {
-        width               : 90,
-        height              : 100
+        height              : Window.height*(100/568),
+        width               : Window.width*(90/320)
     }
 });

@@ -8,7 +8,7 @@ export default class Discard extends Component {
     this.state = {
         pan     : new Animated.ValueXY()   //Step 1
     };
-     
+      
 
     this.panResponder = PanResponder.create({    
         onStartShouldSetPanResponder : () => true,
@@ -33,24 +33,25 @@ export default class Discard extends Component {
 
           let handPositionVar;
 
-          if (gesture.moveY > 470) {
+
+          if (Window.height*(gesture.moveY/568) > Window.height*(470/568)) {
           
 
-            if (gesture.moveX < 35) {
+            if (Window.width*(gesture.moveX/320) < Window.width*(35/320)) {
               handPositionVar = 0
-            } else if (gesture.moveX < 70) {
+            } else if (Window.width*(gesture.moveX/320) < Window.width*(70/320)) {
               handPositionVar = 1
-            } else if (gesture.moveX < 105) {
+            } else if (Window.width*(gesture.moveX/320) < Window.width*(105/320)) {
               handPositionVar = 2
-            } else if (gesture.moveX < 140) {
+            } else if (Window.width*(gesture.moveX/320) < Window.width*(140/320)) {
               handPositionVar = 3
-            } else if (gesture.moveX < 175) {
+            } else if (Window.width*(gesture.moveX/320) < Window.width*(175/320)) {
               handPositionVar = 4
-            } else if (gesture.moveX < 210) {
+            } else if (Window.width*(gesture.moveX/320) < Window.width*(210/320)) {
               handPositionVar = 5
-            } else if (gesture.moveX < 245) {
+            } else if (Window.width*(gesture.moveX/320) < Window.width*(245/320)) {
               handPositionVar = 6
-            } else if (gesture.moveX > 245) {
+            } else if (Window.width*(gesture.moveX/320) > Window.width*(245/320)) {
               handPositionVar = 7
             }
               // replace dropped card with discard card remove from hand
@@ -160,30 +161,15 @@ renderDraggable(){
 }
 
 
-let CIRCLE_RADIUS = 36;
+
+
 let Window = Dimensions.get('window');
 let styles = StyleSheet.create({
     mainContainer: {
         flex    : 1
     },
-    dropZone    : {
-        height         : 100,
-        backgroundColor:'#2c3e50'
-    },
-    text        : {
-        marginTop   : 25,
-        marginLeft  : 5,
-        marginRight : 5,
-        textAlign   : 'center',
-        color       : '#fff'
-    },
-    draggableContainer: {
-        position    : 'absolute',
-        top         : 20,
-        left        : 20,
-    },
     circle      : {
-        width               : 90,
-        height              : 100
+        height              : Window.height*(100/568),
+        width               : Window.width*(90/320)
     }
 });
