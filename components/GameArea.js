@@ -107,7 +107,6 @@ pickUpDiscard(card, handPositionVar, disOrDraw){
   }
 }
 
-
 reOrderHand(pickedCard, handPositionVar){
 
   let _this = this;
@@ -121,7 +120,6 @@ reOrderHand(pickedCard, handPositionVar){
     });
 }
 
-
 renderDraggable(){
     let _this = this;
     let eighth;
@@ -131,6 +129,9 @@ renderDraggable(){
 
     return (
         <View>
+          <View>
+          <Banner />
+          </View>
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[0]} hand={_this.state.hand[0]}/>
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[1]} hand={_this.state.hand[1]}/>
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[2]} hand={_this.state.hand[2]}/>
@@ -169,4 +170,3 @@ let styles = StyleSheet.create({
         width               : Window.width*(72/320)
     }
 });
-

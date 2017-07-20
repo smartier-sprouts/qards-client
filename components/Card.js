@@ -151,7 +151,6 @@ renderDraggable(){
         </View>
     );
 }
-
    render(){
         return (
             <View style={styles.mainContainer}>
@@ -160,7 +159,6 @@ renderDraggable(){
         );
     }
 }
-
 
 
 let Window = Dimensions.get('window');

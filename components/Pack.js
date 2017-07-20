@@ -81,7 +81,6 @@ renderDraggable(){
         </View>
     );
 }
-
    render(){
         return (
             <View style={styles.mainContainer}>
@@ -90,9 +89,6 @@ renderDraggable(){
         );
     }
 }
-
-
-
 
 
 let Window = Dimensions.get('window');
@@ -105,8 +101,3 @@ let styles = StyleSheet.create({
         width               : Window.width*(90/320)
     }
 });
-
-
-
-
-
