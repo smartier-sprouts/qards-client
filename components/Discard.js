@@ -34,7 +34,7 @@ export default class Discard extends Component {
           let handPositionVar;
 
 
-          if (Window.height*(gesture.moveY/568) > Window.height*(470/568)) {
+          if (Window.height*(gesture.moveY/568) > Window.height*(430/568)) {
           
 
             if (Window.width*(gesture.moveX/320) < Window.width*(35/320)) {
