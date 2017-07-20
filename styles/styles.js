@@ -14,14 +14,6 @@ const styles = StyleSheet.create({
   picker: {
     width: 150
   },
-  homePageDisplay: {
-    height: 150,
-    width: 150,
-    backgroundColor: 'black',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
     item: {
     padding: 10,
     fontSize: 18,
