@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker } from '
 import { StackNavigator } from 'react-navigation';
 import styles from '../styles/styles.js';
 
-export default class Create extends React.Component {
+export default class GameOptions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

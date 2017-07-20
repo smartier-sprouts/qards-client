@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker } from '
 import { StackNavigator } from 'react-navigation';
 import styles from '../styles/styles.js';
 
-export default class Tables extends React.Component {
+export default class Lobby extends React.Component {
   constructor(props) {
     super(props);
 
@@ -40,7 +40,7 @@ export default class Tables extends React.Component {
           </View>
           <Button
             color='darkviolet'
-            onPress={() => navigate('Create')}
+            onPress={() => navigate('GameOptions')}
             title="Create a Game"
           />
       </View>

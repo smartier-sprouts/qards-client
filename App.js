@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker, Image } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import Tables from './components/Tables.js';
-import Create from './components/Create.js';
+import Lobby from './components/Lobby.js';
+import GameOptions from './components/GameOptions.js';
 import StraightGinRules from './components/StraightGinRules.js';
 import styles from './styles/styles.js';
 import GameArea from './components/GameArea.js';
@@ -21,7 +21,7 @@ class Welcome extends React.Component {
         </View>
         <Button
           color='darkviolet'
-          onPress={() => navigate('Tables')}
+          onPress={() => navigate('Lobby')}
           title="Let's Play"
         />
         <View>
@@ -34,8 +34,8 @@ class Welcome extends React.Component {
 
 const SimpleApp = StackNavigator({
   Home: { screen: Welcome },
-  Tables: { screen: Tables },
-  Create: { screen: Create },
+  Lobby: { screen: Lobby },
+  GameOptions: { screen: GameOptions },
   StraightGinRules: { screen: StraightGinRules },
   GameArea: { screen: GameArea }
 });
