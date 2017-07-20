@@ -64,7 +64,6 @@ export default class GameArea extends React.Component {
     this.dropCardToDiscard = this.dropCardToDiscard.bind(this);
     this.pickUpDiscard = this.pickUpDiscard.bind(this);
     this.reOrderHand = this.reOrderHand.bind(this);
-    //this.pickUpDrawcard = this.pickUpDrawcard(this);
 }
 
 dropCardToDiscard(discardCard, callback){
@@ -98,7 +97,7 @@ pickUpDiscard(card, handPositionVar, disOrDraw){
     })
 
   } else {
-  //draw
+
     _this.state.draw.pop()
     _this.setState({
       hand: _this.state.hand,
@@ -141,11 +140,11 @@ renderDraggable(){
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[6]} hand={_this.state.hand[6]}/>
             {eighth}
 
-           <Below position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-2]}/>
+            <Below position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-2]}/>
             <Discard pickUpDiscard={ _this.pickUpDiscard } position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-1]}/>
 
             <Bottom position={_this.state.position[9]} />
-           <Pack position={_this.state.position[9]} hand={_this.state.draw[_this.state.draw.length-1]} pickUpDiscard={ _this.pickUpDiscard }/>
+            <Pack position={_this.state.position[9]} hand={_this.state.draw[_this.state.draw.length-1]} pickUpDiscard={ _this.pickUpDiscard }/>
         </View>
     );
 }

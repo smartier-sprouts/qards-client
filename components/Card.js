@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
 import { Image, Stylesheet, PanResponder, Dimensions, StyleSheet, Text, Animated, View } from 'react-native';
-//import Images from './assets/playingcards/images.js';
+
 
 export default class Card extends Component {
   constructor(props){
     super(props); 
     this.state = {
-        pan     : new Animated.ValueXY()   //Step 1
+        pan     : new Animated.ValueXY()   
     };
      
-
     this.panResponder = PanResponder.create({    
         onStartShouldSetPanResponder : () => true,
         onPanResponderMove           : Animated.event([null,{ 
@@ -17,11 +16,6 @@ export default class Card extends Component {
             dy : this.state.pan.y
         }]),
         onPanResponderRelease        : (e, gesture) => {
-        
-
-           console.log('gesture X', gesture.moveX)
-           console.log('gesture Y', gesture.moveY)
-            console.log('this state pan', this.state.pan)
 
           let Xcoord = JSON.stringify(this.state.pan.x)
           let Xcord = JSON.parse(Xcoord)
@@ -29,16 +23,9 @@ export default class Card extends Component {
           let Ycoord = JSON.stringify(this.state.pan.y)
           let Ycord = JSON.parse(Ycoord)
 
-          console.log('X', Xcord)
-          console.log('Y', Ycord)
-
-
-  
-
-
           if (Window.width*(gesture.moveX/320) > Window.width*(200/320) && 
             Window.height*(gesture.moveY/568) < Window.height*(220/568)) {
-              // replace dropped card with discard card remove from hand
+           
               let _this = this;
               
               this.props.dropCardToDiscard(this.props.hand, function(){
@@ -84,8 +71,6 @@ export default class Card extends Component {
                 {toValue:{x:0,y:0}}   
             ).start();
           }
-
-
         } 
     });
 }
@@ -174,7 +159,6 @@ renderDraggable(){
             </View>
         );
     }
-
 }
 
 

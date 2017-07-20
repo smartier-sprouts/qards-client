@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { Image, Stylesheet, PanResponder, Dimensions, StyleSheet, Text, Animated, View } from 'react-native';
-//import Images from './assets/playingcards/images.js';
 
 export default class Bottom extends Component {
   constructor(props){
