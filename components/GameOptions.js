@@ -28,20 +28,9 @@ export default class GameOptions extends React.Component {
             </Picker>
           </View>
         </View>
-        <View>
-          <Text style={styles.smallTitle}>Number of Players</Text>
-          <View style={styles.pickerView}>
-            <Picker
-              selectedValue={this.state.players}
-              onValueChange={(itemValue, itemIndex) => this.setState({ players: itemValue })}
-              style={styles.picker}>
-              <Picker.Item label="2" value="2" />
-            </Picker>
-          </View>
-        </View>
         <Button
             color='darkviolet'
-            onPress={() => navigate('GameArea')}
+            onPress={() => navigate('PreGameArea')}
             title="Launch Game"
           />
       </View>

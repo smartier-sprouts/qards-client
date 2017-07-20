@@ -6,6 +6,7 @@ import GameOptions from './components/GameOptions.js';
 import StraightGinRules from './components/StraightGinRules.js';
 import styles from './styles/styles.js';
 import GameArea from './components/GameArea.js';
+import PreGameArea from './components/PreGameArea.js';
 
 class Welcome extends React.Component {
   render() {
@@ -37,6 +38,7 @@ const SimpleApp = StackNavigator({
   Lobby: { screen: Lobby },
   GameOptions: { screen: GameOptions },
   StraightGinRules: { screen: StraightGinRules },
+  PreGameArea: { screen: PreGameArea },
   GameArea: { screen: GameArea }
 });
 
