@@ -6,6 +6,17 @@ import styles from '../styles/styles.js';
 export default class PreGameArea extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      gameId: '',
+      playerIds: []
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      gameId: this.props.navigation.state.params.gameId,
+      playerIds: [this.props.navigation.state.params.playerId]
+    });
   }
 
   render() {

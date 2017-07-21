@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker, Image }
 import { StackNavigator } from 'react-navigation';
 import Lobby from './components/Lobby.js';
 import GameOptions from './components/GameOptions.js';
-import StraightGinRules from './components/StraightGinRules.js';
+import GinStraightRules from './components/GinStraightRules.js';
 import styles from './styles/styles.js';
 import GameArea from './components/GameArea.js';
 import PreGameArea from './components/PreGameArea.js';
@@ -37,7 +37,7 @@ const SimpleApp = StackNavigator({
   Home: { screen: Welcome },
   Lobby: { screen: Lobby },
   GameOptions: { screen: GameOptions },
-  StraightGinRules: { screen: StraightGinRules },
+  GinStraightRules: { screen: GinStraightRules },
   PreGameArea: { screen: PreGameArea },
   GameArea: { screen: GameArea }
 });

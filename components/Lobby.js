@@ -8,9 +8,25 @@ export default class Lobby extends React.Component {
     super(props);
 
     this.state = {
-      game: 'Straight Gin',
-      tables: [{ type: 'Straight Gin', name: 'A Game!' }, { type: 'Straight Gin', name: 'Another Game!' }]
+      game: 'Gin Straight',
+      games: []
     }
+  }
+
+  componentDidMount() {
+    fetch('https://qards-pr-5.herokuapp.com/api/games')
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      this.setState({
+        games: data
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   }
 
   render() {
@@ -25,18 +41,18 @@ export default class Lobby extends React.Component {
               selectedValue={this.state.game}
               onValueChange={(itemValue, itemIndex) => this.setState({ game: itemValue })}
               style={styles.picker}>
-              <Picker.Item label="Straight Gin" value="Straight Gin" />
+              <Picker.Item label="Gin Straight" value="Gin Straight" />
             </Picker>
             </View>
             <Button
               color='darkviolet'
-              onPress={() => navigate(this.state.game.split(' ').join('') + 'Rules')}
+              onPress={() => navigate(this.state.game + 'Rules')}
               title="Rules"
             />
           </View>
           <View>
             <Text style={styles.smallTitle}>Join a {this.state.game} Game</Text>
-            { this.state.tables.filter((table) => table.type === this.state.game).map((table, i) => <Text style={{ fontSize: 16, color: 'white' }} key={i}>{table.name}</Text>) }
+            { this.state.games.filter((game) => game.type === this.state.game).map((game, i) => <Text style={{ fontSize: 16, color: 'aqua' }} key={i}>{game.name.toUpperCase()}: Creator: {game.owners[0].name}, Players: {game.owners.length}</Text>) }
           </View>
           <Button
             color='darkviolet'
