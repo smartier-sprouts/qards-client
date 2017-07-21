@@ -5,6 +5,8 @@ import Discard from './Discard.js';
 import Below from './Below.js';
 import Pack from './Pack.js';
 import Bottom from './Bottom.js';
+import Banner from 'react-native-banner';
+// import $ from 'jquery';
 
 
 export default class GameArea extends React.Component {
@@ -56,6 +58,10 @@ export default class GameArea extends React.Component {
 
     this.state = {
         position  : this.originPos,
+        message : 1,
+        name : 'Demetrius',
+        turn: true,
+        winner: true,
         draw : [1, 30, 7, 32],
         hand : [1, 34, 3, 43, 5, 6, 47],
         discard : [8, 9, 21]
@@ -65,6 +71,81 @@ export default class GameArea extends React.Component {
     this.pickUpDiscard = this.pickUpDiscard.bind(this);
     this.reOrderHand = this.reOrderHand.bind(this);
 }
+
+componentDidMount() {
+  
+var url = ['https://qards.herokuapp.com/api', 
+'https://qards.herokuapp.com/api/getHand/597158e39bf84a0011e99777/59716ef6ca3c2e0011b31345',
+'https://qards-pr-5.herokuapp.com/api/games'];
+
+ fetch(url[1])
+      .then((res) => res.json())
+      .then((data) => { 
+
+
+    for (var i = 0 ; i < data.length ; i++ ) {
+    var count = 0;
+
+
+      //Number(data[i].desc) * 4   -  1
+
+      if (data[i].desc === '2') {
+        count = 1
+      } else if (data[i].desc === '3') {
+        count = 5
+      } else if (data[i].desc === '4') {
+        count = 9
+      } else if (data[i].desc === '5') {
+        count = 13
+      } else if (data[i].desc === '6') {
+        count = 17
+      } else if (data[i].desc === '7') {
+        count = 21
+      } else if (data[i].desc === '8') {
+        count = 25
+      } else if (data[i].desc === '9') {
+        count = 29
+      } else if (data[i].desc === '10') {
+        count = 33
+      } else if (data[i].desc === 'J') {
+        count = 37
+      } else if (data[i].desc === 'Q') {
+        count = 41
+      } else if (data[i].desc === 'K') {
+        count = 45
+      }
+
+      if (data[i].suit.charCodeAt(0) === 9829) {
+        //hearts
+        count = count
+      } else if (data[i].suit.charCodeAt(0) === 9830) {
+        //diamonds
+        count += 3
+      } else if (data[i].suit.charCodeAt(0) === 9824) {
+        //spads
+        count += 2;
+      } else if (data[i].suit.charCodeAt(0) === 9827) {
+        //clubs
+        count += 1
+      }
+
+      
+      console.log('this is count ', count)
+      console.log('this is num', data[i].desc);
+      console.log('charcode ', data[i].suit.charCodeAt(0));
+      
+    }
+
+
+      console.log(data);
+
+
+      }).catch((err) => {
+        console.log(err)
+      })
+
+}
+
 
 dropCardToDiscard(discardCard, callback){
   let _this = this;
@@ -127,10 +208,20 @@ renderDraggable(){
       eighth = <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[7]} hand={_this.state.hand[7]}/> ;
     }
 
+   let possible = ['Your Turn', 'Not your turn idiot', 'The next banner has no title'];
+   let Message = '';
+
+   if (_this.state.message === 1) {
+     Message = _this.state.name + "'s turn"
+   } else {
+     Message = possible[_this.state.message]
+   }
+
+
     return (
         <View>
-          <View>
-          <Banner />
+          <View style={styles.container} >
+            <Text style={styles.bannerText}>{Message}</Text>
           </View>
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[0]} hand={_this.state.hand[0]}/>
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[1]} hand={_this.state.hand[1]}/>
@@ -164,6 +255,18 @@ let Window = Dimensions.get('window');
 let styles = StyleSheet.create({
     mainContainer: {
         flex    : 1
+    },
+    container: {
+        flex: 1,
+        backgroundColor: '#D3D3D3',
+        height : Window.height*(80/568),
+        width : Window.width
+    },
+    bannerText: {
+        color: 'white',
+        textAlign : 'center',
+        fontSize: 20,
+        fontWeight: 'bold'
     },
     circle      : {
         height              : Window.height*(70/568),
