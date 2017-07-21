@@ -1,12 +1,8 @@
-let api = {
-  const serverURL = 'https://qards.herokuapp.com/api/';
-  const openGamesURL = serverURL + 'games';
-  const newGameURL = serverURL + 'createGame';
-  const roomURL = server + '/' + roomID + '/' + userID;
-  const headers = {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                    };
+let api = {};
+    api.server       = 'https://qards.herokuapp.com/api/';
+    api.openGamesURL = api.server + 'games';
+    api.newGameURL   = api.server + 'createGame';
+    api.headers      = {Accept: 'application/json', 'Content-Type': 'application/json'};
+    // api.roomURL      = api.server + '/' + roomID + '/' + userID;
 
-}
 module.exports = api;
