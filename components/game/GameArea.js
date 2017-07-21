@@ -81,37 +81,20 @@ var url = ['https://qards.herokuapp.com/api',
       .then((res) => res.json())
       .then((data) => { 
 
-
+    var handArray = [];
     for (var i = 0 ; i < data.length ; i++ ) {
-    var count = 0;
-
-
-      //Number(data[i].desc) * 4   -  1
-
-      if (data[i].desc === '2') {
-        count = 1
-      } else if (data[i].desc === '3') {
-        count = 5
-      } else if (data[i].desc === '4') {
-        count = 9
-      } else if (data[i].desc === '5') {
-        count = 13
-      } else if (data[i].desc === '6') {
-        count = 17
-      } else if (data[i].desc === '7') {
-        count = 21
-      } else if (data[i].desc === '8') {
-        count = 25
-      } else if (data[i].desc === '9') {
-        count = 29
-      } else if (data[i].desc === '10') {
-        count = 33
+    var count = 0; 
+   
+      if (data[i].desc > 1 && data[i].desc < 11 ) {
+          count = (data[i].desc - 2) * 4 + 1;
       } else if (data[i].desc === 'J') {
         count = 37
       } else if (data[i].desc === 'Q') {
         count = 41
       } else if (data[i].desc === 'K') {
         count = 45
+      } else if (data[i].desc === '1') {
+        count = 48
       }
 
       if (data[i].suit.charCodeAt(0) === 9829) {
@@ -127,22 +110,14 @@ var url = ['https://qards.herokuapp.com/api',
         //clubs
         count += 1
       }
-
-      
-      console.log('this is count ', count)
-      console.log('this is num', data[i].desc);
-      console.log('charcode ', data[i].suit.charCodeAt(0));
-      
+      handArray.push(count)
     }
-
-
-      console.log(data);
-
-
+        this.setState({
+          hand: handArray
+        })
       }).catch((err) => {
         console.log(err)
       })
-
 }
 
 
@@ -160,7 +135,10 @@ dropCardToDiscard(discardCard, callback){
     discard : _this.state.discard
   })
 
+ // post to discard
+
  callback();
+
 }
 
 pickUpDiscard(card, handPositionVar, disOrDraw){

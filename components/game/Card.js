@@ -128,7 +128,7 @@ renderDraggable(){
   require('./card-images/KC.png'),
   require('./card-images/KS.png'),
   require('./card-images/KD.png'),
-  require('./card-images/AH.png'),
+  require('./card-images/AH.png'),  
   require('./card-images/AC.png'),
   require('./card-images/AS.png'),
   require('./card-images/AD.png')
