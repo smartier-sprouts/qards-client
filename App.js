@@ -5,7 +5,7 @@ import Lobby from './components/Lobby.js';
 import GameOptions from './components/GameOptions.js';
 import GinStraightRules from './components/GinStraightRules.js';
 import styles from './styles/styles.js';
-import GameArea from './components/GameArea.js';
+import GameArea from './components/game/GameArea.js';
 import PreGameArea from './components/PreGameArea.js';
 
 class Welcome extends React.Component {
