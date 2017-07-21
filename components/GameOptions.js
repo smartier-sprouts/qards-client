@@ -16,7 +16,11 @@ export default class GameOptions extends React.Component {
   launchGame() {
     const { navigate } = this.props.navigation;
     let gameType = this.state.game;
-    fetch('/createGame', {
+    fetch('https://qards.herokuapp.com/api/createGame', {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
       method: 'POST',
       body: JSON.stringify({
         type: gameType,
@@ -28,13 +32,15 @@ export default class GameOptions extends React.Component {
       })
     })
     .then((response) => {
+      console.log(response);
       return response.json();
     })
     .then((responseJson) => {
+      console.log(responseJson);
       navigate('PreGameArea', {
-        gameId: responseJson.gameID,
+        gameId: responseJson.gameId,
         playerId: responseJson.playerId
-      })
+      });
     })
     .catch((error) => {
       console.error(error);
@@ -59,7 +65,7 @@ export default class GameOptions extends React.Component {
         </View>
         <Button
             color='darkviolet'
-            onPress={() => navigate('PreGameArea', { gameId: 'winning', playerId: 'winning' })}
+            onPress={this.launchGame}
             title="Launch Game"
           />
       </View>

@@ -12,11 +12,11 @@ export default class PreGameArea extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.setState({
       gameId: this.props.navigation.state.params.gameId,
       playerIds: [this.props.navigation.state.params.playerId]
-    });
+    }, () => console.log(this.state.gameId, this.state.playerIds));
   }
 
   render() {

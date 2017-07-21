@@ -13,13 +13,12 @@ export default class Lobby extends React.Component {
     }
   }
 
-  componentDidMount() {
-    fetch('https://qards-pr-5.herokuapp.com/api/games')
+  componentWillMount() {
+    fetch('https://qards.herokuapp.com/api/games')
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
       this.setState({
         games: data
       });
@@ -46,13 +45,13 @@ export default class Lobby extends React.Component {
             </View>
             <Button
               color='darkviolet'
-              onPress={() => navigate(this.state.game + 'Rules')}
+              onPress={() => navigate(this.state.game.split(' ').join('') + 'Rules')}
               title="Rules"
             />
           </View>
           <View>
             <Text style={styles.smallTitle}>Join a {this.state.game} Game</Text>
-            { this.state.games.filter((game) => game.type === this.state.game).map((game, i) => <Text style={{ fontSize: 16, color: 'aqua' }} key={i}>{game.name.toUpperCase()}: Creator: {game.owners[0].name}, Players: {game.owners.length}</Text>) }
+            { this.state.games.filter((game) => game.type === this.state.game).map((game, i) => <Text onPress={(yes, no) => console.log(no)} style={{ fontSize: 16, color: 'blue', textDecorationLine: 'underline' }} key={i} index={i}>{game.name}: created by {game.owners[0].name} with {game.owners.length} players</Text>) }
           </View>
           <Button
             color='darkviolet'
