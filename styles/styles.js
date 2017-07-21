@@ -5,28 +5,29 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'black'
   },
   title: {
-    fontSize: 24,
-    alignSelf: 'center'
+    fontSize: 40,
+    alignSelf: 'center',
+    color: 'green'
   },
   picker: {
     width: 150
-  },
-  homePageDisplay: {
-    height: 150,
-    width: 150,
-    backgroundColor: 'black',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
   },
     item: {
     padding: 10,
     fontSize: 18,
     height: 44,
   },
+  pickerView: {
+    backgroundColor: 'white'
+  },
+  smallTitle: {
+    fontSize: 20,
+    color: 'white'
+  }
 });
 
 export default styles;

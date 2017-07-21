@@ -15,7 +15,7 @@
     "start": "react-native-scripts start",
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
-    "test" : "node node_modules/jest/bin/jest.js --watch",
+    "test": "node node_modules/jest/bin/jest.js --watch",
     "expoMain": "node_modules/expo/AppEntry.js"
   },
   "jest": {
@@ -25,6 +25,7 @@
     "expo": "^18.0.3",
     "react": "16.0.0-alpha.12",
     "react-native": "^0.45.1",
+    "react-native-table-component": "^1.0.1",
     "react-navigation": "^1.0.0-beta.11"
   }
 }

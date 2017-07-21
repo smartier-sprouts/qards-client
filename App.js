@@ -1,27 +1,32 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker } from 'react-native';
+import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker, Image } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import Tables from './components/Tables.js';
-import Create from './components/Create.js';
-import StraightGinRules from './components/StraightGinRules.js';
+import Lobby from './components/Lobby.js';
+import GameOptions from './components/GameOptions.js';
+import GinStraightRules from './components/GinStraightRules.js';
 import styles from './styles/styles.js';
 import GameArea from './components/GameArea.js';
+import PreGameArea from './components/PreGameArea.js';
 
 class Welcome extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Welcome</Text>
-        <View style={styles.homePageDisplay}>
-          <Text style={{ color: 'white' }}>Qards</Text>
+        <View style={{ justifyContent: 'center' }}>
+          <Image
+            style={{ width: 170, height: 202 }}
+            source={require('./components/other-images/cards_PNG8479.png')}
+          />
+          <Text style={{ color: 'green', alignSelf: 'center', fontSize: 120, position: 'absolute' }}>Qards</Text>
         </View>
         <Button
-          onPress={() => navigate('Tables')}
+          color='darkviolet'
+          onPress={() => navigate('Lobby')}
           title="Let's Play"
         />
         <View>
-          <Text>Login Button Goes Here</Text>
+          <Text style={{ color: 'white' }}>Login Button Goes Here</Text>
         </View>
       </View>
     );
@@ -30,9 +35,10 @@ class Welcome extends React.Component {
 
 const SimpleApp = StackNavigator({
   Home: { screen: Welcome },
-  Tables: { screen: Tables },
-  Create: { screen: Create },
-  StraightGinRules: { screen: StraightGinRules },
+  Lobby: { screen: Lobby },
+  GameOptions: { screen: GameOptions },
+  GinStraightRules: { screen: GinStraightRules },
+  PreGameArea: { screen: PreGameArea },
   GameArea: { screen: GameArea }
 });
 
