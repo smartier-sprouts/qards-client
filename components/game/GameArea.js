@@ -5,8 +5,7 @@ import Discard from './Discard.js';
 import Below from './Below.js';
 import Pack from './Pack.js';
 import Bottom from './Bottom.js';
-// import Banner from 'react-native-banner';
-// import $ from 'jquery';
+
 
 
 export default class GameArea extends React.Component {
