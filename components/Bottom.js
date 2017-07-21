@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import { Image, Stylesheet, PanResponder, Dimensions, StyleSheet, Text, Animated, View } from 'react-native';
-//import Images from './assets/playingcards/images.js';
 
 export default class Bottom extends Component {
   constructor(props){
     super(props); 
-    };
+    }; 
 
 renderDraggable(){
   let _this = this;
@@ -29,13 +28,13 @@ renderDraggable(){
 }
 
 
-
+let Window = Dimensions.get('window');
 let styles = StyleSheet.create({
     mainContainer: {
         flex    : 1
     },
     circle      : {
-        width   : 90,
-        height  : 100
+        height  : Window.height*(100/568),
+        width   : Window.width*(90/320)
     }
 });

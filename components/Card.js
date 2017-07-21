@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
 import { Image, Stylesheet, PanResponder, Dimensions, StyleSheet, Text, Animated, View } from 'react-native';
-//import Images from './assets/playingcards/images.js';
+
 
 export default class Card extends Component {
   constructor(props){
     super(props); 
     this.state = {
-        pan     : new Animated.ValueXY()   //Step 1
+        pan     : new Animated.ValueXY()   
     };
      
-
     this.panResponder = PanResponder.create({    
         onStartShouldSetPanResponder : () => true,
         onPanResponderMove           : Animated.event([null,{ 
@@ -17,11 +16,6 @@ export default class Card extends Component {
             dy : this.state.pan.y
         }]),
         onPanResponderRelease        : (e, gesture) => {
-        
-
-           console.log('gesture X', gesture.moveX)
-           console.log('gesture Y', gesture.moveY)
-            console.log('this state pan', this.state.pan)
 
           let Xcoord = JSON.stringify(this.state.pan.x)
           let Xcord = JSON.parse(Xcoord)
@@ -29,14 +23,10 @@ export default class Card extends Component {
           let Ycoord = JSON.stringify(this.state.pan.y)
           let Ycord = JSON.parse(Ycoord)
 
-          console.log('X', Xcord)
-          console.log('Y', Ycord)
-
-
-          if (gesture.moveX > 200 && gesture.moveY < 200) {
-              // replace dropped card with discard card remove from hand
+          if (Window.width*(gesture.moveX/320) > Window.width*(200/320) && 
+            Window.height*(gesture.moveY/568) < Window.height*(220/568)) {
+           
               let _this = this;
-              console.log('triggering dicard', this.props.hand)
               
               this.props.dropCardToDiscard(this.props.hand, function(){
 
@@ -47,25 +37,24 @@ export default class Card extends Component {
 
               });
 
-
-          } else if (gesture.moveY > 400) {
+          } else if (Window.height*(gesture.moveY/568) > Window.height*(400/568)) {
           let handPositionVar = 0
 
-           if (gesture.moveX < 35) {
+           if (Window.width*(gesture.moveX/320) < Window.width*(35/320)) {
               handPositionVar = 0
-            } else if (gesture.moveX < 70) {
+            } else if (Window.width*(gesture.moveX/320) < Window.width*(70/320)) {
               handPositionVar = 1
-            } else if (gesture.moveX < 105) {
+            } else if (Window.width*(gesture.moveX/320) < Window.width*(105/320)) {
               handPositionVar = 2
-            } else if (gesture.moveX < 140) {
+            } else if (Window.width*(gesture.moveX/320) < Window.width*(140/320)) {
               handPositionVar = 3
-            } else if (gesture.moveX < 175) {
+            } else if (Window.width*(gesture.moveX/320) < Window.width*(175/320)) {
               handPositionVar = 4
-            } else if (gesture.moveX < 210) {
+            } else if (Window.width*(gesture.moveX/320) < Window.width*(210/320)) {
               handPositionVar = 5
-            } else if (gesture.moveX < 245) {
+            } else if (Window.width*(gesture.moveX/320) < Window.width*(245/320)) {
               handPositionVar = 6
-            } else if (gesture.moveX > 245) {
+            } else if (Window.width*(gesture.moveX/320) > Window.width*(245/320)) {
               handPositionVar = 7
             }
 
@@ -82,8 +71,6 @@ export default class Card extends Component {
                 {toValue:{x:0,y:0}}   
             ).start();
           }
-
-
         } 
     });
 }
@@ -94,17 +81,17 @@ renderDraggable(){
 
   let imageArray = [null ,
   require('./card-images/2H.png'),
-  require('./card-images/2S.png'),
   require('./card-images/2C.png'),
-  require('./card-images/2D.png'),
-  require('./card-images/3H.png'),
-  require('./card-images/3S.png'),
-  require('./card-images/3C.png'),
-  require('./card-images/3D.png'),
-  require('./card-images/4H.png'),
-  require('./card-images/4C.png'),
-  require('./card-images/4S.png'),
-  require('./card-images/4D.png'),
+  require('./card-images/2S.png'),
+  require('./card-images/2D.png'), 
+  require('./card-images/3H.png'), 
+  require('./card-images/3C.png'), 
+  require('./card-images/3S.png'), 
+  require('./card-images/3D.png'), 
+  require('./card-images/4H.png'), 
+  require('./card-images/4C.png'), 
+  require('./card-images/4S.png'), 
+  require('./card-images/4D.png'),  
   require('./card-images/5H.png'),
   require('./card-images/5C.png'),
   require('./card-images/5S.png'),
@@ -164,7 +151,6 @@ renderDraggable(){
         </View>
     );
 }
-
    render(){
         return (
             <View style={styles.mainContainer}>
@@ -172,9 +158,7 @@ renderDraggable(){
             </View>
         );
     }
-
 }
-
 
 
 let Window = Dimensions.get('window');
@@ -182,24 +166,8 @@ let styles = StyleSheet.create({
     mainContainer: {
         flex    : 1
     },
-    dropZone    : {
-        height         : 100,
-        backgroundColor:'#2c3e50'
-    },
-    text        : {
-        marginTop   : 25,
-        marginLeft  : 5,
-        marginRight : 5,
-        textAlign   : 'center',
-        color       : '#fff'
-    },
-    draggableContainer: {
-        position    : 'absolute',
-        top         : 20,
-        left        : 20,
-    },
     circle      : {
-        width               : 90,
-        height              : 100
+        height              : Window.height*(100/568),
+        width               : Window.width*(90/320)
     }
 });
