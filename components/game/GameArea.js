@@ -74,50 +74,77 @@ export default class GameArea extends React.Component {
 componentDidMount() {
   
 var url = ['https://qards.herokuapp.com/api', 
-'https://qards.herokuapp.com/api/getHand/597158e39bf84a0011e99777/59716ef6ca3c2e0011b31345',
-'https://qards-pr-5.herokuapp.com/api/games'];
+'https://qards-pr-6.herokuapp.com/api/getHand/597158e39bf84a0011e99777/59716ef6ca3c2e0011b31345',
+'https://qards-pr-6.herokuapp.com/api/drawCard/597158e39bf84a0011e99777/59716ef6ca3c2e0011b31345/:drawDeckId'];
+ 
+ //create game to find name - owners.name
 
- fetch(url[1])
+
+  // set hand
+  fetch(url[1])
       .then((res) => res.json())
       .then((data) => { 
 
-    var handArray = [];
-    for (var i = 0 ; i < data.length ; i++ ) {
-    var count = 0; 
+    // var handArray = [];
+    // for (var i = 0 ; i < data.length ; i++ ) {
+    // var count = 0; 
    
-      if (data[i].desc > 1 && data[i].desc < 11 ) {
-          count = (data[i].desc - 2) * 4 + 1;
-      } else if (data[i].desc === 'J') {
-        count = 37
-      } else if (data[i].desc === 'Q') {
-        count = 41
-      } else if (data[i].desc === 'K') {
-        count = 45
-      } else if (data[i].desc === '1') {
-        count = 48
-      }
+      // if (data[i].desc > 1 && data[i].desc < 11 ) {
+      //   count = (data[i].desc - 2) * 4 + 1;
+      // } else if (data[i].desc === 'J') {
+      //   count = 37
+      // } else if (data[i].desc === 'Q') {
+      //   count = 41
+      // } else if (data[i].desc === 'K') {
+      //   count = 45
+      // } else if (data[i].desc === 'A') {
+      //   count = 48
+      // }
 
-      if (data[i].suit.charCodeAt(0) === 9829) {
-        //hearts
-        count = count
-      } else if (data[i].suit.charCodeAt(0) === 9830) {
-        //diamonds
-        count += 3
-      } else if (data[i].suit.charCodeAt(0) === 9824) {
-        //spads
-        count += 2;
-      } else if (data[i].suit.charCodeAt(0) === 9827) {
-        //clubs
-        count += 1
-      }
-      handArray.push(count)
-    }
+      // if (data[i].suit.charCodeAt(0) === 9829) {
+      //   //hearts
+      //   count = count;
+      // } else if (data[i].suit.charCodeAt(0) === 9830) {
+      //   //diamonds
+      //   count += 3;
+      // } else if (data[i].suit.charCodeAt(0) === 9824) {
+      //   //spads
+      //   count += 2;
+      // } else if (data[i].suit.charCodeAt(0) === 9827) {
+      //   //clubs
+      //   count += 1;
+      // }
+    //   handArray.push(count)
+    // }
+    console.log(data)
+    console.log('first one ', data[0])
+    console.log('first one ', data[1])
         this.setState({
-          hand: handArray
+          hand: data
         })
       }).catch((err) => {
         console.log(err)
       })
+
+  //draw hand
+      fetch(url[2])
+      .then((res) => res.json())
+      .then((data) => { 
+      console.log('draw hand ', data) 
+
+     }).catch((err) => {
+        console.log(err)
+      })
+
+  //discard hand
+     //  fetch(url[3])
+     //  .then((res) => res.json())
+     //  .then((data) => { 
+     //  console.log('discard hand ', data)
+
+     // }).catch((err) => {
+     //    console.log(err)
+     //  })
 }
 
 
@@ -135,7 +162,7 @@ dropCardToDiscard(discardCard, callback){
     discard : _this.state.discard
   })
 
- // post to discard
+ // POST to discard
 
  callback();
 
@@ -153,7 +180,7 @@ pickUpDiscard(card, handPositionVar, disOrDraw){
       hand: _this.state.hand,
       discard : _this.state.discard
     })
-
+   // POST to discard
   } else {
 
     _this.state.draw.pop()
@@ -161,7 +188,7 @@ pickUpDiscard(card, handPositionVar, disOrDraw){
       hand: _this.state.hand,
       draw : _this.state.draw
     })
-
+   // POST to draw
   }
 }
 
@@ -200,13 +227,13 @@ renderDraggable(){
           <View style={styles.container} >
             <Text style={styles.bannerText}>{Message}</Text>
           </View>
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[0]} hand={_this.state.hand[0]}/>
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[1]} hand={_this.state.hand[1]}/>
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[2]} hand={_this.state.hand[2]}/>
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[3]} hand={_this.state.hand[3]}/>
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[4]} hand={_this.state.hand[4]}/>
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[5]} hand={_this.state.hand[5]}/>
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[6]} hand={_this.state.hand[6]}/>
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[0]} hand={_this.state.hand[0].pictureId}/>
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[1]} hand={_this.state.hand[1].pictureId}/>
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[2]} hand={_this.state.hand[2].pictureId}/>
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[3]} hand={_this.state.hand[3].pictureId}/>
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[4]} hand={_this.state.hand[4].pictureId}/>
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[5]} hand={_this.state.hand[5].pictureId}/>
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[6]} hand={_this.state.hand[6].pictureId}/>
             {eighth}
 
             <Below position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-2]}/>
