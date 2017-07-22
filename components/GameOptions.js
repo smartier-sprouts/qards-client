@@ -8,7 +8,7 @@ export default class GameOptions extends React.Component {
     super(props);
     this.state = {
       game: 'Gin Straight',
-      players: '2'
+      gameName: 'Small Ballers'
     }
     this.launchGame = this.launchGame.bind(this);
   }
@@ -16,6 +16,7 @@ export default class GameOptions extends React.Component {
   launchGame() {
     const { navigate } = this.props.navigation;
     let gameType = this.state.game;
+    let gameName = this.state.gameName;
     fetch('https://qards.herokuapp.com/api/createGame', {
       headers: {
         Accept: 'application/json',
@@ -24,7 +25,7 @@ export default class GameOptions extends React.Component {
       method: 'POST',
       body: JSON.stringify({
         type: gameType,
-        name: 'Big Ballers',
+        name: gameName,
         public: true,
         open: true,
         complete: false,
@@ -68,6 +69,14 @@ export default class GameOptions extends React.Component {
               <Picker.Item label="Gin Straight" value="Gin Straight" />
             </Picker>
           </View>
+        </View>
+        <View>
+          <Text style={styles.smallTitle}>Enter Game Name</Text>
+          <TextInput
+            style={styles.textInput}
+            onChangeText={(name) => this.setState({ gameName: name })}
+            value={this.state.gameName}
+          />
         </View>
         <Button
             color='darkviolet'
