@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker } from 'react-native';
+import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker, Switch } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import styles from '../styles/styles.js';
 
@@ -8,14 +8,17 @@ export default class GameOptions extends React.Component {
     super(props);
     this.state = {
       game: 'Gin Straight',
-      players: '2'
+      gameName: 'Small Ballers',
+      isPublic: true
     }
     this.launchGame = this.launchGame.bind(this);
+    this.handleSwitchChange = this.handleSwitchChange.bind(this);
   }
 
   launchGame() {
     const { navigate } = this.props.navigation;
     let gameType = this.state.game;
+    let gameName = this.state.gameName;
     fetch('https://qards.herokuapp.com/api/createGame', {
       headers: {
         Accept: 'application/json',
@@ -24,7 +27,7 @@ export default class GameOptions extends React.Component {
       method: 'POST',
       body: JSON.stringify({
         type: gameType,
-        name: 'Big Ballers',
+        name: gameName,
         public: true,
         open: true,
         complete: false,
@@ -53,6 +56,13 @@ export default class GameOptions extends React.Component {
     });
   }
 
+  handleSwitchChange() {
+    let isPublic = this.state.isPublic;
+    this.setState({
+      isPublic: !isPublic
+    });
+  }
+
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -68,6 +78,23 @@ export default class GameOptions extends React.Component {
               <Picker.Item label="Gin Straight" value="Gin Straight" />
             </Picker>
           </View>
+        </View>
+        <View>
+          <Text style={styles.smallTitle}>Enter Game Name</Text>
+          <TextInput
+            style={styles.textInput}
+            onChangeText={(name) => this.setState({ gameName: name })}
+            value={this.state.gameName}
+          />
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={styles.smallTitle}>Public:</Text>
+          <Switch
+            onValueChange={this.handleSwitchChange}
+            value={this.state.isPublic}
+            onTintColor='chartreuse'
+            tintColor='darkred'
+          />
         </View>
         <Button
             color='darkviolet'

@@ -28,6 +28,11 @@ const styles = StyleSheet.create({
   smallTitle: {
     fontSize: 20,
     color: 'white'
+  },
+  textInput: {
+    width: 175,
+    height: 35,
+    backgroundColor: 'white'
   }
 });
 
