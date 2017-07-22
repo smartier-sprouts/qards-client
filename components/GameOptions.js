@@ -24,6 +24,11 @@ export default class GameOptions extends React.Component {
       method: 'POST',
       body: JSON.stringify({
         type: gameType,
+        name: 'Big Ballers',
+        public: true,
+        open: true,
+        complete: false,
+        winner: null,
         owners: [{
           name: 'Jake',
           username: 'WarriorsChamps',
@@ -39,7 +44,8 @@ export default class GameOptions extends React.Component {
       console.log(responseJson);
       navigate('PreGameArea', {
         gameId: responseJson.gameId,
-        playerId: responseJson.playerId
+        playerId: responseJson.playerId,
+        isCreator: true
       });
     })
     .catch((error) => {
