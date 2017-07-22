@@ -92,7 +92,7 @@ export default class Lobby extends React.Component {
           </View>
           <View style={{ flexDirection: 'column', alignItems: 'center' }}>
             <Text style={styles.smallTitle}>Join a {this.state.game} Game</Text>
-            { this.state.games.filter((game) => game.type === this.state.game).map((game, i) => <GameListItem game={game} key={i} onPressListItem={this.onPressListItem}/>) }
+            { this.state.games.filter((game) => game.type === this.state.game).map((game, i) => i < 6 ? <GameListItem game={game} key={i} onPressListItem={this.onPressListItem}/> : null) }
           </View>
           <Button
             color='darkviolet'
