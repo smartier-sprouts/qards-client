@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
     color: 'green'
   },
   picker: {
-    width: 150
+    width: 150,
+    height: 35
   },
     item: {
     padding: 10,
