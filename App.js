@@ -7,6 +7,8 @@ import GinStraightRules from './components/GinStraightRules.js';
 import styles from './styles/styles.js';
 import GameArea from './components/game/GameArea.js';
 import PreGameArea from './components/PreGameArea.js';
+const fbLogin = require('./services/fbookExpoAuth.js');
+const gglLogin = require('./services/googleExpoAuth.js');
 
 class Welcome extends React.Component {
   render() {
@@ -25,9 +27,20 @@ class Welcome extends React.Component {
           onPress={() => navigate('Lobby')}
           title="Let's Play"
         />
-        <View>
-          <Text style={{ color: 'white' }}>Login Button Goes Here</Text>
-        </View>
+        <Button
+          color='blue'
+          onPress={
+            () => {fbLogin();}
+          }
+          title="FACEBOOK LOGIN"
+        />
+        <Button
+          color='green'
+          onPress={
+            () => {gglLogin();}
+          }
+          title="GOOGLE LOGIN"
+          />
       </View>
     );
   }
@@ -41,6 +54,5 @@ const SimpleApp = StackNavigator({
   PreGameArea: { screen: PreGameArea },
   GameArea: { screen: GameArea }
 });
-
 
 export default SimpleApp;
