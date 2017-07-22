@@ -48,6 +48,7 @@ export default class PreGameArea extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Get Ready to Play</Text>
+        <Text style={styles.smallTitle}>Number of players: {this.state.numberOfPlayers}</Text>
         {this.state.isCreator ? <Button
             color='darkviolet'
             onPress={this.createGame}
