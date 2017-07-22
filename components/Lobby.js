@@ -91,7 +91,7 @@ export default class Lobby extends React.Component {
             />
           </View>
           <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Text style={styles.smallTitle}>Join a {this.state.game} Game</Text>
+            <Text style={{ fontSize: 20, color: 'white', textDecorationLine: 'underline' }}>Join a Table Playing the Selected Game</Text>
             { this.state.games.filter((game) => game.type === this.state.game).map((game, i) => i < 3 ? <GameListItem game={game} key={i} onPressListItem={this.onPressListItem}/> : null) }
           </View>
           <Button
