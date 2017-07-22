@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker } from 'react-native';
+import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker, Switch } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import styles from '../styles/styles.js';
 
@@ -8,9 +8,11 @@ export default class GameOptions extends React.Component {
     super(props);
     this.state = {
       game: 'Gin Straight',
-      gameName: 'Small Ballers'
+      gameName: 'Small Ballers',
+      isPublic: true
     }
     this.launchGame = this.launchGame.bind(this);
+    this.handleSwitchChange = this.handleSwitchChange.bind(this);
   }
 
   launchGame() {
@@ -54,6 +56,13 @@ export default class GameOptions extends React.Component {
     });
   }
 
+  handleSwitchChange() {
+    let isPublic = this.state.isPublic;
+    this.setState({
+      isPublic: !isPublic
+    });
+  }
+
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -76,6 +85,15 @@ export default class GameOptions extends React.Component {
             style={styles.textInput}
             onChangeText={(name) => this.setState({ gameName: name })}
             value={this.state.gameName}
+          />
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          <Text style={styles.smallTitle}>Public:</Text>
+          <Switch
+            onValueChange={this.handleSwitchChange}
+            value={this.state.isPublic}
+            onTintColor='chartreuse'
+            tintColor='darkred'
           />
         </View>
         <Button
