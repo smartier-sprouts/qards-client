@@ -1,13 +1,26 @@
 /* user authenticationProcess */
 import Keys from '../config/Keys';
+import store from 'react-native-simple-store';
+
+var clearSimpleStore = function(){
+  store.get('userObj')
+  .then( (uO) => {
+    let extantuserObj = uO;
+    if ( extantuserObj ){
+      console.log('Something was in userObj, but Imma Kill this:', extantuserObj );
+      var storageKeys = store.keys();
+      console.log('storageKeys:', storageKeys)
+      storageKeys.forEach( (x) => { store.delete(x); });
+    }
+  })
+  .then( () => { console.log('dead, now gonna call with fb app id maybe:', Keys.FACEBOOK_APP_ID); });
+}
 
 module.exports = async function() {
-  console.log(Keys);
-  console.log(Keys.FACEBOOK_APP_ID);
-
+  clearSimpleStore();
   const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(Keys.FACEBOOK_APP_ID, {
-      permissions: ['public_profile','email'],
-    });
+    permissions: ['public_profile','email']
+  });
   if (type === 'success') {
     // If req works, the token is in the format { type: 'success', token, expires }.
     // token is a string giving the access token to use with Facebook HTTP API requests.
@@ -15,12 +28,18 @@ module.exports = async function() {
     // You can **** save the access token using, say, AsyncStorage, and use it till the expiration time. ****
     // Get the user's name using Facebook's Graph API
     const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
-    alert('Logged in! Maybe...');
+    const profile = await response.json();
     console.log(`Hi ${(await response.json()).name}!`);
-
-    console.log(response);
-    console.debug(response);
+    console.debug('resp',response);
+    let userObj = {
+      token: response.token,
+      fullName: response._bodyText.name,
+      uID:response._bodyText.id
+    }
+    console.log('Gonna store the userObj:', userObj);
+    store.save('userObj',userObj);
   }
+
 };
 
 
@@ -54,7 +73,7 @@ LOG OF SUCCESSFUL FACEBOOK CALL:
   "type": "default",
   "url": "https://graph.facebook.com/me?access_token=EAAB4wBKSqAoBACF9vm6GcoCTpZBl0PEsmap0NJDWDP6IsBwivO0ltSfcgRWQSaBZAdC7ZCN3VWExaYbNTIs4WSzduOhSLPjY2q0wqadm3CE1M6ZCpsKkGZCZB7j4HxulVyXPNe9aFdOMc9YzKThaBXGjHIaZA8K76YZD",
 }
-
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 async function logIn() {
   const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('<APP_ID>', {
       permissions: ['public_profile'],
