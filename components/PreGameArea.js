@@ -8,27 +8,51 @@ export default class PreGameArea extends React.Component {
     super(props);
     this.state = {
       gameId: '',
-      playerIds: []
+      playerId: '',
+      isCreator: false,
+      numberOfPlayers: 1
     }
+
+    this.createGame = this.createGame.bind(this);
   }
 
   componentWillMount() {
     this.setState({
       gameId: this.props.navigation.state.params.gameId,
-      playerIds: [this.props.navigation.state.params.playerId]
-    }, () => console.log(this.state.gameId, this.state.playerIds));
+      playerId: this.props.navigation.state.params.playerId
+    }, () => console.log(this.state.gameId, this.state.playerId));
+    if (this.props.navigation.state.params.isCreator) {
+      this.setState({
+        isCreator: this.props.navigation.state.params.isCreator
+      }, () => console.log(this.state.isCreator));
+    }
+  }
+
+  createGame() {
+    const { navigate } = this.props.navigation;
+    let gameId = this.state.gameId;
+    let playerId = this.state.playerId;
+    fetch('https://qards.herokuapp.com/api/dealCards/' + gameId)
+    .then((response) => {
+      navigate('GameArea', {
+        gameId: gameId,
+        playerId: playerId
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   }
 
   render() {
-    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Get Ready to Play</Text>
-        <Button
+        {this.state.isCreator ? <Button
             color='darkviolet'
-            onPress={() => navigate('GameArea')}
+            onPress={this.createGame}
             title="Start Game"
-          />
+          /> : null}
       </View>
     );
   }

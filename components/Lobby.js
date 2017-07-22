@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import styles from '../styles/styles.js';
+import ReactNativeComponentTree from 'react-native/Libraries/Renderer/src/renderers/native/ReactNativeComponentTree';
+import GameListItem from './GameListItem.js';
 
 export default class Lobby extends React.Component {
   constructor(props) {
@@ -11,6 +13,8 @@ export default class Lobby extends React.Component {
       game: 'Gin Straight',
       games: []
     }
+
+    this.onPressListItem = this.onPressListItem.bind(this);
   }
 
   componentWillMount() {
@@ -26,6 +30,43 @@ export default class Lobby extends React.Component {
     .catch((error) => {
       console.error(error);
     });
+  }
+
+  onPressListItem(e) {
+    const { navigate } = this.props.navigation;
+    let selectedGameName = ReactNativeComponentTree.getInstanceFromNode(e.nativeEvent.target)._stringText;
+    let selectedGame = this.state.games.find((game) => game.name === selectedGameName);
+    console.log(selectedGame);
+    if (selectedGame !== undefined) {
+      fetch('https://qards.herokuapp.com/api/addPlayer', {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify({
+          gameId: selectedGame._id,
+          player: {
+            name: 'aChicken',
+            username: 'iLayEggs'
+          }
+        })
+      })
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
+      .then((responseJson) => {
+        console.log(responseJson);
+        navigate('PreGameArea', {
+          gameId: responseJson.gameId,
+          playerId: responseJson.playerId
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }
   }
 
   render() {
@@ -49,9 +90,9 @@ export default class Lobby extends React.Component {
               title="Rules"
             />
           </View>
-          <View>
+          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
             <Text style={styles.smallTitle}>Join a {this.state.game} Game</Text>
-            { this.state.games.filter((game) => game.type === this.state.game).map((game, i) => <Text onPress={(yes, no) => console.log(no)} style={{ fontSize: 16, color: 'blue', textDecorationLine: 'underline' }} key={i} index={i}>{game.name}: created by {game.owners[0].name} with {game.owners.length} players</Text>) }
+            { this.state.games.filter((game) => game.type === this.state.game).map((game, i) => <GameListItem game={game} key={i} onPressListItem={this.onPressListItem}/>) }
           </View>
           <Button
             color='darkviolet'
