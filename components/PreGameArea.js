@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import styles from '../styles/styles.js';
+import socketStart from '../services/socket/socket.js';
 
 export default class PreGameArea extends React.Component {
   constructor(props) {
@@ -26,6 +27,10 @@ export default class PreGameArea extends React.Component {
         isCreator: this.props.navigation.state.params.isCreator
       }, () => console.log(this.state.isCreator));
     }
+  }
+
+  componentDidMount() {
+    socketStart(this.state.gameId, () => { this.setState(pre,{playerId: pre.playerId+1}) } ) ;
   }
 
   createGame() {
