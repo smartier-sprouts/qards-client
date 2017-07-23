@@ -44,7 +44,7 @@ export default class Discard extends Component {
             } else if (Window.width*(gesture.moveX/320) > Window.width*(245/320)) {
               handPositionVar = 7
             }
-
+            console.log('this.props.hand', this.props.hand)
             this.props.pickUpDiscard(this.props.hand, handPositionVar, true);
             Animated.timing(            
                 this.state.pan,         
@@ -123,7 +123,7 @@ renderDraggable(){
   
   card = <Image style={styles.circle}
                 resizeMode='contain' 
-                source={imageArray[_this.props.hand]} />
+                source={imageArray[_this.props.hand.pictureId]} />
 
     return (
         <View style={_this.props.position}>

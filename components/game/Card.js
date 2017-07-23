@@ -136,7 +136,7 @@ renderDraggable(){
   
   card = <Image style={styles.circle}
                 resizeMode='contain' 
-                source={imageArray[_this.props.hand]} />
+                source={imageArray[_this.props.hand.pictureId]} />
 
     return (
         <View style={_this.props.position}>

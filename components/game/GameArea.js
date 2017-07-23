@@ -61,9 +61,11 @@ export default class GameArea extends React.Component {
         name : 'Demetrius',
         turn: true,
         winner: true,
-        draw : [1, 30, 7, 32],
-        hand : [1, 34, 3, 43, 5, 6, 47],
-        discard : [8, 9, 21]
+        draw : [{'pictureId': 4}],
+        hand : [{'pictureId': 4}, {'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4}],
+        discard : [{'pictureId': 4}],
+        gameId: '59752549ef1d2b0011112574',
+        playerId: '5975255aef1d2b001111257d'
     };
 
     this.dropCardToDiscard = this.dropCardToDiscard.bind(this);
@@ -72,19 +74,18 @@ export default class GameArea extends React.Component {
 }
 
 componentDidMount() {
-  
-var url = ['https://qards.herokuapp.com/api', 
-'https://qards-pr-6.herokuapp.com/api/getHand/597158e39bf84a0011e99777/59716ef6ca3c2e0011b31345',
-'https://qards-pr-6.herokuapp.com/api/drawCard/597158e39bf84a0011e99777/59716ef6ca3c2e0011b31345/:drawDeckId'];
+  var _this = this;
+var url = ['https://qards.herokuapp.com/api/getHand/', 
+'https://qards.herokuapp.com/api/getHand/59750dc13f15600011dc2410/59750dd33f15600011dc2419'];
  
  //create game to find name - owners.name
-
-
+ console.log('in component mounted')
+console.log(url[0] + _this.state.gameId + '/' + _this.state.playerId)
   // set hand
-  fetch(url[1])
+  fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId)
       .then((res) => res.json())
       .then((data) => { 
-
+      
     // var handArray = [];
     // for (var i = 0 ; i < data.length ; i++ ) {
     // var count = 0; 
@@ -116,86 +117,105 @@ var url = ['https://qards.herokuapp.com/api',
       // }
     //   handArray.push(count)
     // }
-    console.log(data)
-    console.log('first one ', data[0])
-    console.log('first one ', data[1])
-        this.setState({
-          hand: data
-        })
+    if (data) {
+      console.log(data)
+
+      this.setState({
+        hand: data.hand,
+        discard: [data.discard]
+      }) 
+    }
       }).catch((err) => {
         console.log(err)
+        console.log(url[0] + _this.state.gameId + '/' + _this.state.playerId)
       })
-
-  //draw hand
-      fetch(url[2])
-      .then((res) => res.json())
-      .then((data) => { 
-      console.log('draw hand ', data) 
-
-     }).catch((err) => {
-        console.log(err)
-      })
-
-  //discard hand
-     //  fetch(url[3])
-     //  .then((res) => res.json())
-     //  .then((data) => { 
-     //  console.log('discard hand ', data)
-
-     // }).catch((err) => {
-     //    console.log(err)
-     //  })
 }
 
 
 dropCardToDiscard(discardCard, callback){
+let url = ['https://qards.herokuapp.com/api/discard/', 'https://qards.herokuapp.com/api/discard/59750dc13f15600011dc2410/59750dd33f15600011dc2419/']
+
   let _this = this;
 
   let newArray = [];
-  let index = _this.state.hand.indexOf(discardCard)
-  let newHand = _this.state.hand.splice(index, 1)
+  let otherArray = [];
 
-  _this.state.discard.push(discardCard)
+
+  for (var i = 0; i < _this.state.hand.length; i++ ) {
+      otherArray.push(_this.state.hand[i].pictureId)
+  }
+
+  let index = otherArray.indexOf(discardCard.pictureId)
+  let newHand = _this.state.hand.splice(index, 1)
 
   _this.setState({
     hand : _this.state.hand,
-    discard : _this.state.discard
+    discard : [discardCard]
   })
-
+  console.log('discardCard id', discardCard._id)
+  
  // POST to discard
+     fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId + '/' + discardCard._id)
+      .then((res) => res.json())
+      .then((data) => { 
+      console.log('new card ', data) 
+     }).catch((err) => {
+        console.log(err)
+      })
 
  callback();
 
 }
 
 pickUpDiscard(card, handPositionVar, disOrDraw){
+let url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw']
 
-  let _this = this;
-
-  _this.state.hand.splice(handPositionVar, 0, card)  
+  let _this = this; 
 
   if (disOrDraw) {
-    _this.state.discard.pop()
+  _this.state.hand.splice(handPositionVar, 0, card)  
+
     _this.setState({
-      hand: _this.state.hand,
-      discard : _this.state.discard
+      hand: _this.state.hand
     })
+
    // POST to discard
+    fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId + '/' + card._id)
+      .then((res) => res.json())
+      .then((data) => { 
+      
+      console.log('discard hand ', data) 
+      this.setState({
+        discard: [data]
+      })
+
+     }).catch((err) => {
+        console.log(err)
+      })
   } else {
 
-    _this.state.draw.pop()
-    _this.setState({
-      hand: _this.state.hand,
-      draw : _this.state.draw
-    })
    // POST to draw
+    fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId + url[1])
+      .then((res) => res.json())
+      .then((data) => { 
+
+      console.log('draw hand ', data) 
+      _this.state.hand.splice(handPositionVar, 0, data)  
+
+      this.setState({
+        hand: _this.state.hand
+      })
+
+     }).catch((err) => {
+        console.log(err)
+      })
+ 
   }
 }
 
 reOrderHand(pickedCard, handPositionVar){
-
   let _this = this;
-
+  
   let pindex = _this.state.hand.indexOf(pickedCard);
   _this.state.hand.splice(pindex, 1);
   _this.state.hand.splice(handPositionVar, 0, pickedCard); 
@@ -227,13 +247,13 @@ renderDraggable(){
           <View style={styles.container} >
             <Text style={styles.bannerText}>{Message}</Text>
           </View>
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[0]} hand={_this.state.hand[0].pictureId}/>
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[1]} hand={_this.state.hand[1].pictureId}/>
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[2]} hand={_this.state.hand[2].pictureId}/>
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[3]} hand={_this.state.hand[3].pictureId}/>
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[4]} hand={_this.state.hand[4].pictureId}/>
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[5]} hand={_this.state.hand[5].pictureId}/>
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[6]} hand={_this.state.hand[6].pictureId}/>
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[0]} hand={_this.state.hand[0]}/>
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[1]} hand={_this.state.hand[1]}/>
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[2]} hand={_this.state.hand[2]}/>
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[3]} hand={_this.state.hand[3]}/>
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[4]} hand={_this.state.hand[4]}/>
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[5]} hand={_this.state.hand[5]}/>
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[6]} hand={_this.state.hand[6]}/>
             {eighth}
 
             <Below position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-2]}/>
