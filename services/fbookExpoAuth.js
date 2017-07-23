@@ -1,47 +1,39 @@
 /* user authenticationProcess */
+import Expo from 'expo';
+import {AsyncStorage} from 'react-native';
 import Keys from '../config/Keys';
 import store from 'react-native-simple-store';
 
-var clearSimpleStore = function(){
-  store.get('userObj')
-  .then( (usrObj) => {
-    if ( usrObj ){
-      console.log('Something was in userObj, but Imma Kill this:', usrObj );
-      var storageKeys = store.keys();
-      console.log('storageKeys:', storageKeys)
-      storageKeys.forEach( (x) => { store.delete(x); });
-    }
-    console.log('Storage Cleared!');
-  })
-  .catch((e) => { throw (e); });
-}
-
-module.exports = async function() {
-  clearSimpleStore();
-  const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(Keys.FACEBOOK_APP_ID, {
+export default async function fbLogin() {
+  const { type, token, expires } = await Expo.Facebook.logInWithReadPermissionsAsync(Keys.FACEBOOK_APP_ID, {
     permissions: ['public_profile','email']
   });
+
   if (type === 'success') {
-    // If req works, the token is in the format { type: 'success', token, expires }.
+    const expirationDate = new Date(expires*1000);
     // token is a string giving the access token to use with Facebook HTTP API requests.
     // expires is the time at which this token will expire, as seconds since epoch.
-    // You can **** save the access token using, say, AsyncStorage, and use it till the expiration time. ****
-    // Get the user's name using Facebook's Graph API
-    const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`)
-      .then( (fbkResp) => {
-        const profile = fbkResp.json();
-        console.debug('resp',fbkResp);
-        let userObj = {
-          token: fbkResp.token,
-          fullName: fbkResp._bodyText.name,
-          uID:fbkResp._bodyText.id
-        }
-        console.log('Gonna store the userObj:', userObj);
-        store.save('userObj',userObj);
-      })
-      .catch((e) => { throw(e); });
+    const response = await fetch( `https://graph.facebook.com/me?access_token=${token}` );
+    const profile = await response.json();
+      console.log( 'resp:::--> ', profile);
+
+
+    let infoObj = {
+      uID:profile.id,
+      firstName: profile.name.split(/\s/)[0],
+      fullName: profile.name,
+      expires: expirationDate,
+      token: token,
+      crazyURL: profile.url
+    }
+    let userObj = JSON.stringify(infoObj);
+    console.log('userObj is maybe: ', userObj);
+
+    AsyncStorage.setItem( 'asyncUserObj', userObj )
+    .then( ()=> { store.save('storeUserObj',userObj) })
+    .catch( (e) => { console.error('Something went wrong in saving! - ', e); } );
   }
-};
+}
 
 // LOG OF SUCCESSFUL FACEBOOK CALL:
 // 21:29:05: Hi Rich Werden!
