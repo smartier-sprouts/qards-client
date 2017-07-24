@@ -1,6 +1,6 @@
 import React from 'react';
 // import './setup/ReactotronConfig'; // Uncomment for Reactotron Testing
-import { StyleSheet, Text, View, TextInput, AppRegistry, AsyncStorage, Button, Picker, Image } from 'react-native';
+import { StyleSheet, Text, View, AppRegistry, Button, Image } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Lobby from './components/Lobby.js';
 import GameOptions from './components/GameOptions.js';
@@ -41,10 +41,11 @@ class Welcome extends React.Component {
           />
           <Button
             color='red'
-            onPress={ () => { this.setState({isLoggedIn: false}, () => { logout() }) } }
             title="Logout"
+            onPress={ () => { this.setState({isLoggedIn: false}, () => { logout(); }); } }
           />
-      )
+        </View>
+      );
     } else {
       return (
         <View style={styles.container}>
@@ -57,23 +58,24 @@ class Welcome extends React.Component {
 
         <Button
           color='steelblue'
-          onPress={
-            () => { fbLogin(); this.setState({isLoggedIn: verifyUserStatus()}) }
-          }
           title="LOGIN WITH FACEBOOK"
+          onPress={
+            () => { fbLogin(); this.setState({isLoggedIn: verifyUserStatus()} ); }
+          }
         />
         <Button
           color='green'
-          onPress={
-            () => {gglLogin(); this.setState({isLoggedIn: verifyUserStatus()}) }
-          }
           title="LOGIN WITH GOOGLE"
+          onPress={
+            () => { gglLogin(); this.setState({ isLoggedIn: verifyUserStatus()} ); }
+          }
         />
        </View>
-      )
+      );
     }
   }
-};
+
+}
 
 const SimpleApp = StackNavigator({
   Home: { screen: Welcome },
