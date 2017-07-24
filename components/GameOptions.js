@@ -51,9 +51,8 @@ export default class GameOptions extends React.Component {
         }]
       })
     })
-    .then((response) => {
-      const responseJson = response.json();
-      console.log(responseJson);
+    .then( (response) => { return response.json(); })
+    .then( (responseJson) => {
       navigate('PreGameArea', {
         gameId: responseJson.gameId,
         playerId: responseJson.player._id,
