@@ -11,12 +11,12 @@ export default socketStart = (gameId,cb) => {
     console.log(data); // 'G5p5...'
   });
   //
-  socket.on('join', function (data) {
-    console.log(data);
-    //cb();
-  });
   socket.on(gameId, function (data) {
     console.log(data);
+    cb();
   });
+  // socket.on('time', function (data) {
+  //   console.log(data);
+  // });
 
 }
