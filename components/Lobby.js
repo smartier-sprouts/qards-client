@@ -22,14 +22,13 @@ export default class Lobby extends React.Component {
     AsyncStorage.getItem('asyncUserObj')
                 .then( (storeObj) => { return storeObj ? JSON.parse(storeObj) : {};  })
                 .then( (data) => {
-                  console.log(data);
-                  this.setState( { name:data.firstName, uID:data.uID, username:data.uID });
+                  this.setState( { name: data.firstName, uID: data.uID, username: data.uID });
                 })
-                .catch( (e) => console.error(e) );
+                .catch( (err) => console.error(err) );
 
     fetch('https://qards.herokuapp.com/api/games')
     .then((response) => { return response.json(); })
-    .then((data) => {  this.setState({games: data }); })
+    .then((data) => { this.setState({games: data }); })
     .catch((err) => { console.error(err); });
   }
 
@@ -48,7 +47,7 @@ export default class Lobby extends React.Component {
           username: this.state.uID,
           uID: this.state.uID
         }
-      }
+      };
 
       fetch('https://qards.herokuapp.com/api/addPlayer', {
         headers: {
@@ -58,11 +57,11 @@ export default class Lobby extends React.Component {
         method: 'POST',
         body: JSON.stringify(data)
       })
-      .then((response) => {
-        const responseJson = response.json();
+      .then((response) => {return response.json(); })
+      .then((responseJson) => {
         navigate('PreGameArea', {
           gameId: responseJson.gameId,
-          playerId: responseJson.player._id
+          playerId: responseJson.player.id
         });
       })
       .catch((err) => { console.error(err); });

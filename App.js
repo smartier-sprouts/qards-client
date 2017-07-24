@@ -1,5 +1,5 @@
 import React from 'react';
-import './setup/ReactotronConfig';
+// import './setup/ReactotronConfig';
 
 import { StyleSheet, Text, View, TextInput, AsyncStorage, AppRegistry, Button, Picker, Image } from 'react-native';
 import { StackNavigator } from 'react-navigation';
