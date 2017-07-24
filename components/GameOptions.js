@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker, Switch } from 'react-native';
+import { AsyncStorage, StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker, Switch } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import styles from '../styles/styles.js';
 
@@ -9,10 +9,22 @@ export default class GameOptions extends React.Component {
     this.state = {
       game: 'Gin Straight',
       gameName: 'Small Ballers',
-      isPublic: true
+      isPublic: true,
+      name: null,
+      uID: null,
+      username: null
     }
     this.launchGame = this.launchGame.bind(this);
     this.handleSwitchChange = this.handleSwitchChange.bind(this);
+  }
+
+  componentWillMount() {
+    AsyncStorage.getItem('asyncUserObj')
+                .then( (storeObj) => { return storeObj ? JSON.parse(storeObj) : {}; } )
+                .then( (data) => {
+                  this.setState( { name:data.firstName, uID:data.uID, username:data.uID });
+                })
+                .catch( (e) => console.error(e) );
   }
 
   launchGame() {
@@ -33,17 +45,14 @@ export default class GameOptions extends React.Component {
         complete: false,
         winner: null,
         owners: [{
-          name: 'Jake',
-          username: 'WarriorsChamps',
+          name: this.state.name,
+          username: this.state.uID,
           turn: 0
         }]
       })
     })
     .then((response) => {
-      console.log(response);
-      return response.json();
-    })
-    .then((responseJson) => {
+      const responseJson = response.json();
       console.log(responseJson);
       navigate('PreGameArea', {
         gameId: responseJson.gameId,
