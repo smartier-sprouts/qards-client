@@ -17,7 +17,7 @@ class Welcome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: verifyUserStatus(this)
+      isLoggedIn: verifyUserStatus()
     };
   }
 
@@ -57,7 +57,7 @@ class Welcome extends React.Component {
           </View>
 
           <Button
-            color='blue'
+            color='steelblue'
             onPress={
               () => { fbLogin(); this.setState({isLoggedIn: verifyUserStatus()}) }
             }
