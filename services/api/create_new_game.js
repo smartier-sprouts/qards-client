@@ -16,11 +16,11 @@ const makeNewGame = function( gameType, userID ) {
       console.log(resData);
       navigate('PreGameArea', {
           room: resData.room,
-          playerId: resData.player._id
+          playerId: resData.playerId
       });
   })
   .catch((error) => {
       console.error(error);
   });
 
-module.exports = makeNewGame;
+module.exports = makeNewGame
