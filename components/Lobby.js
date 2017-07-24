@@ -38,7 +38,7 @@ export default class Lobby extends React.Component {
     let selectedGame = this.state.games.find((game) => game.name === selectedGameName);
     console.log(selectedGame);
     if (selectedGame !== undefined) {
-      fetch('https://qards.herokuapp.com/api/addPlayer', {
+      fetch('https://qards-pr-15.herokuapp.com/api/addPlayer', {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'

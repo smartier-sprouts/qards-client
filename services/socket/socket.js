@@ -15,8 +15,8 @@ export default socketStart = (gameId,cb) => {
     console.log(data);
     //cb();
   });
-  // socket.on('time', function (data) {
-  //   console.log(data);
-  // });
+  socket.on(gameId, function (data) {
+    console.log(data);
+  });
 
 }

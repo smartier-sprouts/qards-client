@@ -13,6 +13,7 @@
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
     "start": "react-native-scripts start",
+    "start2": "react-native-scripts start --port 8082",
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
     "test": "node node_modules/jest/bin/jest.js --watch",
