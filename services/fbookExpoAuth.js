@@ -15,8 +15,6 @@ export default async function fbLogin() {
     // expires is the time at which this token will expire, as seconds since epoch.
     const response = await fetch( `https://graph.facebook.com/me?access_token=${token}` );
     const profile = await response.json();
-      console.log( 'resp:::--> ', profile);
-
 
     let infoObj = {
       uID:profile.id,
