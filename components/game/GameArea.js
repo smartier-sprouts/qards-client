@@ -5,8 +5,7 @@ import Discard from './Discard.js';
 import Below from './Below.js';
 import Pack from './Pack.js';
 import Bottom from './Bottom.js';
-// import Banner from 'react-native-banner';
-// import $ from 'jquery';
+
 
 
 export default class GameArea extends React.Component {
@@ -62,9 +61,11 @@ export default class GameArea extends React.Component {
         name : 'Demetrius',
         turn: true,
         winner: true,
-        draw : [1, 30, 7, 32],
-        hand : [1, 34, 3, 43, 5, 6, 47],
-        discard : [8, 9, 21]
+        draw : [{'pictureId': 4}],
+        hand : [{'pictureId': 4}, {'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4}],
+        discard : [{'pictureId': 4}],
+        gameId: '59752549ef1d2b0011112574',
+        playerId: '5975255aef1d2b001111257d'
     };
 
     this.dropCardToDiscard = this.dropCardToDiscard.bind(this);
@@ -73,125 +74,148 @@ export default class GameArea extends React.Component {
 }
 
 componentDidMount() {
-  
-var url = ['https://qards.herokuapp.com/api', 
-'https://qards.herokuapp.com/api/getHand/597158e39bf84a0011e99777/59716ef6ca3c2e0011b31345',
-'https://qards-pr-5.herokuapp.com/api/games'];
-
- fetch(url[1])
+  var _this = this;
+var url = ['https://qards.herokuapp.com/api/getHand/', 
+'https://qards.herokuapp.com/api/getHand/59750dc13f15600011dc2410/59750dd33f15600011dc2419'];
+ 
+ //create game to find name - owners.name
+ console.log('in component mounted')
+console.log(url[0] + _this.state.gameId + '/' + _this.state.playerId)
+  // set hand
+  fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId)
       .then((res) => res.json())
       .then((data) => { 
-
-
-    for (var i = 0 ; i < data.length ; i++ ) {
-    var count = 0;
-
-
-      //Number(data[i].desc) * 4   -  1
-
-      if (data[i].desc === '2') {
-        count = 1
-      } else if (data[i].desc === '3') {
-        count = 5
-      } else if (data[i].desc === '4') {
-        count = 9
-      } else if (data[i].desc === '5') {
-        count = 13
-      } else if (data[i].desc === '6') {
-        count = 17
-      } else if (data[i].desc === '7') {
-        count = 21
-      } else if (data[i].desc === '8') {
-        count = 25
-      } else if (data[i].desc === '9') {
-        count = 29
-      } else if (data[i].desc === '10') {
-        count = 33
-      } else if (data[i].desc === 'J') {
-        count = 37
-      } else if (data[i].desc === 'Q') {
-        count = 41
-      } else if (data[i].desc === 'K') {
-        count = 45
-      }
-
-      if (data[i].suit.charCodeAt(0) === 9829) {
-        //hearts
-        count = count
-      } else if (data[i].suit.charCodeAt(0) === 9830) {
-        //diamonds
-        count += 3
-      } else if (data[i].suit.charCodeAt(0) === 9824) {
-        //spads
-        count += 2;
-      } else if (data[i].suit.charCodeAt(0) === 9827) {
-        //clubs
-        count += 1
-      }
-
       
-      console.log('this is count ', count)
-      console.log('this is num', data[i].desc);
-      console.log('charcode ', data[i].suit.charCodeAt(0));
-      
+    // var handArray = [];
+    // for (var i = 0 ; i < data.length ; i++ ) {
+    // var count = 0; 
+   
+      // if (data[i].desc > 1 && data[i].desc < 11 ) {
+      //   count = (data[i].desc - 2) * 4 + 1;
+      // } else if (data[i].desc === 'J') {
+      //   count = 37
+      // } else if (data[i].desc === 'Q') {
+      //   count = 41
+      // } else if (data[i].desc === 'K') {
+      //   count = 45
+      // } else if (data[i].desc === 'A') {
+      //   count = 48
+      // }
+
+      // if (data[i].suit.charCodeAt(0) === 9829) {
+      //   //hearts
+      //   count = count;
+      // } else if (data[i].suit.charCodeAt(0) === 9830) {
+      //   //diamonds
+      //   count += 3;
+      // } else if (data[i].suit.charCodeAt(0) === 9824) {
+      //   //spads
+      //   count += 2;
+      // } else if (data[i].suit.charCodeAt(0) === 9827) {
+      //   //clubs
+      //   count += 1;
+      // }
+    //   handArray.push(count)
+    // }
+    if (data) {
+      console.log(data)
+
+      this.setState({
+        hand: data.hand,
+        discard: [data.discard]
+      }) 
     }
-
-
-      console.log(data);
-
-
       }).catch((err) => {
         console.log(err)
+        console.log(url[0] + _this.state.gameId + '/' + _this.state.playerId)
       })
-
 }
 
 
 dropCardToDiscard(discardCard, callback){
+let url = ['https://qards.herokuapp.com/api/discard/', 'https://qards.herokuapp.com/api/discard/59750dc13f15600011dc2410/59750dd33f15600011dc2419/']
+
   let _this = this;
 
   let newArray = [];
-  let index = _this.state.hand.indexOf(discardCard)
-  let newHand = _this.state.hand.splice(index, 1)
+  let otherArray = [];
 
-  _this.state.discard.push(discardCard)
+
+  for (var i = 0; i < _this.state.hand.length; i++ ) {
+      otherArray.push(_this.state.hand[i].pictureId)
+  }
+
+  let index = otherArray.indexOf(discardCard.pictureId)
+  let newHand = _this.state.hand.splice(index, 1)
 
   _this.setState({
     hand : _this.state.hand,
-    discard : _this.state.discard
+    discard : [discardCard]
   })
+  console.log('discardCard id', discardCard._id)
+  
+ // POST to discard
+     fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId + '/' + discardCard._id)
+      .then((res) => res.json())
+      .then((data) => { 
+      console.log('new card ', data) 
+     }).catch((err) => {
+        console.log(err)
+      })
 
  callback();
+
 }
 
 pickUpDiscard(card, handPositionVar, disOrDraw){
+let url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw']
 
-  let _this = this;
-
-  _this.state.hand.splice(handPositionVar, 0, card)  
+  let _this = this; 
 
   if (disOrDraw) {
-    _this.state.discard.pop()
+  _this.state.hand.splice(handPositionVar, 0, card)  
+
     _this.setState({
-      hand: _this.state.hand,
-      discard : _this.state.discard
+      hand: _this.state.hand
     })
 
+   // POST to discard
+    fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId + '/' + card._id)
+      .then((res) => res.json())
+      .then((data) => { 
+      
+      console.log('discard hand ', data) 
+      this.setState({
+        discard: [data]
+      })
+
+     }).catch((err) => {
+        console.log(err)
+      })
   } else {
 
-    _this.state.draw.pop()
-    _this.setState({
-      hand: _this.state.hand,
-      draw : _this.state.draw
-    })
+   // POST to draw
+    fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId + url[1])
+      .then((res) => res.json())
+      .then((data) => { 
 
+      console.log('draw hand ', data) 
+      _this.state.hand.splice(handPositionVar, 0, data)  
+
+      this.setState({
+        hand: _this.state.hand
+      })
+
+     }).catch((err) => {
+        console.log(err)
+      })
+ 
   }
 }
 
 reOrderHand(pickedCard, handPositionVar){
-
   let _this = this;
-
+  
   let pindex = _this.state.hand.indexOf(pickedCard);
   _this.state.hand.splice(pindex, 1);
   _this.state.hand.splice(handPositionVar, 0, pickedCard); 
