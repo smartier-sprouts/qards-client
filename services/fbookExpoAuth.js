@@ -22,15 +22,15 @@ export default async function fbLogin() {
       uID:profile.id,
       firstName: profile.name.split(/\s/)[0],
       fullName: profile.name,
+      isLoggedIn: true,
       expires: expirationDate,
       token: token,
       crazyURL: profile.url
     }
-    let userObj = JSON.stringify(infoObj);
-    console.log('userObj is maybe: ', userObj);
+    let jsonUserObj = JSON.stringify(infoObj);
 
-    AsyncStorage.setItem( 'asyncUserObj', userObj )
-    .then( ()=> { store.save('storeUserObj',userObj) })
+    AsyncStorage.setItem( 'asyncUserObj', jsonUserObj )
+    .then( ()=> { store.save('storeUserObj',jsonUserObj) })
     .catch( (e) => { console.error('Something went wrong in saving! - ', e); } );
   }
 }
