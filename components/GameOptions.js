@@ -47,7 +47,7 @@ export default class GameOptions extends React.Component {
       console.log(responseJson);
       navigate('PreGameArea', {
         gameId: responseJson.gameId,
-        playerId: responseJson.playerId,
+        playerId: responseJson.player._id,
         isCreator: true
       });
     })

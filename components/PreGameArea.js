@@ -21,7 +21,7 @@ export default class PreGameArea extends React.Component {
     this.setState({
       gameId: this.props.navigation.state.params.gameId,
       playerId: this.props.navigation.state.params.playerId
-    }, () => console.log(this.state.gameId, this.state.playerId));
+    }, () => console.log('this is game & player', this.state.gameId, this.state.playerId));
     if (this.props.navigation.state.params.isCreator) {
       this.setState({
         isCreator: this.props.navigation.state.params.isCreator
