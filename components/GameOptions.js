@@ -9,10 +9,23 @@ export default class GameOptions extends React.Component {
     this.state = {
       game: 'Gin Straight',
       gameName: 'Small Ballers',
-      isPublic: true
+      isPublic: true,
+      name: null,
+      uID: null,
+      username: null
     }
     this.launchGame = this.launchGame.bind(this);
     this.handleSwitchChange = this.handleSwitchChange.bind(this);
+  }
+
+  componentWillMount() {
+    AsyncStorage.getItem('asyncUserObj')
+                .then( (storeObj) => { return storeObj ? JSON.parse(storeObj) : {};  })
+                .then( (data) => {
+                  this.setState( { name:data.firstName, uID:data.uID, username:data.uID });
+                })
+                .catch( (e) => console.error(e) );
+    }
   }
 
   launchGame() {
@@ -33,8 +46,8 @@ export default class GameOptions extends React.Component {
         complete: false,
         winner: null,
         owners: [{
-          name: 'Jake',
-          username: 'WarriorsChamps',
+          name: 'this.state.name',
+          username: 'this.state.id',
           turn: 0
         }]
       })
