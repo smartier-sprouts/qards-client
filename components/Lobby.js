@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, AsyncStorage, AppRegistry, Button, Picker } from 'react-native';
+import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import styles from '../styles/styles.js';
 import ReactNativeComponentTree from 'react-native/Libraries/Renderer/src/renderers/native/ReactNativeComponentTree';
@@ -8,30 +8,29 @@ import GameListItem from './GameListItem.js';
 export default class Lobby extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       game: 'Gin Straight',
-      games: [],
-      name: null,
-      uID: null,
-      username: null
-    },
+      games: []
+    }
+
     this.onPressListItem = this.onPressListItem.bind(this);
   }
 
   componentWillMount() {
-    AsyncStorage.getItem('asyncUserObj')
-                .then( (storeObj) => { return storeObj ? JSON.parse(storeObj) : {};  })
-                .then( (data) => {
-                  this.setState( { name: data.firstName, uID: data.uID, username: data.uID });
-                })
-                .catch( (err) => console.error(err) );
-
     fetch('https://qards.herokuapp.com/api/games')
-    .then((response) => { return response.json(); })
-    .then((data) => { this.setState({games: data }); })
-    .catch((err) => { console.error(err); });
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      this.setState({
+        games: data
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   }
-
 
   onPressListItem(e) {
     const { navigate } = this.props.navigation;
@@ -39,32 +38,34 @@ export default class Lobby extends React.Component {
     let selectedGame = this.state.games.find((game) => game.name === selectedGameName);
     console.log(selectedGame);
     if (selectedGame !== undefined) {
-      // joinGame()
-      let data = {
-        gameId: selectedGame._id,
-        player: {
-          name: this.state.name,
-          username: this.state.uID,
-          uID: this.state.uID
-        }
-      };
-
       fetch('https://qards.herokuapp.com/api/addPlayer', {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
         method: 'POST',
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          gameId: selectedGame._id,
+          player: {
+            name: 'aChicken',
+            username: 'iLayEggs'
+          }
+        })
       })
-      .then((response) => {return response.json(); })
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
       .then((responseJson) => {
+        //console.log('hellllo', responseJson);
         navigate('PreGameArea', {
           gameId: responseJson.gameId,
-          playerId: responseJson.player.id
+          playerId: responseJson.player._id
         });
       })
-      .catch((err) => { console.error(err); });
+      .catch((error) => {
+        console.error(error);
+      });
     }
   }
 
