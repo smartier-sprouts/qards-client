@@ -30,7 +30,7 @@ export default class PreGameArea extends React.Component {
   }
 
   componentDidMount() {
-    socketStart(this.state.gameId, () => { this.setState(pre,{playerId: pre.playerId+1}) } ) ;
+    //socketStart(this.state.gameId);
   }
 
   createGame() {
