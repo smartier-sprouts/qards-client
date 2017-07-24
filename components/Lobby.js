@@ -57,10 +57,10 @@ export default class Lobby extends React.Component {
         return response.json();
       })
       .then((responseJson) => {
-        console.log(responseJson);
+        //console.log('hellllo', responseJson);
         navigate('PreGameArea', {
           gameId: responseJson.gameId,
-          playerId: responseJson.playerId
+          playerId: responseJson.player._id
         });
       })
       .catch((error) => {
