@@ -59,8 +59,9 @@ export default class GameArea extends React.Component {
     this.state = {
         position  : this.originPos,
         message : 1,
-        name : 'Demetrius',
-        turn: true,
+        turn: 0,
+        activeName: 'Tiberius',
+        activeTurn: 100,
         phase1: true,
         phase2: false,
         winner: true,
@@ -80,7 +81,8 @@ componentWillMount() {
 
     this.setState({
       gameId: this.props.navigation.state.params.gameId,
-      playerId: this.props.navigation.state.params.playerId
+      playerId: this.props.navigation.state.params.playerId,
+      activeTurn: this.props.navigation.state.params.turn
     }, function (){
 
 
@@ -94,7 +96,7 @@ var url = ['https://qards.herokuapp.com/api/getHand/',
       .then((data) => { 
     if (data) {
       console.log(data)
-      console.log('this is url', (url[0] + _this.state.gameId + '/' + _this.state.playerId))
+      //console.log('this is url', (url[0] + _this.state.gameId + '/' + _this.state.playerId))
       this.setState({
         hand: data.hand,
         discard: [data.discard]
@@ -102,7 +104,7 @@ var url = ['https://qards.herokuapp.com/api/getHand/',
     }
       }).catch((err) => {
         console.log(err)
-        console.log(url[0] + _this.state.gameId + '/' + _this.state.playerId)
+        //console.log(url[0] + _this.state.gameId + '/' + _this.state.playerId)
       })
 
   setInterval(() => {
@@ -110,18 +112,25 @@ var url = ['https://qards.herokuapp.com/api/getHand/',
       .then((res) => res.json())
       .then((data) => { 
     if (data) {
-      console.log(data)
+      //console.log(data)
 
-      // this.setState({
-      //   discard: [data.discard],
-      //   turn: data.turn,
-      //   winner: data.winner
-      // })  
+      _this.setState({
+        activeTurn: data.turnNum,
+        activeName: data.activePlayerName,
+        winner: data.winner
+      })  
     }
+
+    if (!_this.state.activeTurn === _this.state.turn) {
+      _this.setState({
+        discard: [data.topOfDiscard.pictureId]
+      })  
+    }
+
       }).catch((err) => {
         console.log(err)
       })
-    } , 2000)
+    }, 2000)
   });
 }
 
@@ -132,15 +141,12 @@ var url = ['https://qards.herokuapp.com/api/getHand/',
 dropCardToDiscard(discardCard, callback) {
 let url = ['https://qards.herokuapp.com/api/discard/', 'https://qards.herokuapp.com/api/discard/59750dc13f15600011dc2410/59750dd33f15600011dc2419/']
 
-
   let _this = this;
 
- if (_this.state.turn && _this.state.phase2) {
+ if (_this.state.turn === _this.state.activeTurn && _this.state.phase2) {
  
-
   let newArray = [];
   let otherArray = [];
-
 
   for (var i = 0; i < _this.state.hand.length; i++ ) {
       otherArray.push(_this.state.hand[i].pictureId)
@@ -167,9 +173,7 @@ let url = ['https://qards.herokuapp.com/api/discard/', 'https://qards.herokuapp.
         console.log(err)
       })
  }
-
  callback();
-
 }
 
 pickUpDiscard(card, handPositionVar, disOrDraw){
@@ -177,7 +181,7 @@ let url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw']
 
   let _this = this; 
 
- if (_this.state.turn && _this.state.phase1) {
+ if (_this.state.turn  === _this.state.activeTurn && _this.state.phase1) {
 
   if (disOrDraw) {
   _this.state.hand.splice(handPositionVar, 0, card)  
@@ -186,7 +190,7 @@ let url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw']
       hand: _this.state.hand
     })
 
-   // POST to discard
+   // pickup discard
     fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId + '/Discard')
       .then((res) => res.json())
       .then((data) => { 
@@ -203,7 +207,7 @@ let url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw']
       })
   } else {
 
-   // POST to draw
+   // pcik up draw
     fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId + url[1])
       .then((res) => res.json())
       .then((data) => { 
