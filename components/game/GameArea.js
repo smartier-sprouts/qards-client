@@ -91,6 +91,8 @@ var url = ['https://qards.herokuapp.com/api/getHand/',
 'https://qards.herokuapp.com/api/getHand/59750dc13f15600011dc2410/59750dd33f15600011dc2419',
 'https://qards.herokuapp.com/api/discardChange/'];
 
+  console.log('this is active turn', _this.state.activeTurn)
+
   fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId)
       .then((res) => res.json())
       .then((data) => { 
