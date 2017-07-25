@@ -90,7 +90,7 @@ var url = ['https://qards.herokuapp.com/api/getHand/',
 'https://qards.herokuapp.com/api/getHand/59750dc13f15600011dc2410/59750dd33f15600011dc2419',
 'https://qards.herokuapp.com/api/discardChange/'];
 
-  console.log('this is active turn', _this.state.playerTurnNum)
+  //console.log('this is active turn', _this.state.playerTurnNum)
 
   fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId)
       .then((res) => res.json())
@@ -113,7 +113,7 @@ var url = ['https://qards.herokuapp.com/api/getHand/',
       .then((res) => res.json())
       .then((data) => { 
     if (data) {
-      //console.log(data)
+      console.log(data)
 
       _this.setState({
         activeTurn: data.turnNum,
@@ -250,19 +250,23 @@ renderDraggable(){
 
    let possible = ['Your Turn', 'Not your turn idiot', 'The next banner has no title'];
    let Message = '';
-
+  
+   if (_this.state.winner) {
+     Message = _this.state.winner + 'has won!';
+   } else {
    if (_this.state.message === 1) {
-     Message = _this.state.name + "'s turn"
+     Message = _this.state.activeName + "'s turn"
    } else {
      Message = possible[_this.state.message]
+   }
    }
 
 
     return (
         <View>
-          <View style={styles.container} >
+          
             <Text style={styles.bannerText}>{Message}</Text>
-          </View>
+          
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[0]} hand={_this.state.hand[0]}/>
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[1]} hand={_this.state.hand[1]}/>
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[2]} hand={_this.state.hand[2]}/>
