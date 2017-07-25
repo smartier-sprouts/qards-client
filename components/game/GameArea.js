@@ -63,7 +63,7 @@ export default class GameArea extends React.Component {
         playerTurnNum: 100,
         phase1: true,
         phase2: false,
-        winner: true,
+        winner: null,
         draw : [{'pictureId': 4}],
         hand : [{'pictureId': 4}, {'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4}],
         discard : [{'pictureId': 4}],
@@ -115,11 +115,22 @@ var url = ['https://qards.herokuapp.com/api/getHand/',
     if (data) {
       console.log(data)
 
-      _this.setState({
-        activeTurn: data.turnNum,
-        activeName: data.activePlayerName,
-        winner: data.winner
-      })  
+
+     //if (!_this.state.activeTurn === data.turnNum) {
+        _this.setState({
+          activeTurn: data.turnNum,
+          activeName: data.activePlayerName,
+          winner: data.winner,
+          discard: [data.pictureId]
+        }, function(){
+
+        if (_this.state.playerTurnNum === _this.state.activeTurn)
+          _this.setState({
+            phase1: true
+          })
+        })  
+
+
     }
 
     if (!_this.state.playerTurnNum === _this.state.activeTurn) {
@@ -252,13 +263,11 @@ renderDraggable(){
    let Message = '';
   
    if (_this.state.winner) {
-     Message = _this.state.winner + 'has won!';
+     Message = _this.state.winner + ' has won!';
    } else {
-   if (_this.state.message === 1) {
+   if (_this.state.message) {
      Message = _this.state.activeName + "'s turn"
-   } else {
-     Message = possible[_this.state.message]
-   }
+   } 
    }
 
 
