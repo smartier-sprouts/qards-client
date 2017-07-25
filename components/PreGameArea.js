@@ -54,7 +54,7 @@ export default class PreGameArea extends React.Component {
   }
 
   componentDidMount() {
-    //socketStart(this.state.gameId);
+    socketStart(this.state.gameId);
   }
 
   createGame() {
@@ -62,7 +62,7 @@ export default class PreGameArea extends React.Component {
     let gameId = this.state.gameId;
     let playerId = this.state.playerId;
     let turn = this.state.turn
-    fetch('https://qards.herokuapp.com/api/dealCards/' + gameId)
+    fetch('https://qards-pr-15.herokuapp.com/api/dealCards/' + gameId)
     .then((response) => {
       navigate('GameArea', {
         gameId: gameId,
