@@ -44,10 +44,10 @@ export default class GameOptions extends React.Component {
       return response.json();
     })
     .then((responseJson) => {
-      console.log(responseJson);
       navigate('PreGameArea', {
         gameId: responseJson.gameId,
         playerId: responseJson.player._id,
+        turn: responseJson.player.turn,
         isCreator: true
       });
     })
