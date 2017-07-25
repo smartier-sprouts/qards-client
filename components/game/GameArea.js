@@ -59,8 +59,10 @@ export default class GameArea extends React.Component {
     this.state = {
         position  : this.originPos,
         message : 1,
-        name : 'Demetrius',
-        turn: true,
+        activeName: 'Tiberius',
+        playerTurnNum: 100,
+        phase1: true,
+        phase2: false,
         winner: true,
         draw : [{'pictureId': 4}],
         hand : [{'pictureId': 4}, {'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4}],
@@ -78,20 +80,24 @@ componentWillMount() {
 
     this.setState({
       gameId: this.props.navigation.state.params.gameId,
-      playerId: this.props.navigation.state.params.playerId
+      playerId: this.props.navigation.state.params.playerId,
+      playerTurnNum: this.props.navigation.state.params.turn
     }, function (){
 
 
 var _this = this;
 var url = ['https://qards.herokuapp.com/api/getHand/', 
-'https://qards.herokuapp.com/api/getHand/59750dc13f15600011dc2410/59750dd33f15600011dc2419'];
+'https://qards.herokuapp.com/api/getHand/59750dc13f15600011dc2410/59750dd33f15600011dc2419',
+'https://qards.herokuapp.com/api/discardChange/'];
+
+  //console.log('this is active turn', _this.state.playerTurnNum)
 
   fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId)
       .then((res) => res.json())
       .then((data) => { 
     if (data) {
       console.log(data)
-      console.log('this is url', (url[0] + _this.state.gameId + '/' + _this.state.playerId))
+      //console.log('this is url', (url[0] + _this.state.gameId + '/' + _this.state.playerId))
       this.setState({
         hand: data.hand,
         discard: [data.discard]
@@ -99,21 +105,49 @@ var url = ['https://qards.herokuapp.com/api/getHand/',
     }
       }).catch((err) => {
         console.log(err)
-        console.log(url[0] + _this.state.gameId + '/' + _this.state.playerId)
+        //console.log(url[0] + _this.state.gameId + '/' + _this.state.playerId)
       })
+
+  setInterval(() => {
+    fetch(url[2] + _this.state.gameId)
+      .then((res) => res.json())
+      .then((data) => { 
+    if (data) {
+      console.log(data)
+
+      _this.setState({
+        activeTurn: data.turnNum,
+        activeName: data.activePlayerName,
+        winner: data.winner
+      })  
+    }
+
+    if (!_this.state.playerTurnNum === _this.state.activeTurn) {
+      _this.setState({
+        discard: [data.topOfDiscard.pictureId]
+      })  
+    }
+
+      }).catch((err) => {
+        console.log(err)
+      })
+    }, 2000)
   });
 }
 
 
 
-dropCardToDiscard(discardCard, callback){
+
+
+dropCardToDiscard(discardCard, callback) {
 let url = ['https://qards.herokuapp.com/api/discard/', 'https://qards.herokuapp.com/api/discard/59750dc13f15600011dc2410/59750dd33f15600011dc2419/']
 
   let _this = this;
 
+ if (_this.state.activeTurn === _this.state.playerTurnNum && _this.state.phase2) {
+ 
   let newArray = [];
   let otherArray = [];
-
 
   for (var i = 0; i < _this.state.hand.length; i++ ) {
       otherArray.push(_this.state.hand[i].pictureId)
@@ -124,7 +158,9 @@ let url = ['https://qards.herokuapp.com/api/discard/', 'https://qards.herokuapp.
 
   _this.setState({
     hand : _this.state.hand,
-    discard : [discardCard]
+    discard : [discardCard],
+    phase1: false,
+    phase2: false
   })
   console.log('discardCard id', discardCard._id)
   
@@ -136,15 +172,16 @@ let url = ['https://qards.herokuapp.com/api/discard/', 'https://qards.herokuapp.
      }).catch((err) => {
         console.log(err)
       })
-
+ }
  callback();
-
 }
 
 pickUpDiscard(card, handPositionVar, disOrDraw){
 let url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw']
 
   let _this = this; 
+
+ if (_this.state.activeTurn === _this.state.playerTurnNum && _this.state.phase1) {
 
   if (disOrDraw) {
   _this.state.hand.splice(handPositionVar, 0, card)  
@@ -153,14 +190,16 @@ let url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw']
       hand: _this.state.hand
     })
 
-   // POST to discard
+   // pickup discard
     fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId + '/Discard')
       .then((res) => res.json())
       .then((data) => { 
       
       console.log('discard hand ', data) 
       this.setState({
-        discard: [data]
+        discard: [data],
+        phase1: false,
+        phase2: true
       })
 
      }).catch((err) => {
@@ -168,7 +207,7 @@ let url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw']
       })
   } else {
 
-   // POST to draw
+   // pcik up draw
     fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId + url[1])
       .then((res) => res.json())
       .then((data) => { 
@@ -177,7 +216,9 @@ let url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw']
       _this.state.hand.splice(handPositionVar, 0, data)  
 
       this.setState({
-        hand: _this.state.hand
+        hand: _this.state.hand,
+        phase1: false,
+        phase2: true
       })
 
      }).catch((err) => {
@@ -185,6 +226,7 @@ let url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw']
       })
  
   }
+}
 }
 
 reOrderHand(pickedCard, handPositionVar){
@@ -208,19 +250,23 @@ renderDraggable(){
 
    let possible = ['Your Turn', 'Not your turn idiot', 'The next banner has no title'];
    let Message = '';
-
+  
+   if (_this.state.winner) {
+     Message = _this.state.winner + 'has won!';
+   } else {
    if (_this.state.message === 1) {
-     Message = _this.state.name + "'s turn"
+     Message = _this.state.activeName + "'s turn"
    } else {
      Message = possible[_this.state.message]
+   }
    }
 
 
     return (
         <View>
-          <View style={styles.container} >
+          
             <Text style={styles.bannerText}>{Message}</Text>
-          </View>
+          
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[0]} hand={_this.state.hand[0]}/>
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[1]} hand={_this.state.hand[1]}/>
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[2]} hand={_this.state.hand[2]}/>
