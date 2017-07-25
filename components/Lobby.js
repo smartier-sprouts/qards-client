@@ -53,7 +53,6 @@ export default class Lobby extends React.Component {
         })
       })
       .then((response) => {
-        console.log(response);
         return response.json();
       })
       .then((responseJson) => {
