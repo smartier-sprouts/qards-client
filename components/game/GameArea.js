@@ -87,7 +87,7 @@ componentWillMount() {
 
 var _this = this;
 var url = ['https://qards.herokuapp.com/api/getHand/', 
-'https://qards.herokuapp.com/api/getHand/59750dc13f15600011dc2410/59750dd33f15600011dc2419',
+'---',
 'https://qards.herokuapp.com/api/discardChange/'];
 
   //console.log('this is active turn', _this.state.playerTurnNum)
@@ -113,10 +113,11 @@ var url = ['https://qards.herokuapp.com/api/getHand/',
       .then((res) => res.json())
       .then((data) => { 
     if (data) {
-      console.log(data)
+      console.log('reset data', data)
 
 
      //if (!_this.state.activeTurn === data.turnNum) {
+     
         _this.setState({
           activeTurn: data.turnNum,
           activeName: data.activePlayerName,
@@ -142,7 +143,7 @@ var url = ['https://qards.herokuapp.com/api/getHand/',
       }).catch((err) => {
         console.log(err)
       })
-    }, 2000)
+    }, 5000)
   });
 }
 
@@ -195,20 +196,26 @@ let url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw']
  if (_this.state.activeTurn === _this.state.playerTurnNum && _this.state.phase1) {
 
   if (disOrDraw) {
+
   _this.state.hand.splice(handPositionVar, 0, card)  
 
     _this.setState({
       hand: _this.state.hand
     })
-
+   
    // pickup discard
     fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId + '/Discard')
-      .then((res) => res.json())
-      .then((data) => { 
+      .then((res) => {
+        console.log('res', res)
+        return res.json()
+      })
       
+      .then((data) => { 
+
+      console.log(url[0] + _this.state.gameId + '/' + _this.state.playerId + '/Discard')
       console.log('discard hand ', data) 
-      this.setState({
-        discard: [data],
+      _this.setState({
+        discard: [{'pictureId': 0}],
         phase1: false,
         phase2: true
       })
@@ -235,7 +242,6 @@ let url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw']
      }).catch((err) => {
         console.log(err)
       })
- 
   }
 }
 }
