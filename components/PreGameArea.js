@@ -19,6 +19,7 @@ export default class PreGameArea extends React.Component {
   }
 
   componentWillMount() {
+    const { navigate } = this.props.navigation;
     this.setState({
       gameId: this.props.navigation.state.params.gameId,
       playerId: this.props.navigation.state.params.playerId,
@@ -29,18 +30,19 @@ export default class PreGameArea extends React.Component {
           isCreator: this.props.navigation.state.params.isCreator
         });
       } else {
-        setInterval(() => {
+       let setIntervalId = setInterval(() => {
           fetch('https://qards.herokuapp.com/api/hasStarted/' + this.state.gameId)
           .then((response) => {
             return response.json();
           })
           .then((responseJson) => {
-            if (responseJson.hasStarted) {
+            if (responseJson) {
               navigate('GameArea', {
                 gameId: this.state.gameId,
                 playerId: this.state.playerId,
                 turn: this.state.turn
               });
+              clearInterval(setIntervalId);
             }
           })
           .catch((error) => {

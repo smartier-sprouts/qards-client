@@ -36,7 +36,6 @@ export default class Lobby extends React.Component {
     const { navigate } = this.props.navigation;
     let selectedGameName = ReactNativeComponentTree.getInstanceFromNode(e.nativeEvent.target)._stringText;
     let selectedGame = this.state.games.find((game) => game.name === selectedGameName);
-    console.log(selectedGame);
     if (selectedGame !== undefined) {
       fetch('https://qards.herokuapp.com/api/addPlayer', {
         headers: {
