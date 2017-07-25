@@ -121,7 +121,7 @@ var url = ['https://qards.herokuapp.com/api/getHand/',
           activeTurn: data.turnNum,
           activeName: data.activePlayerName,
           winner: data.winner,
-          discard: [data.pictureId]
+          discard: [data.topOfDiscard]
         }, function(){
 
         if (_this.state.playerTurnNum === _this.state.activeTurn)
