@@ -16,7 +16,8 @@ const socketStart = (gameId,cb) => {
     console.log(data);
     //cb();
   });
-  socket.on('test', function (data) {
+  socket.on('playerJoin', function (data) {
+    console.log('a new playerJoined!')
     console.log(data);
     //cb();
   });
