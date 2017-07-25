@@ -59,9 +59,8 @@ export default class GameArea extends React.Component {
     this.state = {
         position  : this.originPos,
         message : 1,
-        turn: 0,
         activeName: 'Tiberius',
-        activeTurn: 100,
+        playerTurnNum: 100,
         phase1: true,
         phase2: false,
         winner: true,
@@ -82,7 +81,7 @@ componentWillMount() {
     this.setState({
       gameId: this.props.navigation.state.params.gameId,
       playerId: this.props.navigation.state.params.playerId,
-      activeTurn: this.props.navigation.state.params.turn
+      playerTurnNum: this.props.navigation.state.params.turn
     }, function (){
 
 
@@ -91,7 +90,7 @@ var url = ['https://qards.herokuapp.com/api/getHand/',
 'https://qards.herokuapp.com/api/getHand/59750dc13f15600011dc2410/59750dd33f15600011dc2419',
 'https://qards.herokuapp.com/api/discardChange/'];
 
-  console.log('this is active turn', _this.state.activeTurn)
+  console.log('this is active turn', _this.state.playerTurnNum)
 
   fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId)
       .then((res) => res.json())
@@ -123,7 +122,7 @@ var url = ['https://qards.herokuapp.com/api/getHand/',
       })  
     }
 
-    if (!_this.state.activeTurn === _this.state.turn) {
+    if (!_this.state.playerTurnNum === _this.state.activeTurn) {
       _this.setState({
         discard: [data.topOfDiscard.pictureId]
       })  
@@ -145,7 +144,7 @@ let url = ['https://qards.herokuapp.com/api/discard/', 'https://qards.herokuapp.
 
   let _this = this;
 
- if (_this.state.turn === _this.state.activeTurn && _this.state.phase2) {
+ if (_this.state.activeTurn === _this.state.playerTurnNum && _this.state.phase2) {
  
   let newArray = [];
   let otherArray = [];
@@ -161,8 +160,7 @@ let url = ['https://qards.herokuapp.com/api/discard/', 'https://qards.herokuapp.
     hand : _this.state.hand,
     discard : [discardCard],
     phase1: false,
-    phase2: false,
-    turn: false
+    phase2: false
   })
   console.log('discardCard id', discardCard._id)
   
@@ -183,7 +181,7 @@ let url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw']
 
   let _this = this; 
 
- if (_this.state.turn  === _this.state.activeTurn && _this.state.phase1) {
+ if (_this.state.activeTurn === _this.state.playerTurnNum && _this.state.phase1) {
 
   if (disOrDraw) {
   _this.state.hand.splice(handPositionVar, 0, card)  
