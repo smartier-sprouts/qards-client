@@ -67,8 +67,8 @@ export default class GameArea extends React.Component {
         draw : [{'pictureId': 4}],
         hand : [{'pictureId': 4}, {'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4}],
         discard : [{'pictureId': 4}],
-        gameId: '59752549ef1d2b0011112574',
-        playerId: '5975255aef1d2b001111257d'
+        gameId: '',
+        playerId: ''
     };
 
     this.dropCardToDiscard = this.dropCardToDiscard.bind(this);
@@ -130,8 +130,6 @@ var url = ['https://qards.herokuapp.com/api/getHand/',
             phase1: true
           })
         })  
-
-
     }
 
     if (!_this.state.playerTurnNum === _this.state.activeTurn) {
@@ -143,7 +141,7 @@ var url = ['https://qards.herokuapp.com/api/getHand/',
       }).catch((err) => {
         console.log(err)
       })
-    }, 5000)
+    }, 2000)
   });
 }
 
@@ -224,12 +222,13 @@ let url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw']
         console.log(err)
       })
   } else {
-
+    console.log('draw Being called')
+      console.log(url[0] + _this.state.gameId + '/' + _this.state.playerId + url[1])
    // pcik up draw
     fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId + url[1])
       .then((res) => res.json())
       .then((data) => { 
-
+  
       console.log('draw hand ', data) 
       _this.state.hand.splice(handPositionVar, 0, data)  
 
