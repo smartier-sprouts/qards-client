@@ -12,7 +12,7 @@ const socketStart = (gameId,cb) => {
     console.log(data); // 'G5p5...'
   });
   //
-  socket.on('join', function (data) {
+  socket.on('test', function (data) {
     console.log(data);
     //cb();
   });
