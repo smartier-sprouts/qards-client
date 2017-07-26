@@ -32,9 +32,9 @@ export default class Lobby extends React.Component {
     });
   }
 
-  onPressListItem(e) {
+  onPressListItem(gameName) {
     const { navigate } = this.props.navigation;
-    let selectedGameName = ReactNativeComponentTree.getInstanceFromNode(e.nativeEvent.target)._stringText;
+    let selectedGameName = gameName;
     let selectedGame = this.state.games.find((game) => game.name === selectedGameName);
     if (selectedGame !== undefined) {
       fetch('https://qards.herokuapp.com/api/addPlayer', {
@@ -90,7 +90,7 @@ export default class Lobby extends React.Component {
           </View>
           <View style={{ flexDirection: 'column', alignItems: 'center' }}>
             <Text style={{ fontSize: 20, color: 'white', textDecorationLine: 'underline' }}>Join a Table Playing the Selected Game</Text>
-            { this.state.games.filter((game) => game.type === this.state.game).map((game, i) => i < 3 ? <GameListItem game={game} key={i} onPressListItem={this.onPressListItem}/> : null) }
+            { this.state.games.filter((game) => game.type === this.state.game).map((game, i) => i < 3 ? <GameListItem game={game} key={i} onPressListItem={() => this.onPressListItem.call(this, game.name)}/> : null) }
           </View>
           <Button
             color='darkviolet'
