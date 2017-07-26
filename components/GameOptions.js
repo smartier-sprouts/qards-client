@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker, Switch, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, AsyncStorage, AppRegistry, Button, Picker, Switch, KeyboardAvoidingView } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import styles from '../styles/styles.js';
 
@@ -10,51 +10,61 @@ export default class GameOptions extends React.Component {
       game: 'Gin Straight',
       gameName: 'Small Ballers',
       isPublic: true
-    }
+    };
     this.launchGame = this.launchGame.bind(this);
     this.handleSwitchChange = this.handleSwitchChange.bind(this);
   }
 
-  launchGame() {
+ launchGame() {
     const { navigate } = this.props.navigation;
-    let gameType = this.state.game;
-    let gameName = this.state.gameName;
-    fetch('https://qards.herokuapp.com/api/createGame', {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        type: gameType,
-        name: gameName,
-        public: true,
-        open: true,
-        complete: false,
-        winner: null,
-        owners: [{
-          name: 'Jake',
-          username: 'WarriorsChamps',
-          turn: 0
-        }]
+    const gameType = this.state.game;
+    const gameName = this.state.gameName;
+
+    const requestNewGame = (newGameObj) => {
+      fetch('https://qards.herokuapp.com/api/createGame', {
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+        method: 'POST',
+        body: JSON.stringify(newGameObj)
       })
-    })
-    .then((response) => {
-      console.log(response);
-      return response.json();
-    })
-    .then((responseJson) => {
-      console.log('new game response', responseJson);
-      navigate('PreGameArea', {
-        gameId: responseJson.gameId,
-        playerId: responseJson.player._id,
-        turn: responseJson.player.turn,
-        isCreator: true
-      });
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+      .then( (response) => {
+        return response.json();
+      })
+      .then((responseJson) => {
+  console.log('requestNewGame RESPONSE from our Server: ', responseJson);//
+        navigate('PreGameArea', {
+          gameId: responseJson.gameId,
+          playerId: responseJson.player._id,
+          turn: responseJson.player.turn,
+          isCreator: true
+        });
+      })
+      .catch((error) => { console.error('ERR Fetching for new game:', error); });
+    };
+
+    const createGame = () => {
+      AsyncStorage.getItem('asyncUserObj')
+                  .then( (data) => { return JSON.parse(data); })
+                  .then( (userDataObj) => {
+                      let newGameDataObj = {
+                            type: gameType,
+                            name: gameName,
+                            public: true,
+                            open: true,
+                            complete: false,
+                            winner: null,
+                            owners: [{
+                              name: userDataObj.firstName,
+                              username: userDataObj.uID,
+                              turn: 0
+                            }]
+                          };
+                    return newGameDataObj;
+                  })
+                  .then( (gameDataObj) => { requestNewGame(gameDataObj); })
+                  .catch( (err) => { console.error('Bad New Game Req:', err); });
+    };
+
+    createGame();
   }
 
   handleSwitchChange() {
