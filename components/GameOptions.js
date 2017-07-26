@@ -44,6 +44,7 @@ export default class GameOptions extends React.Component {
       return response.json();
     })
     .then((responseJson) => {
+      console.log('new game response', responseJson);
       navigate('PreGameArea', {
         gameId: responseJson.gameId,
         playerId: responseJson.player._id,
@@ -66,6 +67,7 @@ export default class GameOptions extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
+      <View style={{ flex: 1 }}>
       <View style={styles.container}>
         <Text style={styles.title}>Game Options</Text>
         <View>
@@ -101,6 +103,9 @@ export default class GameOptions extends React.Component {
             onPress={this.launchGame}
             title="Launch Game"
           />
+      </View>
+      <KeyboardAvoidingView behavior={'padding'}>
+      </KeyboardAvoidingView>
       </View>
     );
   }
