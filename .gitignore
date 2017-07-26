@@ -1,4 +1,4 @@
-# config folder...
+# config folder... Must have a Keys.js file in it for app to work!!!
 config/
 
 # OS X Icons
