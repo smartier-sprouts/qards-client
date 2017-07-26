@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker, Switch } from 'react-native';
+import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker, Switch, KeyboardAvoidingView } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import styles from '../styles/styles.js';
 
