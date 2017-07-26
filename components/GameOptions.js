@@ -30,7 +30,7 @@ export default class GameOptions extends React.Component {
         return response.json();
       })
       .then((responseJson) => {
-  console.log('requestNewGame RESPONSE from our Server: ', responseJson);//
+  console.log('Server response to CreateNewGame POST: ', responseJson);//
         navigate('PreGameArea', {
           gameId: responseJson.gameId,
           playerId: responseJson.player._id,
