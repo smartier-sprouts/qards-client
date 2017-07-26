@@ -47,7 +47,7 @@ class Welcome extends React.Component {
         <Button
           color='green'
           onPress={
-            () => {gglLogin(); } // this.setState({isLoggedIn: verifyUserStatus()}) }
+            () => { gglLogin(); } // this.setState({isLoggedIn: verifyUserStatus()}) }
           }
           title="LOGIN WITH GOOGLE"
         />
