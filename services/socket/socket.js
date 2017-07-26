@@ -12,9 +12,9 @@ const socketStart = (gameId,cb) => {
     console.log(data); // 'G5p5...'
   });
   //
-  socket.on('test', function (data) {
+  socket.on('time', function (data) {
     console.log(data);
-    //cb();
+     //cb();
   });
   socket.on('playerJoin', function (data) {
     console.log('a new playerJoined!')
