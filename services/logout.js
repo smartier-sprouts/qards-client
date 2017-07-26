@@ -16,6 +16,7 @@ export default async function logout(){
     let jsonUserObj = JSON.stringify(infoObj);
 
     AsyncStorage.setItem( 'asyncUserObj', jsonUserObj )
+    .then( () => { console.log('On LOGOUT asyncUserObj saved as ', jsonUserObj) })
     .catch( (e) => { console.error('Something went wrong in saving! - ', e); } );
 
   }

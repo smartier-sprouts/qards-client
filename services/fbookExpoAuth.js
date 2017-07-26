@@ -30,6 +30,7 @@ console.log(baseRespObj)
     let jsonUserObj = JSON.stringify(userObj);
 
     AsyncStorage.setItem( 'asyncUserObj', jsonUserObj )
+    .then( () => {console.log('on Facebook LOGIN asyncUserObj saved as', jsonUserObj) });
     .catch( (e) => { console.error('Something went wrong in saving! - ', e); } );
   }
 }
