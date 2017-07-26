@@ -1,4 +1,5 @@
 import React from 'react';
+//import './setup/ReactotronConfig' // <~~~ FOR DEBUGGING WITH REACTOTRON
 import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker, Image } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Lobby from './components/Lobby.js';
