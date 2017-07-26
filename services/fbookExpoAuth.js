@@ -3,6 +3,7 @@ import Expo from 'expo';
 import {AsyncStorage} from 'react-native';
 import Keys from '../config/Keys';
 
+
 export default async function fbLogin() {
     // token is a string giving the access token to use with Facebook HTTP API requests.
     // expires is the time at which this token will expire, as seconds since epoch.
@@ -10,8 +11,6 @@ export default async function fbLogin() {
     permissions: ['public_profile','email']
   });
   const { type, token, expires } = baseRespObj;
-
-console.log(baseRespObj)
 
   if (type === 'success') {
     const expirationDate = new Date(expires*1000);
@@ -30,7 +29,7 @@ console.log(baseRespObj)
     let jsonUserObj = JSON.stringify(userObj);
 
     AsyncStorage.setItem( 'asyncUserObj', jsonUserObj )
-    .then( () => {console.log('on Facebook LOGIN asyncUserObj saved as', jsonUserObj) });
+    .then( () => {console.log('on Facebook LOGIN asyncUserObj saved as', jsonUserObj) })
     .catch( (e) => { console.error('Something went wrong in saving! - ', e); } );
   }
 }
