@@ -10,6 +10,8 @@ import getPlayerHand from '../../services/api/getPlayerHand.js';
 import checkDiscard from '../../services/api/checkDiscard.js';
 import discardPush from '../../services/api/discardPush.js';
 import pickDiscard from '../../services/api/pickDiscard.js';
+import pickDraw from '../../services/api/pickDraw.js';
+
 
 export default class GameArea extends React.Component {
   constructor(props){
@@ -138,7 +140,7 @@ dropCardToDiscard(discardCard, callback) {
     hand : _this.state.hand,
     discard : [discardCard],
     phase1: false,
-    phase2: false
+    phase2: true
   })
    discardPush(_this.state.gameId, _this.state.playerId, discardCard._id, function(data){
     console.log(data)
@@ -168,10 +170,7 @@ pickUpDiscard(card, handPositionVar, disOrDraw){
    })
   } else {
 
-   // pcik up draw
-    fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId + url[1])
-      .then((res) => res.json())
-      .then((data) => { 
+   pickDraw(_this.state.gameId, _this.state.playerId, function(data){
       _this.state.hand.splice(handPositionVar, 0, data)  
 
       this.setState({
@@ -179,10 +178,7 @@ pickUpDiscard(card, handPositionVar, disOrDraw){
         phase1: false,
         phase2: true
       })
-
-     }).catch((err) => {
-        console.log(err)
-      })
+   })
     }
   }
 }
