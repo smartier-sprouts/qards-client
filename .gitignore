@@ -1,5 +1,5 @@
 # config folder... Must have a Keys.js file in it for app to work!!!
-config/
+Keys.js
 
 # OS X Icons
 .DS_Store
