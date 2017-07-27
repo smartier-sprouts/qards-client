@@ -4,7 +4,8 @@ let api = {};
     api.newGameURL   = api.server + 'createGame';
     api.headers      = {Accept: 'application/json', 'Content-Type': 'application/json'};
     // api.roomURL      = api.server + '/' + roomID + '/' + userID;
-    api.socketServer = 'https://qards-pr-15.herokuapp.com/'
-
+    api.socketServer = 'https://qards-pr-15.herokuapp.com/';
+    api.getHand = 'https://qards.herokuapp.com/api/getHand/';
+    api.checkDiscard = 'https://qards.herokuapp.com/api/discardChange/';
 
 module.exports = api;
