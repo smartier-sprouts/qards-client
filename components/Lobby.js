@@ -1,9 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList, TextInput, AsyncStorage, AppRegistry, Button, Picker } from 'react-native';
+import ReactNativeComponentTree from 'react-native/Libraries/Renderer/src/renderers/native/ReactNativeComponentTree'; // <~~ Rich doesn't think this is necessary
 import { StackNavigator } from 'react-navigation';
-import styles from '../styles/styles.js';
-import ReactNativeComponentTree from 'react-native/Libraries/Renderer/src/renderers/native/ReactNativeComponentTree';
+
+import api from '../setup/API-Destinations.js';
 import GameList from './GameList.js';
+
+import styles from '../styles/styles.js';
 
 export default class Lobby extends React.Component {
   constructor(props) {
@@ -34,8 +37,8 @@ export default class Lobby extends React.Component {
   onPressListItem(game) {
     const { navigate } = this.props.navigation;
     const postToJoinGame = (joinGameObj) => {
-      fetch('https://qards.herokuapp.com/api/addPlayer', {
-        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+      fetch( api.addPlayer, {
+        headers: api.headers,
         method: 'POST',
         body: JSON.stringify(joinGameObj)
       })
@@ -96,16 +99,12 @@ export default class Lobby extends React.Component {
             />
           </View>
           <View style={styles.listContainer}>
-            {
-            this.state.games
-              ? <GameList
-                  games={this.state.games.filter(game => game.type === this.state.gameType)}
-                  onPressListItem={this.onPressListItem}
-                  refreshing={this.state.refreshing}
-                  onRefresh={this.getOpenGames}>
-                </GameList>
-              : null
-            }
+            <GameList
+                games={this.state.games.filter(game => game.type === this.state.gameType)}
+                onPressListItem={this.onPressListItem}
+                refreshing={this.state.refreshing}
+                onRefresh={this.getOpenGames}>
+            </GameList>
           </View>
           <Button
             color='darkviolet'
