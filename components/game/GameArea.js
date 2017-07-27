@@ -6,7 +6,11 @@ import Below from './Below.js';
 import Pack from './Pack.js';
 import Bottom from './Bottom.js';
 import { StackNavigator } from 'react-navigation';
-
+import getPlayerHand from '../../services/api/getPlayerHand.js';
+import checkDiscard from '../../services/api/checkDiscard.js';
+import discardPush from '../../services/api/discardPush.js';
+import pickDiscard from '../../services/api/pickDiscard.js';
+import pickDraw from '../../services/api/pickDraw.js';
 
 
 export default class GameArea extends React.Component {
@@ -84,62 +88,40 @@ componentWillMount() {
     }, function (){
 
 var _this = this;
-var url = ['https://qards.herokuapp.com/api/getHand/', 
-'---',
-'https://qards.herokuapp.com/api/discardChange/'];
 
-  fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId)
-      .then((res) => res.json())
-      .then((data) => { 
-    if (data) {
-      console.log(data)
-      this.setState({
-        hand: data.hand,
-        discard: [data.discard]
-      }) 
-    }
-      }).catch((err) => {
-        console.log(err)
-      })
+  getPlayerHand(_this.state.gameId, _this.state.playerId, function(data){
+    _this.setState({
+      hand: data.hand,
+      discard: [data.discard]
+    }) 
+  })
 
-  setInterval(() => {
-    fetch(url[2] + _this.state.gameId)
-      .then((res) => res.json())
-      .then((data) => { 
-    if (data) {
-      console.log('reset data', data)
-     
-        _this.setState({
-          activeTurn: data.turnNum,
-          activeName: data.activePlayerName,
-          winner: data.winner,  
-          discard: [data.topOfDiscard]
-        }, function(){
+  checkDiscard(_this.state.gameId, function(data){
 
-        if (_this.state.playerTurnNum === _this.state.activeTurn)
+      _this.setState({
+        activeTurn: data.turnNum,
+        activeName: data.activePlayerName,
+        winner: data.winner,  
+        discard: [data.topOfDiscard]
+
+      }, function(){
+        if (_this.state.playerTurnNum === _this.state.activeTurn) {
           _this.setState({
             phase1: true
           })
-        })  
-    }
-
-    if (!_this.state.playerTurnNum === _this.state.activeTurn) {
-      _this.setState({
-        discard: [data.topOfDiscard.pictureId]
-      })  
-    }
-
-      }).catch((err) => {
-        console.log(err)
+        }   
+        if (!_this.state.playerTurnNum === _this.state.activeTurn) {
+          _this.setState({
+            discard: [data.topOfDiscard.pictureId]
+          })  
+        }
       })
-    }, 2000)
-  });
-}
+    })
+  }
+)}
 
 
 dropCardToDiscard(discardCard, callback) {
-let url = ['https://qards.herokuapp.com/api/discard/']
-
   let _this = this;
 
  if (_this.state.activeTurn === _this.state.playerTurnNum && _this.state.phase2) {
@@ -158,55 +140,37 @@ let url = ['https://qards.herokuapp.com/api/discard/']
     hand : _this.state.hand,
     discard : [discardCard],
     phase1: false,
-    phase2: false
+    phase2: true
   })
-  
- // POST to discard
-     fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId + '/' + discardCard._id)
-      .then((res) => res.json())
-      .then((data) => { 
-      console.log('new card ', data) 
-     }).catch((err) => {
-        console.log(err)
-      })
- }
+   discardPush(_this.state.gameId, _this.state.playerId, discardCard._id, function(data){
+    console.log(data)
+   })
+  }
  callback();
 }
 
 pickUpDiscard(card, handPositionVar, disOrDraw){
-let url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw']
-
+  var url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw']
   let _this = this; 
 
  if (_this.state.activeTurn === _this.state.playerTurnNum && _this.state.phase1) {
 
   if (disOrDraw) {
-  _this.state.hand.splice(handPositionVar, 0, card);  
-    _this.setState({
-      hand: _this.state.hand
-    })
-   
-   // pickup discard
-    fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId + '/Discard')
-      .then((res) => {
-        return res.json()
+    _this.state.hand.splice(handPositionVar, 0, card);  
+      _this.setState({
+        hand: _this.state.hand
       })
-      .then((data) => { 
+
+   pickDiscard(_this.state.gameId, _this.state.playerId, function(data){
       _this.setState({
         discard: [{'pictureId': 0}],
         phase1: false,
         phase2: true
       })
-
-     }).catch((err) => {
-        console.log(err)
-      })
+   })
   } else {
 
-   // pcik up draw
-    fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId + url[1])
-      .then((res) => res.json())
-      .then((data) => { 
+   pickDraw(_this.state.gameId, _this.state.playerId, function(data){
       _this.state.hand.splice(handPositionVar, 0, data)  
 
       this.setState({
@@ -214,10 +178,7 @@ let url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw']
         phase1: false,
         phase2: true
       })
-
-     }).catch((err) => {
-        console.log(err)
-      })
+   })
     }
   }
 }
@@ -296,7 +257,8 @@ renderDraggable(){
 let Window = Dimensions.get('window');
 let styles = StyleSheet.create({
     mainContainer: {
-        flex    : 1
+        flex    : 1,
+        backgroundColor: '#31A231'
     },
     container: {
         flex: 1,
