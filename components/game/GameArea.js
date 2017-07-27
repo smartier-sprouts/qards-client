@@ -17,7 +17,7 @@ export default class GameArea extends React.Component {
   constructor(props){
     super(props);
 
-  
+
    this.originPos = [{
         position    : 'absolute',
         top         : Window.height*(360/568),
@@ -27,7 +27,7 @@ export default class GameArea extends React.Component {
         top         : Window.height*(360/568),
         left        : Window.width*(35/320),
     },{
-        position    : 'absolute', 
+        position    : 'absolute',
         top         : Window.height*(360/568),
         left        : Window.width*(70/320),
     },{
@@ -39,23 +39,23 @@ export default class GameArea extends React.Component {
         top         : Window.height*(360/568),
         left        : Window.width*(140/320),
     },{
-        position    : 'absolute', 
+        position    : 'absolute',
         top         : Window.height*(360/568),
         left        : Window.width*(175/320),
     },{
-        position    : 'absolute', 
+        position    : 'absolute',
         top         : Window.height*(360/568),
         left        : Window.width*(210/320),
     },{
-        position    : 'absolute', 
+        position    : 'absolute',
         top         : Window.height*(360/568),
         left        : Window.width*(245/320),
     },{
-        position    : 'absolute', 
+        position    : 'absolute',
         top         : Window.height*(50/568),
         left        : Window.width*(225/320),
     },{
-        position    : 'absolute', 
+        position    : 'absolute',
         top         : Window.height*(50/568),
         left        : Window.width*(0/320),
     }]
@@ -88,12 +88,11 @@ componentWillMount() {
     }, function (){
 
 var _this = this;
-
   getPlayerHand(_this.state.gameId, _this.state.playerId, function(data){
     _this.setState({
       hand: data.hand,
       discard: [data.discard]
-    }) 
+    })
   })
 
   checkDiscard(_this.state.gameId, function(data){
@@ -101,7 +100,7 @@ var _this = this;
       _this.setState({
         activeTurn: data.turnNum,
         activeName: data.activePlayerName,
-        winner: data.winner,  
+        winner: data.winner,
         discard: [data.topOfDiscard]
 
       }, function(){
@@ -109,11 +108,11 @@ var _this = this;
           _this.setState({
             phase1: true
           })
-        }   
+        }
         if (!_this.state.playerTurnNum === _this.state.activeTurn) {
           _this.setState({
             discard: [data.topOfDiscard.pictureId]
-          })  
+          })
         }
       })
     })
@@ -125,7 +124,7 @@ dropCardToDiscard(discardCard, callback) {
   let _this = this;
 
  if (_this.state.activeTurn === _this.state.playerTurnNum && _this.state.phase2) {
- 
+
   let newArray = [];
   let otherArray = [];
 
@@ -150,13 +149,12 @@ dropCardToDiscard(discardCard, callback) {
 }
 
 pickUpDiscard(card, handPositionVar, disOrDraw){
-  var url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw']
-  let _this = this; 
+  let _this = this;
 
  if (_this.state.activeTurn === _this.state.playerTurnNum && _this.state.phase1) {
 
   if (disOrDraw) {
-    _this.state.hand.splice(handPositionVar, 0, card);  
+    _this.state.hand.splice(handPositionVar, 0, card);
       _this.setState({
         hand: _this.state.hand
       })
@@ -171,7 +169,7 @@ pickUpDiscard(card, handPositionVar, disOrDraw){
   } else {
 
    pickDraw(_this.state.gameId, _this.state.playerId, function(data){
-      _this.state.hand.splice(handPositionVar, 0, data)  
+      _this.state.hand.splice(handPositionVar, 0, data)
 
       this.setState({
         hand: _this.state.hand,
@@ -185,10 +183,10 @@ pickUpDiscard(card, handPositionVar, disOrDraw){
 
 reOrderHand(pickedCard, handPositionVar){
   let _this = this;
-  
+
   let pindex = _this.state.hand.indexOf(pickedCard);
   _this.state.hand.splice(pindex, 1);
-  _this.state.hand.splice(handPositionVar, 0, pickedCard); 
+  _this.state.hand.splice(handPositionVar, 0, pickedCard);
 
   _this.setState({
       hand: _this.state.hand
@@ -202,7 +200,7 @@ renderDraggable(){
       eighth = <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[7]} hand={_this.state.hand[7]}/> ;
     }
    let Message = '';
-  
+
     var stylio = styles.bannerText;
 
    if (_this.state.winner) {
@@ -214,18 +212,18 @@ renderDraggable(){
         fontSize: 80,
         fontWeight: 'bold'
         }
- 
+
    } else {
      if (_this.state.message) {
        Message = _this.state.activeName + "'s turn"
-     } 
+     }
    }
 
     return (
         <View>
-          
+
             <Text style={stylio}>{Message}</Text>
-          
+
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[0]} hand={_this.state.hand[0]}/>
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[1]} hand={_this.state.hand[1]}/>
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[2]} hand={_this.state.hand[2]}/>
