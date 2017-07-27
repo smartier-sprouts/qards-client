@@ -62,7 +62,7 @@ class Welcome extends React.Component {
 }
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 const SimpleApp = StackNavigator({
-  Home: { screen: Welcome },
+  Home: { screen: Welcome, navigationOptions: { header: null } },
   Lobby: { screen: Lobby },
   GameOptions: { screen: GameOptions },
   GinStraightRules: { screen: GinStraightRules },
