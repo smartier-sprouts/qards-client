@@ -9,6 +9,7 @@ import { StackNavigator } from 'react-navigation';
 import getPlayerHand from '../../services/api/getPlayerHand.js';
 import checkDiscard from '../../services/api/checkDiscard.js';
 import discardPush from '../../services/api/discardPush.js';
+import pickDiscard from '../../services/api/pickDiscard.js';
 
 export default class GameArea extends React.Component {
   constructor(props){
@@ -119,8 +120,6 @@ var _this = this;
 
 
 dropCardToDiscard(discardCard, callback) {
-let url = ['https://qards.herokuapp.com/api/discard/']
-
   let _this = this;
 
  if (_this.state.activeTurn === _this.state.playerTurnNum && _this.state.phase2) {
@@ -141,26 +140,15 @@ let url = ['https://qards.herokuapp.com/api/discard/']
     phase1: false,
     phase2: false
   })
-  
- // drop to discard
- discardPush(_this.state.gameId, _this.state.playerId, discardCard._id, function(data){
-  console.log(data)
- })
-
-  // fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId + '/' + discardCard._id)
-  //   .then((res) => res.json())
-  //   .then((data) => { 
-  //   console.log('new card ', data) 
-  // }).catch((err) => {
-  //   console.log(err)
-  //   })
+   discardPush(_this.state.gameId, _this.state.playerId, discardCard._id, function(data){
+    console.log(data)
+   })
   }
  callback();
 }
 
 pickUpDiscard(card, handPositionVar, disOrDraw){
-let url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw'];
-
+  var url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw']
   let _this = this; 
 
  if (_this.state.activeTurn === _this.state.playerTurnNum && _this.state.phase1) {
@@ -171,21 +159,13 @@ let url = ['https://qards.herokuapp.com/api/drawCard/', '/Draw'];
         hand: _this.state.hand
       })
 
-   // pickup discard
-    fetch(url[0] + _this.state.gameId + '/' + _this.state.playerId + '/Discard')
-      .then((res) => {
-        return res.json()
-      })
-      .then((data) => { 
+   pickDiscard(_this.state.gameId, _this.state.playerId, function(data){
       _this.setState({
         discard: [{'pictureId': 0}],
         phase1: false,
         phase2: true
       })
-
-     }).catch((err) => {
-        console.log(err)
-      })
+   })
   } else {
 
    // pcik up draw
