@@ -6,4 +6,5 @@ api.discard = 'https://qards.herokuapp.com/api/discard/';
 api.pickUpCard = 'https://qards.herokuapp.com/api/drawCard/';
 
 
+
 module.exports = api;
