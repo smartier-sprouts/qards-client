@@ -7,5 +7,6 @@ let api = {};
     api.socketServer = 'https://qards-pr-15.herokuapp.com/';
     api.getHand = 'https://qards.herokuapp.com/api/getHand/';
     api.checkDiscard = 'https://qards.herokuapp.com/api/discardChange/';
+    api.discard = 'https://qards.herokuapp.com/api/discard/';
 
 module.exports = api;
