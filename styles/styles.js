@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { Constants } from 'expo';
 
 const styles = StyleSheet.create({
   container: {
@@ -6,7 +7,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: 'black'
+    backgroundColor: 'black',
+    paddingTop: Constants.statusBarHeight
   },
   title: {
     fontSize: 40,
@@ -17,7 +19,7 @@ const styles = StyleSheet.create({
     width: 150,
     height: 35
   },
-    item: {
+  item: {
     padding: 10,
     fontSize: 18,
     height: 44,
@@ -33,6 +35,15 @@ const styles = StyleSheet.create({
     width: 175,
     height: 35,
     backgroundColor: 'white'
+  },
+  listContainer: {
+    flex: 1,
+    paddingTop: 10,
+    paddingRight: 20,
+    paddingBottom: 30,
+    paddingLeft: 20,
+    width: 380,
+    maxHeight: 350
   }
 });
 
