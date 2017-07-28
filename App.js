@@ -6,7 +6,6 @@ import { StackNavigator } from 'react-navigation';
 import Lobby from './components/Lobby.js';
 
 import verifyLoginStatus from './services/verifyLoginStatus.js';
-
 import logout from './services/logout.js';
 
 import WelcomeScreenTop from './components/WelcomeScreenTop.js';
@@ -18,7 +17,6 @@ class Welcome extends React.Component {
   constructor(props) {
     super(props);
     this.state = { isLoggedIn: false, isWaitingForAsync: true };
-
     this.checkStatus = this.checkStatus.bind(this);
   }
 
