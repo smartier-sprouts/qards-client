@@ -31,7 +31,7 @@ export default class PreGameArea extends React.Component {
         });
       } else {
        let setIntervalId = setInterval(() => {
-          fetch('https://qards-pr-24.herokuapp.com/api/hasStarted/' + this.state.gameId)
+          fetch('http://10.6.67.239:3000/api/hasStarted/' + this.state.gameId)
           .then((response) => {
             return response.json();
           })

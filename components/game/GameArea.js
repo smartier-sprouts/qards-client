@@ -16,6 +16,7 @@ let _this;
 
 const runCheckDiscard = () => {
   checkDiscard(_this.state.gameId, function(data) {
+
       _this.setState({
         activeTurn: data.turnNum,
         activeName: data.activePlayerName,
@@ -24,8 +25,9 @@ const runCheckDiscard = () => {
 
       }, function() {
         if (_this.state.playerTurnNum === _this.state.activeTurn && !_this.state.phase2) {
-
-            _this.setState({phase1: true});
+            _this.setState({
+              phase1: true
+            });
         }
         if (_this.state.playerTurnNum !== _this.state.activeTurn) {
           _this.setState({
@@ -33,7 +35,7 @@ const runCheckDiscard = () => {
           });
         }
       });
-  });
+    });
 };
 
 
@@ -88,7 +90,7 @@ class GameArea extends React.Component {
     this.state = {
         position  : this.originPos,
         message : 1,
-        activeName: '',
+        activeName: 'Tiberius',
         playerTurnNum: 100,
         phase1: true,
         phase2: false,
@@ -110,16 +112,16 @@ componentWillMount() {
     playerId: this.props.navigation.state.params.playerId,
     playerTurnNum: this.props.navigation.state.params.turn
   }, function () {
-      let _this = this;
-      getPlayerHand(_this.state.gameId, _this.state.playerId, function(data){
+      _this = this;
+      getPlayerHand(_this.state.gameId, _this.state.playerId, function(data) {
         _this.setState({
           hand: data.hand,
           discard: [data.discard]
         });
       });
+
       runCheckDiscard();
-    }
-  );
+  });
 }
 
 
@@ -144,40 +146,42 @@ dropCardToDiscard(discardCard, callback) {
     phase1: false,
     phase2: false
   });
-   discardPush(_this.state.gameId, _this.state.playerId, discardCard._id, function(data){
-    console.log(data);
+   discardPush(_this.state.gameId, _this.state.playerId, discardCard._id, function(data) {
+    console.log('DiscardPush from dropCardToDiscard',data);
    });
   }
  callback();
 }
 
 pickUpDiscard(card, handPositionVar, disOrDraw) {
-  let _this = this;
+  _this = this;
 
-  if (_this.state.activeTurn === _this.state.playerTurnNum && _this.state.phase1) {
+ if (_this.state.activeTurn === _this.state.playerTurnNum && _this.state.phase1) {
 
-    if (disOrDraw) {
-      _this.state.hand.splice(handPositionVar, 0, card);
-      _this.setState({ hand: _this.state.hand });
-
-      pickDiscard(_this.state.gameId, _this.state.playerId, function(data) {
-        _this.setState({
-          discard: [{'pictureId': 0}],
-          phase1: false,
-          phase2: true
-        });
+  if (disOrDraw) {
+    _this.state.hand.splice(handPositionVar, 0, card);
+      _this.setState({
+        hand: _this.state.hand
       });
-    } else {
 
-      pickDraw(_this.state.gameId, _this.state.playerId, function(data) {
-        _this.state.hand.splice(handPositionVar, 0, data);
-
-        _this.setState({
-          hand: _this.state.hand,
-          phase1: false,
-          phase2: true
-        }, ()=> console.log('phase2 in pickdraw after setting true', _this.state.phase2));
+   pickDiscard(_this.state.gameId, _this.state.playerId, function(data) {
+      _this.setState({
+        discard: [{'pictureId': 0}],
+        phase1: false,
+        phase2: true
       });
+   });
+  } else {
+
+   pickDraw(_this.state.gameId, _this.state.playerId, function(data) {
+      _this.state.hand.splice(handPositionVar, 0, data);
+
+      _this.setState({
+        hand: _this.state.hand,
+        phase1: false,
+        phase2: true
+      }, ()=> console.log('phase2 in pickdraw after setting true', _this.state.phase2))
+   });
     }
   }
 }
@@ -202,23 +206,23 @@ renderDraggable() {
     }
     let Message = '';
 
-    let stylio = styles.bannerText;
+    var stylio = styles.bannerText;
 
     if (_this.state.winner) {
       Message = _this.state.winner + ' has won!';
 
-      stylio = {
+      var stylio = {
           color: 'red',
           textAlign : 'center',
           fontSize: 80,
           fontWeight: 'bold'
-      };
-
-    } else {
-      if (_this.state.message) {
-        Message = _this.state.activeName + "'s turn";
       }
-    }
+
+   } else {
+     if (_this.state.message) {
+       Message = _this.state.activeName + "'s turn";
+     }
+   }
 
     return (
         <View>
@@ -242,7 +246,7 @@ renderDraggable() {
         </View>
     );
 }
-   render() {
+   render(){
         return (
             <View style={styles.mainContainer}>
                 {this.renderDraggable()}
@@ -276,6 +280,5 @@ let styles = StyleSheet.create({
         width               : Window.width*(72/320)
     }
 });
-
 
 export { runCheckDiscard, GameArea };
