@@ -10,6 +10,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     paddingTop: Constants.statusBarHeight
   },
+  welcomeTitle: {
+     color: 'green',
+     alignSelf: 'center',
+     fontSize: 120,
+     position: 'absolute',
+  },
   title: {
     fontSize: 40,
     alignSelf: 'center',
