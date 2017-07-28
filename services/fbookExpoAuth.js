@@ -24,13 +24,13 @@ console.log(baseRespObj)
       fullName: profile.name,
       isLoggedIn: true,
       expires: expirationDate,
-      token: token
+      token: token,
+      source: 'Fbook'
     };
 
     let jsonUserObj = JSON.stringify(userObj);
 
     AsyncStorage.setItem( 'asyncUserObj', jsonUserObj )
-    .then( () => {console.log('on Facebook LOGIN asyncUserObj saved as', jsonUserObj) })
     .catch( (err) => { console.error('Err AsyncSaving Fbook User Data:- ', err); } );
   }
 }
