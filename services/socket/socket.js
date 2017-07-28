@@ -24,7 +24,7 @@ const socketStart = (gameId,cb) => {
     //cb();
   });
   socket.on(gameId, function (data) {
-    console.log('we got a message in gameId!!!')
+    console.log('we got a message in gameId!!!', data)
     if (data.checkDiscard) {
         runCheckDiscard();
     };

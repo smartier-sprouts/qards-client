@@ -145,7 +145,7 @@ dropCardToDiscard(discardCard, callback) {
     hand : _this.state.hand,
     discard : [discardCard],
     phase1: false,
-    phase2: true
+    phase2: false
   })
    discardPush(_this.state.gameId, _this.state.playerId, discardCard._id, function(data){
     console.log(data)
