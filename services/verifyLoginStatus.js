@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 
-export default async function verifyUserStatus(){
+export default async function verifyLoginStatus() {
   const userData = await AsyncStorage.getItem('asyncUserObj')
                         .then( (data) => {
                           if (data) {

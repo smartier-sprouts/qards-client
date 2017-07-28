@@ -9,7 +9,7 @@ import GinStraightRules from './components/GinStraightRules.js';
 import { GameArea } from './components/game/GameArea.js';
 import PreGameArea from './components/PreGameArea.js';
 
-// import verifyUserStatus from './services/verifyUserStatus.js';
+import verifyLoginStatus from './services/verifyLoginStatus.js';
 import fbLogin from './services/fbookExpoAuth.js';
 import gglLogin from './services/googleExpoAuth.js';
 import logout from './services/logout.js';
@@ -21,7 +21,7 @@ class Welcome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: true
+      isLoggedIn: verifyLoginStatus()
     };
   }
   render() {
