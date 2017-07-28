@@ -14,6 +14,30 @@ import pickDraw from '../../services/api/pickDraw.js';
 
 let _this;
 
+const runCheckDiscard = () => {
+  checkDiscard(_this.state.gameId, function(data){
+
+      _this.setState({
+        activeTurn: data.turnNum,
+        activeName: data.activePlayerName,
+        winner: data.winner,
+        discard: [data.topOfDiscard]
+
+      }, function(){
+        if (_this.state.playerTurnNum === _this.state.activeTurn) {
+          _this.setState({
+            phase1: true
+          })
+        }
+        if (!_this.state.playerTurnNum === _this.state.activeTurn) {
+          _this.setState({
+            discard: [data.topOfDiscard.pictureId]
+          })
+        }
+      })
+    })
+}
+
 export default class GameArea extends React.Component {
   constructor(props){
     super(props);
@@ -97,27 +121,7 @@ componentWillMount() {
     })
   })
 
-  checkDiscard(_this.state.gameId, function(data){
-
-      _this.setState({
-        activeTurn: data.turnNum,
-        activeName: data.activePlayerName,
-        winner: data.winner,
-        discard: [data.topOfDiscard]
-
-      }, function(){
-        if (_this.state.playerTurnNum === _this.state.activeTurn) {
-          _this.setState({
-            phase1: true
-          })
-        }
-        if (!_this.state.playerTurnNum === _this.state.activeTurn) {
-          _this.setState({
-            discard: [data.topOfDiscard.pictureId]
-          })
-        }
-      })
-    })
+  runCheckDiscard();
   }
 )}
 
