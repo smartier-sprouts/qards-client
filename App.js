@@ -5,9 +5,11 @@ import { StackNavigator } from 'react-navigation';
 import Lobby from './components/Lobby.js';
 import GameOptions from './components/GameOptions.js';
 import GinStraightRules from './components/GinStraightRules.js';
-import styles from './styles/styles.js';
 import { GameArea } from './components/game/GameArea.js';
 import PreGameArea from './components/PreGameArea.js';
+
+import styles from './styles/styles.js';
+const frontPic = { uri: './assets/frontPic.png' };
 
 // import verifyUserStatus from './services/verifyUserStatus.js';
 import fbLogin from './services/fbookExpoAuth.js';
@@ -26,11 +28,10 @@ class Welcome extends React.Component {
     return (
       <View style={styles.container}>
         <View style={{ justifyContent: 'center' }}>
-          <Image
-            style={{ width: 170, height: 202 }}
-            source={require('./components/other-images/cards_PNG8479.png')}
-          />
-          <Text style={{ color: 'green', alignSelf: 'center', fontSize: 120, position: 'absolute' }}>Qards</Text>
+          <Image source={frontPic} style={{ width: 170, height: 202 }} />
+          <Text style={{ color: 'green', alignSelf: 'center', fontSize: 120, position: 'absolute' }}>
+            Qards
+          </Text>
         </View>
         <Button
           color='darkviolet'
