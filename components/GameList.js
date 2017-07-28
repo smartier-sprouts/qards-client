@@ -8,11 +8,16 @@ export default class GameList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      refreshing: false
+      refreshing: true,
+      games: null
     };
   }
 
-  refetch() {
+  componentWillMount() {
+    this._refetch();
+  }
+
+  _refetch() {
     this.setState({refreshing: true});
     fetch('https://qards.herokuapp.com/api/games')
     .then((response) => { return response.json(); })
@@ -25,14 +30,14 @@ export default class GameList extends React.Component {
   render() {
     return (
       <FlatList
-        data={this.props.games}
+        data={this.state.games}
         refreshing={this.state.refreshing}
-        onRefresh={() => this.refetch()}
-        renderItem={({item}) => {
+        onRefresh={() => this._refetch()}
+        renderItem={({item }) => {
           const badge = {
-            value: `👤${ item.owners.length }`,
-            badgeContainerStyle: { right: 10, backgroundColor: '#00B6FF'},
-            badgeTextStyle: { fontSize: 14 }
+            value: `👤${item.owners.length}`,
+            badgeContainerStyle: {right: 10, backgroundColor: '#00B6FF'},
+            badgeTextStyle: {fontSize: 14}
           };
           return (
             <ListItem

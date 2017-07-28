@@ -12,18 +12,18 @@ export default class Lobby extends React.Component {
       game: 'Gin Straight',
       games: []
     };
-    this.onPressListItem = this.onPressListItem.bind(this);
+    this._onPressListItem = this._onPressListItem.bind(this);
   }
 
-  componentWillMount() {
-    fetch('https://qards.herokuapp.com/api/games')
-    .then((response) => { return response.json(); })
-    .then((data) => {
-      console.log('fetched data', data.length);
-      this.setState({games: data});
-    })
-    .catch((error) => { console.error('Error updating available Games:', error); });
-  }
+  // componentWillMount() {
+  //   fetch('https://qards.herokuapp.com/api/games')
+  //   .then((response) => { return response.json(); })
+  //   .then((data) => {
+  //     console.log('fetched data', data.length);
+  //     this.setState({games: data});
+  //   })
+  //   .catch((error) => { console.error('Error updating available Games:', error); });
+  // }
 
   onPressListItem(game) {
     const { navigate } = this.props.navigation;
@@ -95,7 +95,7 @@ export default class Lobby extends React.Component {
             {
             this.state.games
               ? <GameList games={this.state.games} onPressListItem={this.onPressListItem} refreshing={this.state.loading} onRefresh={this.refetch}></GameList>
-              : <Text style={{color: white}}>Loading games…</Text>
+              : null
             }
           </View>
           <Button
@@ -106,4 +106,8 @@ export default class Lobby extends React.Component {
       </View>
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> (fix) pull to refresh actually updates the games now
