@@ -6,6 +6,7 @@ import { StackNavigator } from 'react-navigation';
 import Lobby from './components/Lobby.js';
 
 import verifyLoginStatus from './services/verifyLoginStatus.js';
+
 import logout from './services/logout.js';
 
 import WelcomeScreenTop from './components/WelcomeScreenTop.js';
@@ -52,7 +53,6 @@ class Welcome extends React.Component {
     // const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
-
         <WelcomeScreenTop />
         {
           this.state.isRetrievingData ? this.renderLoadingView()
@@ -61,7 +61,6 @@ class Welcome extends React.Component {
           :
           <WelcomeLogin chk={this.checkStatus}/>
         }
-
       </View>
     );
   }
