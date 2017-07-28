@@ -11,8 +11,6 @@ export default async function fbLogin() {
   });
   const { type, token, expires } = baseRespObj;
 
-console.log(baseRespObj)
-
   if (type === 'success') {
     const expirationDate = new Date(expires*1000);
     const response = await fetch( `https://graph.facebook.com/me?access_token=${token}` );
