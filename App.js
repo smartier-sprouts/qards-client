@@ -64,7 +64,6 @@ class Welcome extends React.Component {
     );
   }
 }
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
 import GameOptions from './components/GameOptions.js';
