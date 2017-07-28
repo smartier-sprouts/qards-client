@@ -14,14 +14,14 @@ export default class Lobby extends React.Component {
       refreshing: false
     };
     this.onPressListItem = this.onPressListItem.bind(this);
-    this.refetch = this.refetch.bind(this);
+    this.getOpenGames = this.getOpenGames.bind(this);
   }
 
   componentWillMount() {
-    this.refetch();
+    this.getOpenGames();
   }
 
-  refetch() {
+  getOpenGames() {
     this.setState({refreshing: true});
     fetch('https://qards.herokuapp.com/api/games')
     .then((response) => { return response.json(); })
@@ -51,7 +51,6 @@ export default class Lobby extends React.Component {
     };
 
     const joinExistingGame = () => {
-      console.log('bldJEG Called');
       AsyncStorage.getItem('asyncUserObj')
                     .then( (data) => { return JSON.parse(data); })
                     .then( (userData) => {
@@ -63,7 +62,7 @@ export default class Lobby extends React.Component {
                                             username: userData.uID
                                           }
                                         };
-                      return postDataObj
+                      return postDataObj;
                     })
                     .then( (obj) => {
                       postToJoinGame(obj);
@@ -100,11 +99,11 @@ export default class Lobby extends React.Component {
           <View style={styles.listContainer}>
             {
             this.state.games
-              ? <GameList 
+              ? <GameList
                   games={this.state.games.filter(game => game.type === this.state.gameType)}
                   onPressListItem={this.onPressListItem}
                   refreshing={this.state.refreshing}
-                  onRefresh={this.refetch}>
+                  onRefresh={this.getOpenGames}>
                 </GameList>
               : null
             }

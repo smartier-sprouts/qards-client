@@ -13,7 +13,7 @@ export default class PreGameArea extends React.Component {
       isCreator: false,
       numberOfPlayers: 1,
       turn: -1
-    }
+    };
 
     this.createGame = this.createGame.bind(this);
   }
@@ -49,7 +49,7 @@ export default class PreGameArea extends React.Component {
             console.error(error);
           });
         }, 2000);
-      };
+      }
     });
   }
 
@@ -61,7 +61,7 @@ export default class PreGameArea extends React.Component {
     const { navigate } = this.props.navigation;
     let gameId = this.state.gameId;
     let playerId = this.state.playerId;
-    let turn = this.state.turn
+    let turn = this.state.turn;
     fetch('https://qards.herokuapp.com/api/dealCards/' + gameId)
     .then((response) => {
       navigate('GameArea', {
