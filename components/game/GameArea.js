@@ -12,6 +12,7 @@ import discardPush from '../../services/api/discardPush.js';
 import pickDiscard from '../../services/api/pickDiscard.js';
 import pickDraw from '../../services/api/pickDraw.js';
 
+let _this;
 
 export default class GameArea extends React.Component {
   constructor(props){
@@ -81,13 +82,14 @@ export default class GameArea extends React.Component {
 
 componentWillMount() {
 
-    this.setState({
-      gameId: this.props.navigation.state.params.gameId,
-      playerId: this.props.navigation.state.params.playerId,
-      playerTurnNum: this.props.navigation.state.params.turn
-    }, function (){
+  this.setState({
+    gameId: this.props.navigation.state.params.gameId,
+    playerId: this.props.navigation.state.params.playerId,
+    playerTurnNum: this.props.navigation.state.params.turn
+  }, function (){
 
-var _this = this;
+  _this = this;
+
   getPlayerHand(_this.state.gameId, _this.state.playerId, function(data){
     _this.setState({
       hand: data.hand,
@@ -149,7 +151,7 @@ dropCardToDiscard(discardCard, callback) {
 }
 
 pickUpDiscard(card, handPositionVar, disOrDraw){
-  let _this = this;
+  _this = this;
 
  if (_this.state.activeTurn === _this.state.playerTurnNum && _this.state.phase1) {
 
