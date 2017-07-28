@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, AsyncStorage, AppRegistry, Button, Picker } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TextInput, AsyncStorage, AppRegistry, Button, Picker } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import styles from '../styles/styles.js';
 import ReactNativeComponentTree from 'react-native/Libraries/Renderer/src/renderers/native/ReactNativeComponentTree';
-import GameListItem from './GameListItem.js';
+import GameList from './GameList.js';
 
 export default class Lobby extends React.Component {
   constructor(props) {
@@ -18,15 +18,15 @@ export default class Lobby extends React.Component {
   componentWillMount() {
     fetch('https://qards.herokuapp.com/api/games')
     .then((response) => { return response.json(); })
-    .then((data) => { this.setState({games: data }); })
-    .catch((error) => { console.error('Error updating available Games:',error); });
+    .then((data) => {
+      console.log('fetched data', data.length);
+      this.setState({games: data});
+    })
+    .catch((error) => { console.error('Error updating available Games:', error); });
   }
 
-  onPressListItem(gameName) {
+  onPressListItem(game) {
     const { navigate } = this.props.navigation;
-    let selectedGameName = gameName;
-    let selectedGame = this.state.games.find((game) => game.name === selectedGameName);
-
     const postToJoinGame = (joinGameObj) => {
       fetch('https://qards.herokuapp.com/api/addPlayer', {
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
@@ -45,12 +45,13 @@ export default class Lobby extends React.Component {
     };
 
     const joinExistingGame = () => {
-      console.log('bldJEG Called');//
+      console.log('bldJEG Called');
       AsyncStorage.getItem('asyncUserObj')
                     .then( (data) => { return JSON.parse(data); })
                     .then( (userData) => {
+                      console.log('userData', userData);
                       let postDataObj = {
-                                          gameId: selectedGame._id,
+                                          gameId: game._id,
                                           player: {
                                             name: userData.firstName,
                                             username: userData.uID
@@ -75,12 +76,14 @@ export default class Lobby extends React.Component {
           <View>
             <Text style={styles.smallTitle}>Games</Text>
             <View style={styles.pickerView}>
-            <Picker
-              selectedValue={this.state.game}
-              onValueChange={(itemValue, itemIndex) => this.setState({ game: itemValue })}
-              style={styles.picker}>
-              <Picker.Item label="Gin Straight" value="Gin Straight" />
-            </Picker>
+              <Picker
+                selectedValue={this.state.game}
+                onValueChange={(itemValue, itemIndex) => this.setState({ game: itemValue })}
+                style={styles.picker}>
+                <Picker.Item key={1} label="Gin Straight" value="Gin Straight" />
+                <Picker.Item key={2} label="Rummy" value="Rummy" />
+                <Picker.Item key={3} label="Blackjack" value="Blackjack" />
+              </Picker>
             </View>
             <Button
               color='darkviolet'
@@ -88,9 +91,12 @@ export default class Lobby extends React.Component {
               title="Rules"
             />
           </View>
-          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-            <Text style={{ fontSize: 20, color: 'white', textDecorationLine: 'underline' }}>Join a Table Playing the Selected Game</Text>
-            { this.state.games.filter((game) => game.type === this.state.game).map((game, i) => i < 3 ? <GameListItem game={game} key={i} onPressListItem={() => this.onPressListItem.call(this, game.name)}/> : null) }
+          <View style={styles.listContainer}>
+            { 
+            this.state.games
+              ? <GameList games={this.state.games} onPressListItem={this.onPressListItem} refreshing={this.state.loading} onRefresh={this.refetch}></GameList>
+              : <Text style={{color: white}}>Loading games…</Text>
+            }
           </View>
           <Button
             color='darkviolet'
@@ -101,3 +107,10 @@ export default class Lobby extends React.Component {
     );
   }
 }
+
+/* <Text style={{ fontSize: 20, color: 'white', textDecorationLine: 'underline' }}>Join a Table Playing the Selected Game</Text>
+            { this.state.games.filter((game) => game.type === this.state.game).map((game, i) => i < 3 ? <GameListItem game={game} key={i} onPressListItem={() => this.onPressListItem.call(this, game.name)}/> : null) }
+            { this.props.games
+              ? <GameListItem games={this.props.games} key={i} onPressListItem={() => this.onPressListItem.call(this, game.name)}/> 
+              : null 
+*/
