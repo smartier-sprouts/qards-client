@@ -38,7 +38,7 @@ const runCheckDiscard = () => {
     })
 }
 
-export default class GameArea extends React.Component {
+class GameArea extends React.Component {
   constructor(props){
     super(props);
 
@@ -281,3 +281,5 @@ let styles = StyleSheet.create({
         width               : Window.width*(72/320)
     }
 });
+
+export { runCheckDiscard, GameArea };

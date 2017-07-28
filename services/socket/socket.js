@@ -1,5 +1,7 @@
 import io from 'socket.io-client';
+import { runCheckDiscard } from '../../components/game/GameArea.js';
 const api = require('../../setup/API-Destinations');
+
 
 
 const socketStart = (gameId,cb) => {
@@ -23,7 +25,9 @@ const socketStart = (gameId,cb) => {
   });
   socket.on(gameId, function (data) {
     console.log('we got a message in gameId!!!')
-    console.log(data);
+    if (data.checkDiscard) {
+        runCheckDiscard();
+    };
   });
 
 }
