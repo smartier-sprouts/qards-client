@@ -37,7 +37,7 @@ export default class GameList extends React.Component {
           return (
             <ListItem
               hideChevron
-              onPress={() => this.props.onPressListItem(item.name)}
+              onPress={() => this.props.onPressListItem(item)}
               badge={badge}
               key={item._id}
               title={`test ${item.name}`}

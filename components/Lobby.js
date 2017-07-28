@@ -25,11 +25,8 @@ export default class Lobby extends React.Component {
     .catch((error) => { console.error('Error updating available Games:', error); });
   }
 
-  onPressListItem(gameName) {
+  onPressListItem(game) {
     const { navigate } = this.props.navigation;
-    let selectedGameName = gameName;
-    let selectedGame = this.state.games.find((game) => game.name === selectedGameName);
-    console.log(gameName);
     const postToJoinGame = (joinGameObj) => {
       fetch('https://qards.herokuapp.com/api/addPlayer', {
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
@@ -54,7 +51,7 @@ export default class Lobby extends React.Component {
                     .then( (userData) => {
                       console.log('userData', userData);
                       let postDataObj = {
-                                          gameId: selectedGame._id,
+                                          gameId: game._id,
                                           player: {
                                             name: userData.firstName,
                                             username: userData.uID
