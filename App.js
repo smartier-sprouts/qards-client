@@ -52,6 +52,7 @@ class Welcome extends React.Component {
     // const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
+
         <WelcomeScreenTop />
         {
           this.state.isRetrievingData ? this.renderLoadingView()
@@ -60,6 +61,7 @@ class Welcome extends React.Component {
           :
           <WelcomeLogin chk={this.checkStatus}/>
         }
+
       </View>
     );
   }
