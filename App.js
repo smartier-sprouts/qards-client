@@ -1,12 +1,12 @@
 import React from 'react';
-//import './setup/ReactotronConfig' // <~~~ FOR DEBUGGING WITH REACTOTRON
+import './setup/ReactotronConfig' // <~~~ FOR DEBUGGING WITH REACTOTRON
 import { StyleSheet, Text, View, TextInput, AsyncStorage, AppRegistry, Button, Picker, Image } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Lobby from './components/Lobby.js';
 import GameOptions from './components/GameOptions.js';
 import GinStraightRules from './components/GinStraightRules.js';
 import styles from './styles/styles.js';
-import GameArea from './components/game/GameArea.js';
+import { GameArea } from './components/game/GameArea.js';
 import PreGameArea from './components/PreGameArea.js';
 
 // import verifyUserStatus from './services/verifyUserStatus.js';

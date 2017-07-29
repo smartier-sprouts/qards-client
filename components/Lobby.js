@@ -92,7 +92,7 @@ export default class Lobby extends React.Component {
             />
           </View>
           <View style={styles.listContainer}>
-            { 
+            {
             this.state.games
               ? <GameList games={this.state.games} onPressListItem={this.onPressListItem} refreshing={this.state.loading} onRefresh={this.refetch}></GameList>
               : <Text style={{color: white}}>Loading games…</Text>
@@ -107,10 +107,3 @@ export default class Lobby extends React.Component {
     );
   }
 }
-
-/* <Text style={{ fontSize: 20, color: 'white', textDecorationLine: 'underline' }}>Join a Table Playing the Selected Game</Text>
-            { this.state.games.filter((game) => game.type === this.state.game).map((game, i) => i < 3 ? <GameListItem game={game} key={i} onPressListItem={() => this.onPressListItem.call(this, game.name)}/> : null) }
-            { this.props.games
-              ? <GameListItem games={this.props.games} key={i} onPressListItem={() => this.onPressListItem.call(this, game.name)}/> 
-              : null 
-*/
