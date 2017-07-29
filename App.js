@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, AsyncStorage, AppRegistry, Button, Picker, Image } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-//import './setup/ReactotronConfig' // <~~~ FOR DEBUGGING WITH REACTOTRON
+//import './setup/ReactotronConfig'; // <~~~ FOR DEBUGGING WITH REACTOTRON
 
 import Lobby from './components/Lobby.js';
 
@@ -25,6 +25,7 @@ class Welcome extends React.Component {
   checkStatus() {
     verifyLoginStatus( this.necessaryCallback.bind(this) );
   }
+
   necessaryCallback(arg) { this.setState( {isWaitingForAsync: false, isLoggedIn: arg} ); }
 
   renderLoadingView() {
@@ -32,7 +33,6 @@ class Welcome extends React.Component {
   }
 
   renderLoggedInView() {
-    const { navigate } = this.props.navigation;
     return ( <View style={styles.bottomPart}>
       <Button title="Let's Play" color='darkviolet'
         onPress={() => navigate('Lobby')}
@@ -45,6 +45,10 @@ class Welcome extends React.Component {
       />
       </View>
     );
+  }
+
+  componentWillMount() {
+    this.setState({isLoggedIn: verifyLoginStatus() }, () => { console.log('LoginStatusOnWake:', this.state.isLoggedIn); });
   }
 
   render() {
