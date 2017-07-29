@@ -24,7 +24,7 @@ const runCheckDiscard = () => {
         discard: [data.topOfDiscard]
 
       }, function(){
-        if (_this.state.playerTurnNum === _this.state.activeTurn) {
+        if (_this.state.playerTurnNum === _this.state.activeTurn && !_this.state.phase2) {
             _this.setState({
               phase1: true
             })
@@ -207,19 +207,19 @@ renderDraggable(){
     if (_this.state.hand.length > 7) {
       eighth = <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[7]} hand={_this.state.hand[7]}/> ;
     }
-   let Message = '';
+    let Message = '';
 
     var stylio = styles.bannerText;
 
-   if (_this.state.winner) {
-     Message = _this.state.winner + ' has won!';
+    if (_this.state.winner) {
+      Message = _this.state.winner + ' has won!';
 
-     var stylio = {
-        color: 'red',
-        textAlign : 'center',
-        fontSize: 80,
-        fontWeight: 'bold'
-        }
+      var stylio = {
+          color: 'red',
+          textAlign : 'center',
+          fontSize: 80,
+          fontWeight: 'bold'
+      }
 
    } else {
      if (_this.state.message) {
