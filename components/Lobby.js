@@ -54,7 +54,6 @@ export default class Lobby extends React.Component {
       AsyncStorage.getItem('asyncUserObj')
                     .then( (data) => { return JSON.parse(data); })
                     .then( (userData) => {
-                      console.log('userData', userData);
                       let postDataObj = {
                                           gameId: game._id,
                                           player: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, AsyncStorage, AppRegistry, Button, Picker, Image } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-//import './setup/ReactotronConfig' // <~~~ FOR DEBUGGING WITH REACTOTRON
+//import './setup/ReactotronConfig'; // <~~~ FOR DEBUGGING WITH REACTOTRON
 
 import Lobby from './components/Lobby.js';
 import GameOptions from './components/GameOptions.js';
@@ -21,16 +21,20 @@ class Welcome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: verifyLoginStatus()
+      isLoggedIn: true
     };
   }
+  componentWillMount() {
+    this.setState({isLoggedIn: verifyLoginStatus() }, () => { console.log('LoginStatusOnWake:', this.state.isLoggedIn); });
+  }
+
   render() {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <View style={{ justifyContent: 'center' }}>
           <Image source={frontPic} style={{ width: 170, height: 202 }} />
-          <Text style={styles.welcomeTitle}>Qards</Text>
+          <Text style={styles.welcomTitle}> Qards </Text>
         </View>
         <Button
           color='darkviolet'
@@ -53,8 +57,7 @@ class Welcome extends React.Component {
         />
         <Button
           color='red'
-          onPress={() => {
-            this.setState({isLoggedIn: false}, () => { logout(); }); } }
+          onPress={() => { this.setState({isLoggedIn: false}, () => { logout(); }); } }
           title="Logout"
         />
       </View>

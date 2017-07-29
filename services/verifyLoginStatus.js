@@ -19,9 +19,8 @@ export default async function verifyLoginStatus() {
       userData.isLoggedIn = false;
       AsyncStorage.setItem('asyncUserObj',JSON.stringify(userData))
                   .then(()=>{ return false; })
-                  .catch((e)=>{console.error(e);});
-      }
+                  .catch( (err) => { console.error(err); });
     }
-
+  }
   return false;    //fallthrough
 }
