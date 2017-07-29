@@ -25,18 +25,20 @@ const runCheckDiscard = () => {
 
       }, function(){
         if (_this.state.playerTurnNum === _this.state.activeTurn) {
-          _this.setState({
-            phase1: true
-          })
+            _this.setState({
+              phase1: true
+            })
         }
-        if (!_this.state.playerTurnNum === _this.state.activeTurn) {
+        if (_this.state.playerTurnNum !== _this.state.activeTurn) {
           _this.setState({
-            discard: [data.topOfDiscard.pictureId]
+            discard: [data.topOfDiscard]
           })
         }
       })
     })
 }
+
+
 
 class GameArea extends React.Component {
   constructor(props){
@@ -177,11 +179,11 @@ pickUpDiscard(card, handPositionVar, disOrDraw){
    pickDraw(_this.state.gameId, _this.state.playerId, function(data){
       _this.state.hand.splice(handPositionVar, 0, data)
 
-      this.setState({
+      _this.setState({
         hand: _this.state.hand,
         phase1: false,
         phase2: true
-      })
+      }, ()=> console.log('phase2 in pickdraw after setting true', _this.state.phase2))
    })
     }
   }
