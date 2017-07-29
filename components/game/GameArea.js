@@ -16,36 +16,32 @@ let _this;
 
 const runCheckDiscard = () => {
   checkDiscard(_this.state.gameId, function(data) {
-
-      _this.setState({
-        activeTurn: data.turnNum,
-        activeName: data.activePlayerName,
-        winner: data.winner,
-        discard: [data.topOfDiscard]
-
-      }, function() {
-        if (_this.state.playerTurnNum === _this.state.activeTurn && !_this.state.phase2) {
-            _this.setState({
-              phase1: true
-            });
-        }
-        if (_this.state.playerTurnNum !== _this.state.activeTurn) {
-          _this.setState({
-            discard: [data.topOfDiscard]
-          });
-        }
-      });
+    _this.setState({
+      activeTurn: data.turnNum,
+      activeName: data.activePlayerName,
+      winner: data.winner,
+      discard: [data.topOfDiscard]
+    }, function() {
+      if (_this.state.playerTurnNum === _this.state.activeTurn && !_this.state.phase2) {
+        _this.setState({ phase1: true });
+      }
+      if (_this.state.playerTurnNum !== _this.state.activeTurn) {
+        _this.setState({ discard: [data.topOfDiscard] });
+      }
     });
+  });
 };
 
 
 
+
+
 class GameArea extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
 
-   this.originPos = [{
+    this.originPos = [{
         position    : 'absolute',
         top         : Window.height*(360/568),
         left        : Window.width*(0/320),
@@ -156,32 +152,31 @@ dropCardToDiscard(discardCard, callback) {
 pickUpDiscard(card, handPositionVar, disOrDraw) {
   _this = this;
 
- if (_this.state.activeTurn === _this.state.playerTurnNum && _this.state.phase1) {
+  if (_this.state.activeTurn === _this.state.playerTurnNum && _this.state.phase1) {
 
-  if (disOrDraw) {
-    _this.state.hand.splice(handPositionVar, 0, card);
+    if (disOrDraw) {
+      _this.state.hand.splice(handPositionVar, 0, card);
       _this.setState({
         hand: _this.state.hand
       });
 
-   pickDiscard(_this.state.gameId, _this.state.playerId, function(data) {
-      _this.setState({
-        discard: [{'pictureId': 0}],
-        phase1: false,
-        phase2: true
+      pickDiscard(_this.state.gameId, _this.state.playerId, function(data) {
+        _this.setState({
+          discard: [{'pictureId': 0}],
+          phase1: false,
+          phase2: true
+        });
       });
-   });
-  } else {
+    } else {
+      pickDraw(_this.state.gameId, _this.state.playerId, function(data) {
+        _this.state.hand.splice(handPositionVar, 0, data);
 
-   pickDraw(_this.state.gameId, _this.state.playerId, function(data) {
-      _this.state.hand.splice(handPositionVar, 0, data);
-
-      _this.setState({
-        hand: _this.state.hand,
-        phase1: false,
-        phase2: true
-      }, ()=> console.log('phase2 in pickdraw after setting true', _this.state.phase2))
-   });
+        _this.setState({
+          hand: _this.state.hand,
+          phase1: false,
+          phase2: true
+        }, ()=> console.log('phase2 in pickdraw after setting true', _this.state.phase2));
+      });
     }
   }
 }
@@ -216,7 +211,7 @@ renderDraggable() {
           textAlign : 'center',
           fontSize: 80,
           fontWeight: 'bold'
-      }
+      };
 
    } else {
      if (_this.state.message) {
