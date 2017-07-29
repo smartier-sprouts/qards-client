@@ -7,9 +7,6 @@ import styles from '../styles/styles.js';
 export default class GameList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      refreshing: false
-    };
   }
   
   render() {
@@ -30,6 +27,7 @@ export default class GameList extends React.Component {
               hideChevron
               onPress={() => this.props.onPressListItem(item)}
               badge={badge}
+              key={item._id}
               title={`test ${item.name}`}
               subtitle={`Created by ${item.owners[0].name}`}
               containerStyle={{backgroundColor: 'white'}}>

@@ -88,6 +88,8 @@ export default class GameOptions extends React.Component {
               onValueChange={(itemValue, itemIndex) => this.setState({ game: itemValue })}
               style={styles.picker}>
               <Picker.Item label="Gin Straight" value="Gin Straight" />
+              <Picker.Item label="Blackjack" value="Blackjack" />
+              <Picker.Item label="Rummy" value="Rummy" />
             </Picker>
           </View>
         </View>

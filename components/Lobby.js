@@ -14,14 +14,14 @@ export default class Lobby extends React.Component {
       refreshing: false
     };
     this.onPressListItem = this.onPressListItem.bind(this);
-    this.fetch = this.fetch.bind(this);
+    this.refetch = this.refetch.bind(this);
   }
 
   componentWillMount() {
-    this.fetch();
+    this.refetch();
   }
 
-  fetch() {
+  refetch() {
     this.setState({refreshing: true});
     fetch('https://qards.herokuapp.com/api/games')
     .then((response) => { return response.json(); })
@@ -104,7 +104,7 @@ export default class Lobby extends React.Component {
                   games={this.state.games.filter(game => game.type === this.state.gameType)}
                   onPressListItem={this.onPressListItem}
                   refreshing={this.state.refreshing}
-                  onRefresh={this.fetch}>
+                  onRefresh={this.refetch}>
                 </GameList>
               : null
             }
@@ -117,8 +117,4 @@ export default class Lobby extends React.Component {
       </View>
     );
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> (fix) pull to refresh actually updates the games now
