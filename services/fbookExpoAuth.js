@@ -30,7 +30,7 @@ console.log(baseRespObj)
 
     let jsonUserObj = JSON.stringify(userObj);
 
-    AsyncStorage.setItem( 'asyncUserObj', jsonUserObj )
+    await AsyncStorage.setItem( 'asyncUserObj', jsonUserObj )
     .catch( (err) => { console.error('Err AsyncSaving Fbook User Data:- ', err); } );
   }
 }

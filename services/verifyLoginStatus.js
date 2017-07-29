@@ -1,26 +1,26 @@
 import { AsyncStorage } from 'react-native';
 
-export default async function verifyLoginStatus() {
-  const userData = await AsyncStorage.getItem('asyncUserObj')
-                        .then( (data) => {
-                          if (data) {
-                            return JSON.parse(data);
-                          } else {
-                            return false;
-                          }
-                        })
-                        .catch( (err) => console.error(err) );
-  if (userData) {
-    console.log('Verifying User Data based on:', userData);
-    const expirationDate = Date.parse(userData.expires);
-    if ( userData.token && ( expirationDate > new Date()) ) {
-      return true;
-    } else {
-      userData.isLoggedIn = false;
-      AsyncStorage.setItem('asyncUserObj',JSON.stringify(userData))
-                  .then(()=>{ return false; })
-                  .catch( (err) => { console.error(err); });
-    }
-  }
-  return false;    //fallthrough
+export default async function verifyLoginStatus(cb) {
+  await AsyncStorage.getItem('asyncUserObj')
+          .then( (data) => {
+            if (data) {
+              return JSON.parse(data);
+            } else {
+              return false;
+            }
+          })
+          .then( (userData) => {
+            if (userData){
+              console.log('Verifying LoginStatus based on:', userData);
+              const expirationDate = Date.parse(userData.expires);
+              if ( userData.token && ( expirationDate > new Date() ) ) {
+                return true;
+              }
+            }
+            return false;
+          })
+          .then( (result) => {
+            cb(result);
+          })
+          .catch( (err) => { console.error('Error in User Validation:',err) })
 }
