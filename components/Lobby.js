@@ -9,21 +9,27 @@ export default class Lobby extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      game: 'Gin Straight',
-      games: []
+      gameType: 'Gin Straight',
+      games: [],
+      refreshing: false
     };
-    this._onPressListItem = this._onPressListItem.bind(this);
+    this.onPressListItem = this.onPressListItem.bind(this);
+    this.fetch = this.fetch.bind(this);
   }
 
-  // componentWillMount() {
-  //   fetch('https://qards.herokuapp.com/api/games')
-  //   .then((response) => { return response.json(); })
-  //   .then((data) => {
-  //     console.log('fetched data', data.length);
-  //     this.setState({games: data});
-  //   })
-  //   .catch((error) => { console.error('Error updating available Games:', error); });
-  // }
+  componentWillMount() {
+    this.fetch();
+  }
+
+  fetch() {
+    this.setState({refreshing: true});
+    fetch('https://qards.herokuapp.com/api/games')
+    .then((response) => { return response.json(); })
+    .then((data) => {
+      this.setState({games: data, refreshing: false});
+    })
+    .catch((error) => { console.error('Error updating available Games:', error); });
+  }
 
   onPressListItem(game) {
     const { navigate } = this.props.navigation;
@@ -78,7 +84,7 @@ export default class Lobby extends React.Component {
             <View style={styles.pickerView}>
               <Picker
                 selectedValue={this.state.game}
-                onValueChange={(itemValue, itemIndex) => this.setState({ game: itemValue })}
+                onValueChange={(itemValue, itemIndex) => this.setState({ gameType: itemValue })}
                 style={styles.picker}>
                 <Picker.Item key={1} label="Gin Straight" value="Gin Straight" />
                 <Picker.Item key={2} label="Rummy" value="Rummy" />
@@ -94,7 +100,12 @@ export default class Lobby extends React.Component {
           <View style={styles.listContainer}>
             {
             this.state.games
-              ? <GameList games={this.state.games} onPressListItem={this.onPressListItem} refreshing={this.state.loading} onRefresh={this.refetch}></GameList>
+              ? <GameList 
+                  games={this.state.games.filter(game => game.type === this.state.gameType)}
+                  onPressListItem={this.onPressListItem}
+                  refreshing={this.state.refreshing}
+                  onRefresh={this.fetch}>
+                </GameList>
               : null
             }
           </View>
