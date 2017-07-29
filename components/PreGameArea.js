@@ -54,7 +54,11 @@ export default class PreGameArea extends React.Component {
   }
 
   componentDidMount() {
-    socketStart(this.state.gameId);
+    socketStart(this.state.gameId, (count)=> {
+      this.setState({
+        numberOfPlayers: count
+      })
+    });
   }
 
   createGame() {

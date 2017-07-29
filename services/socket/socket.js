@@ -11,20 +11,15 @@ const socketStart = (gameId, cb) => {
   socket.on('join', (data) => {
     console.log(data); // 'G5p5...'
   });
-  //
   socket.on('time', function (data) {
     console.log(data);
-     //cb();
-  });
-  socket.on('playerJoin', function (data) {
-    console.log('a new playerJoined!');
-    console.log(data);
-    //cb();
   });
   socket.on(gameId, function (data) {
     console.log('we got a message in gameId!!!', data);
     if (data.checkDiscard) {
         runCheckDiscard();
+    } else if (data.players) {
+      cb(data.players);
     }
   });
 };
