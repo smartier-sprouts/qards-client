@@ -7,32 +7,20 @@ import styles from '../styles/styles.js';
 export default class GameList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      refreshing: false
-    };
-  }
-
-  refetch() {
-    this.setState({refreshing: true});
-    fetch('https://qards.herokuapp.com/api/games')
-    .then((response) => { return response.json(); })
-    .then((data) => {
-      this.setState({games: data, refreshing: false});
-    })
-    .catch((error) => { console.error('Error updating available Games:', error); });
   }
   
   render() {
     return (
       <FlatList
         data={this.props.games}
-        refreshing={this.state.refreshing}
-        onRefresh={() => this.refetch()}
+        refreshing={this.props.refreshing}
+        onRefresh={() => this.props.onRefresh()}
         renderItem={({item}) => {
+          item.key = item._id;
           const badge = {
-            value: `👤${ item.owners.length }`,
-            badgeContainerStyle: { right: 10, backgroundColor: '#00B6FF'},
-            badgeTextStyle: { fontSize: 14 }
+            value: `👤${item.owners.length}`,
+            badgeContainerStyle: {right: 10, backgroundColor: '#00B6FF'},
+            badgeTextStyle: {fontSize: 14}
           };
           return (
             <ListItem

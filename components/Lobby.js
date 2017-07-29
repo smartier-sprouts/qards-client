@@ -9,18 +9,24 @@ export default class Lobby extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      game: 'Gin Straight',
-      games: []
+      gameType: 'Gin Straight',
+      games: [],
+      refreshing: false
     };
     this.onPressListItem = this.onPressListItem.bind(this);
+    this.refetch = this.refetch.bind(this);
   }
 
   componentWillMount() {
+    this.refetch();
+  }
+
+  refetch() {
+    this.setState({refreshing: true});
     fetch('https://qards.herokuapp.com/api/games')
     .then((response) => { return response.json(); })
     .then((data) => {
-      console.log('fetched data', data.length);
-      this.setState({games: data});
+      this.setState({games: data, refreshing: false});
     })
     .catch((error) => { console.error('Error updating available Games:', error); });
   }
@@ -78,7 +84,7 @@ export default class Lobby extends React.Component {
             <View style={styles.pickerView}>
               <Picker
                 selectedValue={this.state.game}
-                onValueChange={(itemValue, itemIndex) => this.setState({ game: itemValue })}
+                onValueChange={(itemValue, itemIndex) => this.setState({ gameType: itemValue })}
                 style={styles.picker}>
                 <Picker.Item key={1} label="Gin Straight" value="Gin Straight" />
                 <Picker.Item key={2} label="Rummy" value="Rummy" />
@@ -94,8 +100,13 @@ export default class Lobby extends React.Component {
           <View style={styles.listContainer}>
             {
             this.state.games
-              ? <GameList games={this.state.games} onPressListItem={this.onPressListItem} refreshing={this.state.loading} onRefresh={this.refetch}></GameList>
-              : <Text style={{color: white}}>Loading games…</Text>
+              ? <GameList 
+                  games={this.state.games.filter(game => game.type === this.state.gameType)}
+                  onPressListItem={this.onPressListItem}
+                  refreshing={this.state.refreshing}
+                  onRefresh={this.refetch}>
+                </GameList>
+              : null
             }
           </View>
           <Button
