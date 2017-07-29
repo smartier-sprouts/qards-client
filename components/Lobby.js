@@ -26,7 +26,7 @@ export default class Lobby extends React.Component {
 
   getOpenGames() {
     this.setState({refreshing: true});
-    fetch('https://qards.herokuapp.com/api/games')
+    fetch(api.getOpenGames)
     .then((response) => { return response.json(); })
     .then((data) => {
       this.setState({games: data, refreshing: false});
@@ -55,21 +55,18 @@ export default class Lobby extends React.Component {
 
     const joinExistingGame = () => {
       AsyncStorage.getItem('asyncUserObj')
-                    .then( (data) => { return JSON.parse(data); })
-                    .then( (userData) => {
-                      let postDataObj = {
-                                          gameId: game._id,
-                                          player: {
-                                            name: userData.firstName,
-                                            username: userData.uID
-                                          }
-                                        };
-                      return postDataObj;
-                    })
-                    .then( (obj) => {
-                      postToJoinGame(obj);
-                    })
-                    .catch( (err) => console.error('Error building a joinGameObject:', err) );
+                  .then( (data) => { return JSON.parse(data); })
+                  .then( (userData) => {
+                    let postDataObj = { gameId: game._id,
+                                        player: {
+                                          name: userData.firstName,
+                                          username: userData.uID
+                                        }
+                                      };
+                    return postDataObj;
+                  })
+                  .then( (obj) => { postToJoinGame(obj); })
+                  .catch( (err) => console.error('Error building a joinGameObject:', err) );
     };
 
     joinExistingGame();
@@ -85,7 +82,7 @@ export default class Lobby extends React.Component {
             <View style={styles.pickerView}>
               <Picker
                 selectedValue={this.state.game}
-                onValueChange={(itemValue, itemIndex) => this.setState({ gameType: itemValue })}
+                onValueChange={(itemValue, itemIndex) => this.setState({ gameType: itemValue })} // Jon does itemIndex do anything??
                 style={styles.picker}>
                 <Picker.Item key={1} label="Gin Straight" value="Gin Straight" />
                 <Picker.Item key={2} label="Rummy" value="Rummy" />
