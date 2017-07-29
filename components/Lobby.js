@@ -16,7 +16,7 @@ export default class Lobby extends React.Component {
   }
 
   componentWillMount() {
-    fetch('https://qards-pr-24.herokuapp.com/api/games')
+    fetch('https://qards.herokuapp.com/api/games')
     .then((response) => { return response.json(); })
     .then((data) => {
       console.log('fetched data', data.length);
@@ -28,7 +28,7 @@ export default class Lobby extends React.Component {
   onPressListItem(game) {
     const { navigate } = this.props.navigation;
     const postToJoinGame = (joinGameObj) => {
-      fetch('https://qards-pr-24.herokuapp.com/api/addPlayer', {
+      fetch('https://qards.herokuapp.com/api/addPlayer', {
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
         method: 'POST',
         body: JSON.stringify(joinGameObj)

@@ -14,7 +14,7 @@ export default class GameList extends React.Component {
 
   refetch() {
     this.setState({refreshing: true});
-    fetch('https://qards-pr-24.herokuapp.com/api/games')
+    fetch('https://qards.herokuapp.com/api/games')
     .then((response) => { return response.json(); })
     .then((data) => {
       this.setState({games: data, refreshing: false});

@@ -1,9 +1,9 @@
 let api = {};
-api.socketServer = 'https://qards-pr-24.herokuapp.com/';
-api.getHand = 'https://qards-pr-24.herokuapp.com/api/getHand/';
-api.checkDiscard = 'https://qards-pr-24.herokuapp.com/api/discardChange/';
-api.discard = 'https://qards-pr-24.herokuapp.com/api/discard/';
-api.pickUpCard = 'https://qards-pr-24.herokuapp.com/api/drawCard/';
+api.socketServer = 'https://qards.herokuapp.com/';
+api.getHand = 'https://qards.herokuapp.com/api/getHand/';
+api.checkDiscard = 'https://qards.herokuapp.com/api/discardChange/';
+api.discard = 'https://qards.herokuapp.com/api/discard/';
+api.pickUpCard = 'https://qards.herokuapp.com/api/drawCard/';
 
 
 
