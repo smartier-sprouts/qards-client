@@ -1,9 +1,9 @@
 let api = {};
-api.socketServer = 'http://10.6.67.239:3000/';
-api.getHand = 'http://10.6.67.239:3000/api/getHand/';
-api.checkDiscard = 'http://10.6.67.239:3000/api/discardChange/';
-api.discard = 'http://10.6.67.239:3000/api/discard/';
-api.pickUpCard = 'http://10.6.67.239:3000/api/drawCard/';
+api.socketServer = 'https://qards.herokuapp.com/';
+api.getHand = 'https://qards.herokuapp.com/api/getHand/';
+api.checkDiscard = 'https://qards.herokuapp.com/api/discardChange/';
+api.discard = 'https://qards.herokuapp.com/api/discard/';
+api.pickUpCard = 'https://qards.herokuapp.com/api/drawCard/';
 
 
 
