@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, AsyncStorage, AppRegistry, Button, Picker, Image } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-//import './setup/ReactotronConfig'; // <~~~ FOR DEBUGGING WITH REACTOTRON
 
 import Lobby from './components/Lobby.js';
 
@@ -32,7 +31,12 @@ class Welcome extends React.Component {
     return ( <View style={styles.bottomPart}><Text style={styles.smallTitle}>LOADING</Text></View>);
   }
 
+  componentWillMount() {
+    this.setState({isLoggedIn: verifyLoginStatus() }, () => { console.log('LoginStatusOnWake:', this.state.isLoggedIn); });
+  }
+
   renderLoggedInView() {
+    const { navigate } = this.props.navigation;
     return ( <View style={styles.bottomPart}>
       <Button title="Let's Play" color='darkviolet'
         onPress={() => navigate('Lobby')}
@@ -45,10 +49,6 @@ class Welcome extends React.Component {
       />
       </View>
     );
-  }
-
-  componentWillMount() {
-    this.setState({isLoggedIn: verifyLoginStatus() }, () => { console.log('LoginStatusOnWake:', this.state.isLoggedIn); });
   }
 
   render() {
@@ -67,6 +67,7 @@ class Welcome extends React.Component {
     );
   }
 }
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
 import GameOptions from './components/GameOptions.js';
