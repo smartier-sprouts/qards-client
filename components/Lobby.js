@@ -81,17 +81,17 @@ export default class Lobby extends React.Component {
             <Text style={styles.smallTitle}>Games</Text>
             <View style={styles.pickerView}>
               <Picker
-                selectedValue={this.state.game}
+                selectedValue={this.state.gameType}
                 onValueChange={(itemValue, itemIndex) => this.setState({ gameType: itemValue })} // Jon does itemIndex do anything??
-                style={styles.picker}>
+                style={styles.picker} >
                 <Picker.Item key={1} label="Gin Straight" value="Gin Straight" />
-                <Picker.Item key={2} label="Rummy" value="Rummy" />
-                <Picker.Item key={3} label="Blackjack" value="Blackjack" />
+                <Picker.Item key={2} label="War" value="War" />
+                <Picker.Item key={3} label="Bluffshtop" value="Bluffshtop" />
               </Picker>
             </View>
             <Button
               color='darkviolet'
-              onPress={() => navigate(this.state.game.split(' ').join('') + 'Rules')}
+              onPress={() => navigate(this.state.gameType.split(' ').join('') + 'Rules')}
               title="Rules"
             />
           </View>

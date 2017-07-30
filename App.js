@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, AsyncStorage, AppRegistry, Button, Picker, Image } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-//import './setup/ReactotronConfig'; // <~~~ FOR DEBUGGING WITH REACTOTRON
+// import './setup/ReactotronConfig'; // <~~~ FOR DEBUGGING WITH REACTOTRON
 import Lobby from './components/Lobby.js';
 
 import WelcomeScreenTop from './components/WelcomeScreenTop.js';
@@ -48,7 +48,6 @@ class Welcome extends React.Component {
   }
 
   render() {
-    // const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <WelcomeScreenTop />
