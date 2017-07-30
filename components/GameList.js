@@ -7,8 +7,19 @@ import styles from '../styles/styles.js';
 export default class GameList extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {refreshing: false};
   }
-  
+
+  refetch() {
+    this.setState({refreshing: true});
+    fetch('https://qards.herokuapp.com/api/games')
+    .then((response) => { return response.json(); })
+    .then((data) => {
+      this.setState({games: data, refreshing: false});
+    })
+    .catch((error) => { console.error('Error updating available Games:', error); });
+  }
+
   render() {
     return (
       <FlatList
@@ -34,7 +45,7 @@ export default class GameList extends React.Component {
             </ListItem>
           );
         }}
-      /> 
+      />
     );
   }
 }

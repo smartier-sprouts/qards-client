@@ -1,22 +1,21 @@
-import {AsyncStorage} from 'react-native';
+import { AsyncStorage } from 'react-native';
 
 export default async function logout(){
-    console.log('Logout Called');
     const earlier = new Date("2000/01/01");
 
     let infoObj = {
       uID:"",
-      firstName: "",
-      fullName: "",
+      firstName: "ANONYMOUS",
+      fullName: "NOT-Logged-In",
       isLoggedIn: false,
       expires: earlier,
       token: null,
+      source: null
     }
 
     let jsonUserObj = JSON.stringify(infoObj);
 
     AsyncStorage.setItem( 'asyncUserObj', jsonUserObj )
-    .then( () => { console.log('On LOGOUT asyncUserObj saved as ', jsonUserObj) })
-    .catch( (e) => { console.error('Something went wrong in saving! - ', e); } );
-
+    .then( () => { console.log('User Logged Out'); } )
+    .catch( (err) => { console.error('Something went wrong in saving! - ', err); } );
   }

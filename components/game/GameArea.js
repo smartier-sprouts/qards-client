@@ -85,12 +85,12 @@ class GameArea extends React.Component {
         position    : 'absolute',
         top         : Window.height*(50/568),
         left        : Window.width*(0/320),
-    }]
+    }];
 
     this.state = {
         position  : this.originPos,
         message : 1,
-        activeName: 'Tiberius',
+        activeName: 'Let\'s Pick Someone',
         playerTurnNum: 100,
         phase1: true,
         phase2: false,

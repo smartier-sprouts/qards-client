@@ -1,9 +1,9 @@
 export default straight_gin_rules =
-`~~  OBJECT:  ~~
+`♤ ♧ ♡ ♢ ~~  OBJECT:  ~~ ♢ ♡ ♧ ♤
   The object of the game is to be the first player to have a full hand with two valid Melds.
   There are two kinds of Melds:
     1. A set of three or four "Of-A-Kind" with the same face value (ex: three Jacks or four 7s)
-    2. A Straight set of three or four cards **of the same suit** in squential order (example: 2,3,4,5 of Spades or the J,Q,K of Hearts).
+    2. A Straight set of three or four cards **of the same suit** in squential order (ex: 2︎♤,3♤,4♤,5♤ or J♢,Q♢,K♢).
     Aces are special cards as they can be used in a Straight as EITHER the lowest card (below 2) OR the highest card (above King) of a Suit. However, Aces may NOT be used as a bridge between the two: King-Ace-2 is NOT valid, but Ace-2-3 or Queen-King-Ace are).
 
   In order to win, a player must either have a hand with one Meld of each kind or two Melds of the same kind.

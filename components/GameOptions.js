@@ -8,7 +8,7 @@ export default class GameOptions extends React.Component {
     super(props);
     this.state = {
       game: 'Gin Straight',
-      gameName: 'Small Ballers',
+      gameName: '',
       isPublic: true
     };
     this.launchGame = this.launchGame.bind(this);

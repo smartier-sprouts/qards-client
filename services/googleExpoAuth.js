@@ -1,50 +1,67 @@
 import Expo from 'expo';
-import {AsyncStorage} from 'react-native';
+import { AsyncStorage } from 'react-native';
 import Keys from '../config/Keys';
 
-export default async function gglLogin() {
-  try {
-    const result = await Expo.Google.logInAsync({
-      androidClientId: Keys.GOOGLE_ANDROID_CLIENT_ID,
-      iosClientId: Keys.GOOGLE_IOS_CLIENT_ID,
-      scopes: ['profile', 'email'],
-    });
 
-    if (result.type === 'success') {
-      console.log('rAcssTkn',result.accessToken);
-      console.log('/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/');//
-      console.log('resBody',result.body);
-      console.log('/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/');//
-      console.log('FULL',result);
-      return result.accessToken;
-    } else {
-      return {cancelled: true};
-    }
-  } catch(e) {
-    return {error: true};
+// User MUST have Chrome installed for this to work!!!!
+  const loginToGoogle = async function() {
+    try {
+      const result = await Expo.Google.logInAsync({
+        androidClientId: Keys.GOOGLE_ANDROID_CLIENT_ID,
+        iosClientId: Keys.GOOGLE_IOS_CLIENT_ID,
+        behavior:'web',
+        scopes: ['profile', 'email']
+      });
+      if (result.type === 'success') {
+        return result;
+      } else { return {cancelled: true}; }
+    } catch(err) { return { error: true}; }
   }
-}
 
+  const ninetyDaysInTheFuture = function() {
+    let today = new Date();
+    let q = new Date(today.getTime() + (90*24*60*60*1000) ); // 90days/hrs/min/sec/ms
+    return q;
+  }
 
-// PATTERN FOR FURTHER GOOGLE AUTH INFO per https://docs.expo.io/versions/v17.0.0/sdk/google.html
-// async function getUserInfo(accessToken) {
-//   let userInfoResponse = await fetch('https://www.googleapis.com/userinfo/v2/me', {
-//     headers: { Authorization: `Bearer ${accessToken}`},
-//   });
-//   return userInfoResponse;
-// }
+  const gglLogin = async function() {
+    try{
+      const googleResObj = await loginToGoogle();
+      const gUser = googleResObj.user;
 
+      const userObj = {
+        uID: gUser.id,
+        firstName: gUser.givenName,
+        fullName: gUser.name,
+        isLoggedIn: true,
+        expires: ninetyDaysInTheFuture(),
+        token: googleResObj.accessToken,
+        source: 'Google'
+      };
 
- // let userObj = {
- //      uID:profile.id,
- //      firstName: profile.name.split(/\s/)[0],
- //      fullName: profile.name,
- //      isLoggedIn: true,
- //      expires: expirationDate,
- //      token: token
- //    };
+      let jsonUserObj = JSON.stringify(userObj);
 
- //    let jsonUserObj = JSON.stringify(userObj);
+      AsyncStorage.setItem( 'asyncUserObj', jsonUserObj )
+      // .then( () => { console.log('GoogleUserObj Saved as ', jsonUserObj) })
+      .catch( (err) => { console.error('Something went wrong in saving async user data - ', err); } );
+    } catch(err) { console.error('Something went wrong in ggl login - ', err); }
+  }
 
- //    AsyncStorage.setItem( 'asyncUserObj', jsonUserObj )
- //    .catch( (e) => { console.error('Something went wrong in saving! - ', e); } );
+export default gglLogin;
+
+// Response pattern from Google:
+  // Object {
+  // "accessToken": "gobbledy.g00k-xyzabvc",
+  // "idToken": "gobbledy.g00k-xyzabvc",
+  // "refreshToken": "gobbledy.g00k-xyzabvc",
+  // "serverAuthCode": "gobbledy.g00k-xyzabvc",
+  // "type": "success",
+  // "user": Object {
+  //   "email": "me@poop.com",
+  //   "familyName": "LastName",
+  //   "givenName": "FirstName",
+  //   "id": "107607094503295131868",
+  //   "name": "FirstName LastName",
+  //   "photoUrl": "https://lh3.googleusercontent.com/gobbledy.g00k-xyzabvc/photo.jpg",
+  //   }
+  // }

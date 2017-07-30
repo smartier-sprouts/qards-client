@@ -11,8 +11,6 @@ export default async function fbLogin() {
   });
   const { type, token, expires } = baseRespObj;
 
-console.log(baseRespObj)
-
   if (type === 'success') {
     const expirationDate = new Date(expires*1000);
     const response = await fetch( `https://graph.facebook.com/me?access_token=${token}` );
@@ -24,13 +22,13 @@ console.log(baseRespObj)
       fullName: profile.name,
       isLoggedIn: true,
       expires: expirationDate,
-      token: token
+      token: token,
+      source: 'Fbook'
     };
 
     let jsonUserObj = JSON.stringify(userObj);
 
-    AsyncStorage.setItem( 'asyncUserObj', jsonUserObj )
-    .then( () => {console.log('on Facebook LOGIN asyncUserObj saved as', jsonUserObj) })
+    await AsyncStorage.setItem( 'asyncUserObj', jsonUserObj )
     .catch( (err) => { console.error('Err AsyncSaving Fbook User Data:- ', err); } );
   }
 }
