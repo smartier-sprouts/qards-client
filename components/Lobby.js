@@ -37,10 +37,13 @@ export default class Lobby extends React.Component {
   onPressListItem(game) {
     const { navigate } = this.props.navigation;
     const postToJoinGame = (joinGameObj) => {
+<<<<<<< a1bcb17a64efaf4c46ea509af94afd3312a1d981
 <<<<<<< 113c4e8ae8cb58ce39ef843f53f8a6460d393e51
       fetch( api.addPlayer, {
         headers: api.headers,
 =======
+=======
+>>>>>>> working player pregame
       fetch('https://qards.herokuapp.com/api/addPlayer', {
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
 >>>>>>> pregame lobby player count updates w/ sockets

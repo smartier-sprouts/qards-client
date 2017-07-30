@@ -11,7 +11,7 @@ export default class PreGameArea extends React.Component {
       gameId: '',
       playerId: '',
       isCreator: false,
-      numberOfPlayers: 1,
+      numberOfPlayers: this.props.navigation.state.params.turn + 1,
       turn: -1
     };
 
