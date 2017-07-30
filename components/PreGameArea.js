@@ -11,7 +11,7 @@ export default class PreGameArea extends React.Component {
       gameId: '',
       playerId: '',
       isCreator: false,
-      numberOfPlayers: 1,
+      numberOfPlayers: this.props.navigation.state.params.turn + 1,
       turn: -1
     };
 
@@ -54,7 +54,11 @@ export default class PreGameArea extends React.Component {
   }
 
   componentDidMount() {
-    socketStart(this.state.gameId);
+    socketStart(this.state.gameId, (count)=> {
+      this.setState({
+        numberOfPlayers: count
+      })
+    });
   }
 
   createGame() {
