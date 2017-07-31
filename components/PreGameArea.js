@@ -40,7 +40,7 @@ export default class PreGameArea extends React.Component {
         numberOfPlayers: count
       }) },
       () => {
-         fetch('http://10.6.67.239:3000/api/hasStarted/' + this.state.gameId)
+         fetch('https://qards.herokuapp.com/api/hasStarted/' + this.state.gameId)
          .then((response) => {
            return response.json();
          })
@@ -64,7 +64,7 @@ export default class PreGameArea extends React.Component {
     let gameId = this.state.gameId;
     let playerId = this.state.playerId;
     let turn = this.state.turn;
-    fetch('http://10.6.67.239:3000/api/dealCards/' + gameId)
+    fetch('https://qards.herokuapp.com/api/dealCards/' + gameId)
     .then((response) => {
       navigate('GameArea', {
         gameId: gameId,
