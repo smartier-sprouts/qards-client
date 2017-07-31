@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 import { runCheckDiscard } from '../../components/game/GameArea.js';
 const api = require('../../setup/API-Destinations');
 
-const socketStart = (gameId, cb) => {
+const socketStart = (gameId, cb, cb2) => {
   console.log('in socket start', gameId);
   const socket = io.connect(api.socketServer, {transports: ['websocket']});
 
@@ -20,6 +20,8 @@ const socketStart = (gameId, cb) => {
         runCheckDiscard();
     } else if (data.players) {
       cb(data.players);
+    } else if (data.gameStarted) {
+      cb2();
     }
   });
 };

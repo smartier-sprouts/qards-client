@@ -29,7 +29,7 @@ export default class GameList extends React.Component {
               onPress={() => this.props.onPressListItem(item)}
               badge={badge}
               key={item._id}
-              title={`test ${item.name}`}
+              title={ item.name }
               subtitle={`Created by ${item.owners[0].name}`}
               containerStyle={{backgroundColor: 'white'}}>
             </ListItem>

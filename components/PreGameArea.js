@@ -29,36 +29,34 @@ export default class PreGameArea extends React.Component {
         this.setState({
           isCreator: this.props.navigation.state.params.isCreator
         });
-      } else {
-       let setIntervalId = setInterval(() => {
-          fetch('https://qards.herokuapp.com/api/hasStarted/' + this.state.gameId)
-          .then((response) => {
-            return response.json();
-          })
-          .then((responseJson) => {
-            if (responseJson) {
-              navigate('GameArea', {
-                gameId: this.state.gameId,
-                playerId: this.state.playerId,
-                turn: this.state.turn
-              });
-              clearInterval(setIntervalId);
-            }
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-        }, 2000);
       }
     });
   }
 
   componentDidMount() {
+    const { navigate } = this.props.navigation;
     socketStart(this.state.gameId, (count)=> {
       this.setState({
         numberOfPlayers: count
-      })
-    });
+      }) },
+      () => {
+         fetch('https://qards.herokuapp.com/api/hasStarted/' + this.state.gameId)
+         .then((response) => {
+           return response.json();
+         })
+         .then((responseJson) => {
+           if (responseJson) {
+             navigate('GameArea', {
+               gameId: this.state.gameId,
+               playerId: this.state.playerId,
+               turn: this.state.turn
+             });
+           }
+         })
+         .catch((error) => {
+           console.error(error);
+         });
+       })
   }
 
   createGame() {
