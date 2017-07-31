@@ -21,7 +21,7 @@ export default class GameOptions extends React.Component {
     const gameName = this.state.gameName;
 
     const requestNewGame = (newGameObj) => {
-      fetch('https://qards.herokuapp.com/api/createGame', {
+      fetch('http://10.6.67.239:3000/api/createGame', {
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
         method: 'POST',
         body: JSON.stringify(newGameObj)

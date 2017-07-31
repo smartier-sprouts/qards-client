@@ -1,7 +1,7 @@
 let api = {};
 
-api.main = 'https://qards.herokuapp.com/';
-api.socketServer = 'https://qards.herokuapp.com/';
+api.main = 'http://10.6.67.239:3000/';
+api.socketServer = 'http://10.6.67.239:3000/';
 api.addPlayer =     api.main + 'api/addPlayer';
 api.getHand =       api.main + 'api/getHand/';
 api.getOpenGames =  api.main + 'api/games';
