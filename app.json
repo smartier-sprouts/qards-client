@@ -14,10 +14,21 @@
       "hideExponentText": false
     },
     "packagerOpts": {
-      "assetExts": ["ttf", "mp4"]
+      "assetExts": [
+        "ttf",
+        "mp4"
+      ]
     },
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "qards"
+    },
+    "isDetached": true,
+    "detach": {
+      "scheme": "exp2c77fae21d1245ad95319fc940c1083b",
+      "androidExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/android-v1.17.0-sdk18.0.0-4680412d-04c4-47ed-9161-88e01d76be96.tar.gz"
     }
   }
 }
