@@ -79,7 +79,8 @@ renderDraggable(){
   let _this = this;
   let card;
 
-  let imageArray = [null ,
+  let imageArray = [
+  require('./card-images/Back.png'),
   require('./card-images/AH.png'),  
   require('./card-images/2H.png'),
   require('./card-images/3H.png'), 

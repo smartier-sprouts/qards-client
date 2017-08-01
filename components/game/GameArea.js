@@ -95,9 +95,9 @@ class GameArea extends React.Component {
         phase1: true,
         phase2: false,
         winner: null,
-        draw : [{'pictureId': 4}],
-        hand : [{'pictureId': 4}, {'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4}],
-        discard : [{'pictureId': 4}],
+        draw : [{'pictureId': 0}],
+        hand : [{'pictureId': 0}, {'pictureId': 0},{'pictureId': 0},{'pictureId': 0},{'pictureId': 0},{'pictureId': 0},{'pictureId': 0}],
+        discard : [{'pictureId': 0}],
         gameId: '',
         playerId: ''
     };
@@ -229,7 +229,6 @@ renderDraggable(){
 
     return (
         <View>
-
             <Text style={stylio}>{Message}</Text>
 
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[0]} hand={_this.state.hand[0]}/>
@@ -252,8 +251,11 @@ renderDraggable(){
    render(){
         return (
             <View style={styles.mainContainer}>
+                <Image source={require('./card-images/green_cloth12.jpg')} style={styles.backgroundImage}>
                 {this.renderDraggable()}
+                </Image>
             </View>
+
         );
     }
 }
@@ -263,8 +265,10 @@ renderDraggable(){
 let Window = Dimensions.get('window');
 let styles = StyleSheet.create({
     mainContainer: {
-        flex    : 1,
-        backgroundColor: '#31A231'
+        flex    : 1
+    },
+    backgroundImage: {
+        flex    : 1
     },
     container: {
         flex: 1,
