@@ -13,7 +13,7 @@ export default async function verifyLoginStatus(cb) {
             if (userData){
               console.log('Verifying LoginStatus based on:', userData);
               const expirationDate = Date.parse(userData.expires);
-              if ( userData.token && ( expirationDate > new Date() ) ) {
+              if ( expirationDate > new Date() ) {
                 return true;
               }
             }
