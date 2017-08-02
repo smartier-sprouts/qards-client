@@ -12,6 +12,7 @@ import discardPush from '../../services/api/discardPush.js';
 import pickDiscard from '../../services/api/pickDiscard.js';
 import pickDraw from '../../services/api/pickDraw.js';
 
+
 let _this;
 
 const runCheckDiscard = () => {
@@ -95,15 +96,16 @@ class GameArea extends React.Component {
         phase1: true,
         phase2: false,
         winner: null,
-        draw : [{'pictureId': 4}],
-        hand : [{'pictureId': 4}, {'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4},{'pictureId': 4}],
-        discard : [{'pictureId': 4}],
+        draw : [{'pictureId': 0}],
+        hand : [{'pictureId': 0}, {'pictureId': 0},{'pictureId': 0},{'pictureId': 0},{'pictureId': 0},{'pictureId': 0},{'pictureId': 0}],
+        discard : [{'pictureId': 0}],
         gameId: '',
         playerId: ''
     };
     this.dropCardToDiscard = this.dropCardToDiscard.bind(this);
     this.pickUpDiscard = this.pickUpDiscard.bind(this);
     this.reOrderHand = this.reOrderHand.bind(this);
+    this.setAbove = this.setAbove.bind(this);
 }
 
 componentWillMount() {
@@ -122,7 +124,6 @@ componentWillMount() {
       discard: [data.discard]
     })
   })
-
   runCheckDiscard();
   }
 )}
@@ -201,14 +202,62 @@ reOrderHand(pickedCard, handPositionVar){
     });
 }
 
+setAbove(isAbove){
+  if (isAbove) {
+    this.setState({
+      above: true
+    })
+  } else {
+    this.setState({
+      above: false
+    })
+  }
+}
+
+
 renderDraggable(){
     let _this = this;
     let eighth;
     if (_this.state.hand.length > 7) {
       eighth = <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[7]} hand={_this.state.hand[7]}/> ;
     }
-    let Message = '';
 
+
+   let top;
+   let below;
+   let element = <View>
+                  <Below position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-2]}/>
+                  <Discard pickUpDiscard={ _this.pickUpDiscard } position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-1]}/>
+                  <Bottom position={_this.state.position[9]} />
+                  <Pack position={_this.state.position[9]} hand={_this.state.draw[_this.state.draw.length-1]} pickUpDiscard={ _this.pickUpDiscard }/>
+                </View>
+
+   if (_this.state.phase2) {
+     top = element;
+
+   } else if (_this.state.phase1) {
+     below = element;
+   }
+
+    return (
+        <View>
+            
+            {top}
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[0]} hand={_this.state.hand[0]}/>
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[1]} hand={_this.state.hand[1]}/>
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[2]} hand={_this.state.hand[2]}/>
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[3]} hand={_this.state.hand[3]}/>
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[4]} hand={_this.state.hand[4]}/>
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[5]} hand={_this.state.hand[5]}/>
+            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[6]} hand={_this.state.hand[6]}/>
+            {eighth}
+            {below}
+        </View>
+    );
+}
+   render(){
+        let Message = '';
+    var _this = this;
     var stylio = styles.bannerText;
 
     if (_this.state.winner) {
@@ -226,34 +275,14 @@ renderDraggable(){
        Message = _this.state.activeName + "'s turn"
      }
    }
-
-    return (
-        <View>
-
-            <Text style={stylio}>{Message}</Text>
-
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[0]} hand={_this.state.hand[0]}/>
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[1]} hand={_this.state.hand[1]}/>
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[2]} hand={_this.state.hand[2]}/>
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[3]} hand={_this.state.hand[3]}/>
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[4]} hand={_this.state.hand[4]}/>
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[5]} hand={_this.state.hand[5]}/>
-            <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[6]} hand={_this.state.hand[6]}/>
-            {eighth}
-
-            <Below position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-2]}/>
-            <Discard pickUpDiscard={ _this.pickUpDiscard } position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-1]}/>
-
-            <Bottom position={_this.state.position[9]} />
-            <Pack position={_this.state.position[9]} hand={_this.state.draw[_this.state.draw.length-1]} pickUpDiscard={ _this.pickUpDiscard }/>
-        </View>
-    );
-}
-   render(){
         return (
             <View style={styles.mainContainer}>
+            <Text style={stylio}>{Message}</Text>
+                <Image source={require('./card-images/green_cloth12.jpg')} style={styles.backgroundImage}>
                 {this.renderDraggable()}
+                </Image>
             </View>
+
         );
     }
 }
@@ -263,8 +292,10 @@ renderDraggable(){
 let Window = Dimensions.get('window');
 let styles = StyleSheet.create({
     mainContainer: {
-        flex    : 1,
-        backgroundColor: '#31A231'
+        flex    : 1
+    },
+    backgroundImage: {
+        flex    : 1
     },
     container: {
         flex: 1,
@@ -273,7 +304,7 @@ let styles = StyleSheet.create({
         width : Window.width
     },
     bannerText: {
-        color: 'white',
+        color: 'black',
         textAlign : 'center',
         fontSize: 20,
         fontWeight: 'bold'

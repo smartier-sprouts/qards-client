@@ -9,6 +9,8 @@ export default class Card extends Component {
         pan     : new Animated.ValueXY()   
     };
      
+    let _this = this;
+
     this.panResponder = PanResponder.create({    
         onStartShouldSetPanResponder : () => true,
         onPanResponderMove           : Animated.event([null,{ 
@@ -26,7 +28,7 @@ export default class Card extends Component {
           if (Window.width*(gesture.moveX/320) > Window.width*(200/320) && 
             Window.height*(gesture.moveY/568) < Window.height*(220/568)) {
            
-              let _this = this;
+              
               
               this.props.dropCardToDiscard(this.props.hand, function(){
 
@@ -34,7 +36,7 @@ export default class Card extends Component {
                     _this.state.pan,       
                     {toValue:{x:0,y:0}}    
                 ).start();
-
+             
               });
 
           } else if (Window.height*(gesture.moveY/568) > Window.height*(400/568)) {
@@ -59,12 +61,12 @@ export default class Card extends Component {
             }
 
             this.props.reOrderHand(this.props.hand, handPositionVar)
-
             Animated.timing(           
                 this.state.pan,         
                 {toValue:{x:0,y:0},
                 duration: 1}     
             ).start();
+            
           } else {
               Animated.spring(          
                 this.state.pan,       
@@ -79,7 +81,8 @@ renderDraggable(){
   let _this = this;
   let card;
 
-  let imageArray = [null ,
+  let imageArray = [
+  require('./card-images/Back.png'),
   require('./card-images/AH.png'),  
   require('./card-images/2H.png'),
   require('./card-images/3H.png'), 
