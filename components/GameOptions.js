@@ -79,7 +79,7 @@ export default class GameOptions extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <View>
-        <View style={styles.container}>
+        <View style={styles.container}>      
           <Text style={styles.title}>Game Options</Text>
           <View>
             <Text style={styles.smallTitle}>Games</Text>

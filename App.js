@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, AppRegistry, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, AppRegistry, Button, Image, TouchableHighlight } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 // import './setup/ReactotronConfig'; // <~~~ FOR DEBUGGING WITH REACTOTRON
 import * as firebase from 'firebase';
@@ -38,16 +38,35 @@ class Welcome extends React.Component {
 
   renderLoggedInView() {
     const { navigate } = this.props.navigation;
-    return ( <View style={styles.bottomPart}>
-      <Button title="Let's Play" color='darkviolet'
+    return ( 
+      <View style={styles.bottomPart}>
+      {/*
+        <Button style={styles.playButton} title="Let's Play"
         onPress={() => navigate('Lobby')}
-      />
-      <Button title="Logout" color='red'
+      /> 
+    */}
+      <TouchableHighlight 
+        onPress={() => navigate('Lobby')}
+        underlayColor="transparent"
+        activeOpacity={0.7}>
+        <View style={styles.playButton}>
+          <Text style={styles.playButtonText}>
+            LET'S PLAY!
+          </Text>
+        </View>
+      </TouchableHighlight>
+      <TouchableHighlight 
         onPress={() => {
-          this.setState({isLoggedIn: false},
-            () => { logout(); }); // setState callback
-        }}
-      />
+          this.setState({isLoggedIn: false}, () => { logout(); }); 
+          }}
+        underlayColor="white"
+        activeOpacity={0.7}>
+        <View>
+          <Text style={styles.logoutButton}>
+            LOGOUT
+          </Text>
+        </View>
+      </TouchableHighlight>
       </View>
     );
   }

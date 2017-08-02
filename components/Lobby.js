@@ -79,7 +79,7 @@ export default class Lobby extends React.Component {
       <Image source={require('../assets/background.png')} style={styles.backgroundImage}>
         <View style={styles.container}>
           <Text style={styles.title}>Lobby</Text>
-          <View style={styles.gameTypes}>
+          <View style={styles.gameTypesContainer}>
             <Text style={styles.smallTitle}>Game Types</Text>
             <Picker
               selectedValue={this.state.gameType}
