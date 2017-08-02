@@ -30,7 +30,7 @@ export default class GameOptions extends React.Component {
         return response.json();
       })
       .then((responseJson) => {
-  console.log('Response from Server after new game create POST: ', responseJson);//
+        console.log('Response from Server after new game create POST: ', responseJson);//
         navigate('PreGameArea', {
           gameId: responseJson.gameId,
           playerId: responseJson.player._id,
@@ -43,25 +43,26 @@ export default class GameOptions extends React.Component {
 
     const createGame = () => {
       AsyncStorage.getItem('asyncUserObj')
-                  .then( (data) => { return JSON.parse(data); })
-                  .then( (userDataObj) => {
-                      let newGameDataObj = {
-                            type: gameType,
-                            name: gameName,
-                            public: true,
-                            open: true,
-                            complete: false,
-                            winner: null,
-                            owners: [{
-                              name: userDataObj.firstName,
-                              username: userDataObj.uID,
-                              turn: 0
-                            }]
-                          };
-                    return newGameDataObj;
-                  })
-                  .then( (gameDataObj) => { requestNewGame(gameDataObj); })
-                  .catch( (err) => { console.error('Bad New Game Req:', err); });
+        .then(data => { return JSON.parse(data); })
+        .then(userDataObj => {
+          let newGameDataObj = {
+            type: gameType,
+            name: gameName,
+            public: true,
+            open: true,
+            complete: false,
+            winner: null,
+            owners: [{
+              name: userDataObj.firstName,
+              username: userDataObj.uID,
+              turn: 0
+            }]
+          };
+          return newGameDataObj;
+        })
+        .then(gameDataObj => { requestNewGame(gameDataObj); })
+        .catch(err => { console.error('Bad New Game Req:', err); }
+      );
     };
 
     createGame();

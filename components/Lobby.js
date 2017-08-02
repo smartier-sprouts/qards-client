@@ -55,18 +55,19 @@ export default class Lobby extends React.Component {
 
     const joinExistingGame = () => {
       AsyncStorage.getItem('asyncUserObj')
-                  .then( (data) => { return JSON.parse(data); })
-                  .then( (userData) => {
-                    let postDataObj = { gameId: game._id,
-                                        player: {
-                                          name: userData.firstName,
-                                          username: userData.uID
-                                        }
-                                      };
-                    return postDataObj;
-                  })
-                  .then( (obj) => { postToJoinGame(obj); })
-                  .catch( (err) => console.error('Error building a joinGameObject:', err) );
+        .then(data => { return JSON.parse(data); })
+        .then(userData => {
+          let postDataObj = { 
+            gameId: game._id,
+            player: {
+              name: userData.firstName,
+              username: userData.uID
+            }
+          };
+          return postDataObj;
+        })
+        .then(obj => { postToJoinGame(obj); })
+        .catch(err => console.error('Error building a joinGameObject:', err) );
     };
 
     joinExistingGame();
