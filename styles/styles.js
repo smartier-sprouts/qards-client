@@ -5,10 +5,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'black',
-    paddingTop: Constants.statusBarHeight
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
 
   topPart: {
@@ -20,9 +18,15 @@ const styles = StyleSheet.create({
 
   bottomPart: {
     flex: 1,
-    flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
+  },
+
+  backgroundImage: {
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode: 'cover'
   },
 
   welcomeTitle: {
@@ -33,29 +37,37 @@ const styles = StyleSheet.create({
   },
 
   title: {
+    flex: 1,
     fontSize: 40,
+    justifyContent: 'flex-start',
     alignSelf: 'center',
     color: 'green'
   },
 
+  gameTypes: {
+    flex: 2,
+    justifyContent: 'flex-start'
+  },
+
   smallTitle: {
     fontSize: 20,
-    color: 'white'
+    justifyContent: 'flex-start',
+    color: 'black'
   },
 
   picker: {
     width: 150,
-    height: 35,
-    borderWidth: 5
+    height: 35
   },
 
   item: {
     padding: 10,
     fontSize: 18,
-    height: 44,
+    height: 100,
   },
 
   pickerView: {
+    flex: 1,
     backgroundColor: 'white'
   },
 
@@ -66,14 +78,27 @@ const styles = StyleSheet.create({
   },
 
   listContainer: {
-    flex: 1,
+    flex: 3,
+    borderRadius: 5,
     paddingTop: 10,
     paddingRight: 20,
     paddingBottom: 30,
     paddingLeft: 20,
     width: 380,
     maxHeight: 350
+  },
+
+  rulesButton: {
+    alignSelf: 'flex-end',
+    color: '#1E8449',
+    borderRadius: 2,
+    borderColor: '#1E8449'
+  },
+
+  createButton: {
+    color: 'darkgreen'
   }
+
 });
 
 export default styles;

@@ -78,47 +78,47 @@ export default class GameOptions extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <Text style={styles.title}>Game Options</Text>
-        <View>
-          <Text style={styles.smallTitle}>Games</Text>
-          <View style={styles.pickerView}>
-            <Picker
-              selectedValue={this.state.game}
-              onValueChange={(itemValue, itemIndex) => this.setState({ game: itemValue })}
-              style={styles.picker}>
-              <Picker.Item label="Gin Straight" value="Gin Straight" />
-              <Picker.Item label="Blackjack" value="Blackjack" />
-              <Picker.Item label="Rummy" value="Rummy" />
-            </Picker>
+      <View>
+        <View style={styles.container}>
+          <Text style={styles.title}>Game Options</Text>
+          <View>
+            <Text style={styles.smallTitle}>Games</Text>
+            <View style={styles.pickerView}>
+              <Picker
+                selectedValue={this.state.game}
+                onValueChange={(itemValue, itemIndex) => this.setState({game: itemValue})}
+                style={styles.picker}>
+                <Picker.Item label="Gin Straight" value="Gin Straight" />
+                <Picker.Item label="Blackjack" value="Blackjack" />
+                <Picker.Item label="Rummy" value="Rummy" />
+              </Picker>
+            </View>
           </View>
-        </View>
-        <View>
-          <Text style={styles.smallTitle}>Enter Game Name</Text>
-          <TextInput
-            style={styles.textInput}
-            onChangeText={(name) => this.setState({ gameName: name })}
-            value={this.state.gameName}
-          />
-        </View>
-        <View style={{ flexDirection: 'row' }}>
-          <Text style={styles.smallTitle}>Public:</Text>
-          <Switch
-            onValueChange={this.handleSwitchChange}
-            value={this.state.isPublic}
-            onTintColor='chartreuse'
-            tintColor='darkred'
-          />
-        </View>
-        <Button
+          <View>
+            <Text style={styles.smallTitle}>Enter Game Name</Text>
+            <TextInput
+              style={styles.textInput}
+              onChangeText={(name) => this.setState({ gameName: name })}
+              value={this.state.gameName}
+            />
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.smallTitle}>Public:</Text>
+            <Switch
+              onValueChange={this.handleSwitchChange}
+              value={this.state.isPublic}
+              onTintColor='chartreuse'
+              tintColor='darkred'
+            />
+          </View>
+          <Button
             color='darkviolet'
             onPress={this.launchGame}
             title="Launch Game"
           />
-      </View>
-      <KeyboardAvoidingView behavior={'padding'}>
-      </KeyboardAvoidingView>
+        </View>
+        <KeyboardAvoidingView behavior={'padding'}>
+        </KeyboardAvoidingView>
       </View>
     );
   }

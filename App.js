@@ -54,14 +54,16 @@ class Welcome extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <WelcomeScreenTop />
-        {
-          this.state.isRetrievingData ? this.renderLoadingView()
-          : this.state.isLoggedIn ? this.renderLoggedInView()
-          : <WelcomeLogin chk={this.checkStatus} />
-        }
-      </View>
+      <Image source={require('./assets/background.png')} style={styles.backgroundImage}>
+        <View style={styles.container}>
+          <WelcomeScreenTop />
+          {
+            this.state.isRetrievingData ? this.renderLoadingView()
+            : this.state.isLoggedIn ? this.renderLoggedInView()
+            : <WelcomeLogin chk={this.checkStatus} />
+          }
+        </View>
+      </Image>
     );
   }
 }

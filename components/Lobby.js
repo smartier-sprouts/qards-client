@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, TextInput, AsyncStorage, AppRegistry, Button, Picker } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TextInput, AsyncStorage, AppRegistry, Button, Picker, TouchableHighlight, Image } from 'react-native';
 import ReactNativeComponentTree from 'react-native/Libraries/Renderer/src/renderers/native/ReactNativeComponentTree'; // <~~ Rich doesn't think this is necessary
 import { StackNavigator } from 'react-navigation';
 
@@ -76,40 +76,35 @@ export default class Lobby extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Lobby</Text>
-          <View>
-            <Text style={styles.smallTitle}>Games</Text>
-            <View style={styles.pickerView}>
-              <Picker
-                selectedValue={this.state.gameType}
-                onValueChange={(itemValue, itemIndex) => this.setState({ gameType: itemValue })} // Jon does itemIndex do anything??
-                style={styles.picker} >
-                <Picker.Item key={1} label="Gin Straight" value="Gin Straight" />
-                <Picker.Item key={2} label="War" value="War" />
-                <Picker.Item key={3} label="Bluffshtop" value="Bluffshtop" />
-              </Picker>
-            </View>
+      <Image source={require('../assets/background.png')} style={styles.backgroundImage}>
+        <View style={styles.container}>
+          <Text style={styles.title}>Lobby</Text>
+          <View style={styles.gameTypes}>
+            <Text style={styles.smallTitle}>Game Types</Text>
+            <Picker
+              selectedValue={this.state.gameType}
+              onValueChange={itemValue => this.setState({ gameType: itemValue })}
+              style={styles.picker} >
+              <Picker.Item key={1} label="Gin Straight" value="Gin Straight" />
+              <Picker.Item key={2} label="War" value="War" />
+              <Picker.Item key={3} label="Bluffshtop" value="Bluffshtop" />
+            </Picker>
             <Button
-              color='darkviolet'
+              style={styles.rulesButton}
               onPress={() => navigate(this.state.gameType.split(' ').join('') + 'Rules')}
               title="Rules"
             />
           </View>
           <View style={styles.listContainer}>
             <GameList
-                games={this.state.games.filter(game => game.type === this.state.gameType)}
-                onPressListItem={this.onPressListItem}
-                refreshing={this.state.refreshing}
-                onRefresh={this.getOpenGames}>
+              games={this.state.games.filter(game => game.type === this.state.gameType)}
+              onPressListItem={this.onPressListItem}
+              refreshing={this.state.refreshing}
+              onRefresh={this.getOpenGames}>
             </GameList>
           </View>
-          <Button
-            color='darkviolet'
-            onPress={() => navigate('GameOptions')}
-            title="Create a Game"
-          />
-      </View>
+        </View>
+      </Image>
     );
   }
 }
