@@ -19,9 +19,9 @@ const styles = StyleSheet.create({
 
   bottomPart: {
     flex: 1,
-    justifyContent: 'space-around',
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    padding: 150
+    padding: 125
   },
 
   backgroundImage: {
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     justifyContent: 'flex-start',
-    alignItems: 'stretch'
+    alignItems: 'flex-start'
   },
 
   fbButton: {

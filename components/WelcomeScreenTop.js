@@ -1,7 +1,5 @@
 import React from 'react';
-
 import { StyleSheet, Text, View, Image } from 'react-native';
-
 import styles from '../styles/styles.js';
 const frontPic = require('../assets/logo.png');
 
