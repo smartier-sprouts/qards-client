@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, TextInput, AsyncStorage, AppRegistry, Button, Picker, TouchableHighlight, Image } from 'react-native';
+import { Platform, StyleSheet, Text, View, FlatList, TextInput, AsyncStorage, AppRegistry, Button, Picker, TouchableHighlight, Image } from 'react-native';
 import ReactNativeComponentTree from 'react-native/Libraries/Renderer/src/renderers/native/ReactNativeComponentTree'; // <~~ Rich doesn't think this is necessary
 import { StackNavigator } from 'react-navigation';
 
@@ -81,7 +81,8 @@ export default class Lobby extends React.Component {
           <Text style={styles.title}>LOBBY</Text>
           <View style={styles.gameTypesContainer}>
             <Text style={styles.smallTitle}>GAME TYPES</Text>
-            <Picker
+            {(Platform.OS === 'ios')
+            ? <Picker
               selectedValue={this.state.gameType}
               onValueChange={itemValue => this.setState({ gameType: itemValue })}
               style={styles.gameTypesPicker} >
@@ -89,6 +90,15 @@ export default class Lobby extends React.Component {
               <Picker.Item style={{color: 'white'}} key={2} label="War" value="War" />
               <Picker.Item style={{color: 'white'}} key={3} label="Bluffshtop" value="Bluffshtop" />
             </Picker>
+            : <Picker
+              mode='dropdown'
+              selectedValue={this.state.gameType}
+              onValueChange={itemValue => this.setState({ gameType: itemValue })}
+              style={styles.gameTypesPicker} >
+              <Picker.Item style={{textColor: 'white'}} key={1} label="Gin Straight" value="Gin Straight" />
+              <Picker.Item style={{textColor: 'white'}} key={2} label="War" value="War" />
+              <Picker.Item style={{textColor: 'white'}} key={3} label="Bluffshtop" value="Bluffshtop" />
+            </Picker>}
             <Button
               style={styles.rulesButton}
               onPress={() => navigate(this.state.gameType.split(' ').join('') + 'Rules')}

@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: null,
     height: null,
-    resizeMode: 'contain'
+    resizeMode: (Platform.OS === 'ios') ? 'contain' : 'stretch'
   },
 
   loginButtonText: {
@@ -81,8 +81,10 @@ const styles = StyleSheet.create({
   title: {
     flex: .5,
     paddingTop: 40,
+    paddingBottom: (Platform.OS === 'ios') ? 0 : 20,
     fontWeight: 'bold', 
-    fontSize: 40,
+    fontSize: (Platform.OS === 'ios') ? 40 : 25,
+    height: 40,
     justifyContent: 'flex-start',
     alignSelf: 'center',
     color: 'white',
@@ -109,16 +111,15 @@ const styles = StyleSheet.create({
   gameTypesContainer: {
     flex: 3,
     justifyContent: 'space-around',
-    backgroundColor: 'transparent',
-    height: 20
+    backgroundColor: 'transparent'
   },
 
   gameTypesPicker: {
-    flex: 1,
+    flex: .33,
     flexDirection: 'column-reverse',
-    width: 150,
-    height: 15,
-    backgroundColor: 'transparent'
+    width: (Platform.OS === 'ios') ? 150 : 150,
+    paddingTop: (Platform.OS === 'ios') ? 30 : 0,
+    backgroundColor: (Platform.OS === 'ios') ? 'transparent' : 'transparent'
   },
 
   rulesButton: {
@@ -144,7 +145,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 20,
     borderRadius: 20,
-    width: (Platform.OS === 'ios') ? 400 : 300,
+    width: (Platform.OS === 'ios') ? 400 : 350,
     maxHeight: (Platform.OS === 'ios') ? 400 : 350,
     backgroundColor: 'transparent'
   },
@@ -153,31 +154,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'white',
     alignItems: 'center',
-    fontSize: 20,
-    padding: 10
+    fontSize: (Platform.OS === 'ios') ? 20 : 12,
+    padding: (Platform.OS === 'ios') ? 10 : 7
   },
 
   createButton: {
     borderWidth: 2,
-    borderRadius: 10,
+    borderRadius: (Platform.OS === 'ios') ? 10 : 7,
     borderColor: 'white',
   },
 
   buttonText: {
     fontSize: (Platform.OS === 'ios') ? 40 : 30
-  },
-
-  buttonContainer: {
-    borderRadius: 30,
-    padding: 10,
-    shadowColor: '#000000',
-    shadowOffset: {
-      width: 0,
-      height: 3
-    },
-    shadowRadius: 5,
-    shadowOpacity: 1.0,
-    width: 275,
   },
 
   playButton: {

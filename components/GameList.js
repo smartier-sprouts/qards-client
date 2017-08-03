@@ -13,7 +13,7 @@ export default class GameList extends React.Component {
   render() {
     return (
       <FlatList
-        borderRadius={30}
+        borderRadius={20}
         data={this.props.games}
         refreshing={this.props.refreshing}
         onRefresh={() => this.props.onRefresh()}
