@@ -1,5 +1,5 @@
 import React from 'react';
-import { Component, Image, Stylesheet, PanResponder, Dimensions, StyleSheet, Text, Animated, View } from 'react-native';
+import { Component, Image, Button, Stylesheet, PanResponder, Dimensions, StyleSheet, Text, Animated, View } from 'react-native';
 import Card from './Card.js';
 import Discard from './Discard.js';
 import Below from './Below.js';
@@ -137,7 +137,7 @@ dropCardToDiscard(discardCard, callback) {
   let newArray = [];
   let otherArray = [];
 
-  for (var i = 0; i < _this.state.hand.length; i++ ) {
+  for (let i = 0; i < _this.state.hand.length; i++ ) {
       otherArray.push(_this.state.hand[i].pictureId)
   }
 
@@ -214,6 +214,13 @@ setAbove(isAbove){
   }
 }
 
+rageQuit() {
+  let _this = this;
+  console.log('RAGEEEEE')
+  _this.props.navigator.navigate('Home')
+  //<Button onClick={ _this.rageQuit } style={ styles.navigationBar} title="Quit" />
+}
+
 
 renderDraggable(){
     let _this = this;
@@ -226,16 +233,18 @@ renderDraggable(){
    let top;
    let below;
    let element = <View>
-                  <Below position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-2]}/>
-                  <Discard pickUpDiscard={ _this.pickUpDiscard } position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-1]}/>
-                  <Bottom position={_this.state.position[9]} />
-                  <Pack position={_this.state.position[9]} hand={_this.state.draw[_this.state.draw.length-1]} pickUpDiscard={ _this.pickUpDiscard }/>
-                </View>
+                    <Below position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-2]}/>
+                    <Discard pickUpDiscard={_this.pickUpDiscard } position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-1]}/>
+                    <Bottom position={_this.state.position[9]} />
+                    <Pack position={_this.state.position[9]} hand={_this.state.draw[_this.state.draw.length-1]} pickUpDiscard={ _this.pickUpDiscard }/>
+                 </View>
 
    if (_this.state.phase2) {
      top = element;
 
    } else if (_this.state.phase1) {
+     below = element;
+   } else if (!_this.state.phase1 && !_this.state.phase2) {
      below = element;
    }
 
@@ -255,16 +264,16 @@ renderDraggable(){
         </View>
     );
 }
-   render(){
-        let Message = '';
-    var _this = this;
-    var stylio = styles.bannerText;
+  render(){
+    let Message = '';
+    let _this = this;
+    let stylio = styles.bannerText;
 
     if (_this.state.winner) {
       Message = _this.state.winner + ' has won!';
 
-      var stylio = {
-          color: 'red',
+      let stylio = {
+          color: 'black',
           textAlign : 'center',
           fontSize: 80,
           fontWeight: 'bold'
@@ -275,14 +284,17 @@ renderDraggable(){
        Message = _this.state.activeName + "'s turn"
      }
    }
+
         return (
             <View style={styles.mainContainer}>
+            <View >
+            <Button onPress={ _this.rageQuit } style={ styles.navigationBar} title="< Quit" />
+            </View>
             <Text style={stylio}>{Message}</Text>
                 <Image source={require('./card-images/green_cloth12.jpg')} style={styles.backgroundImage}>
                 {this.renderDraggable()}
                 </Image>
             </View>
-
         );
     }
 }
@@ -297,6 +309,14 @@ let styles = StyleSheet.create({
     backgroundImage: {
         flex    : 1
     },
+    navigationBar: {
+        flex  : 1,
+        backgroundColor: 'orange',
+        textAlign : 'left',
+        color: 'white',
+        height : Window.height*(3/568),
+        width : Window.width
+    },
     container: {
         flex: 1,
         backgroundColor: '#D3D3D3',
@@ -310,8 +330,8 @@ let styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     circle      : {
-        height              : Window.height*(70/568),
-        width               : Window.width*(72/320)
+        height : Window.height*(70/568),
+        width  : Window.width*(72/320)
     }
 });
 
