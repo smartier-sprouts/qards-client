@@ -5,7 +5,7 @@ const api = require('../../setup/API-Destinations');
 const socketStart = (gameId, cb, cb2) => {
   console.log('in socket start', gameId);
   const socket = io.connect(api.socketServer, {transports: ['websocket']});
-
+  let hasGameStarted = false;
   socket.emit('create', gameId);
 
   socket.on('join', (data) => {
@@ -21,7 +21,10 @@ const socketStart = (gameId, cb, cb2) => {
     } else if (data.players) {
       cb(data.players);
     } else if (data.gameStarted) {
-      cb2();
+      if (!hasGameStarted) {
+        cb2();
+        hasGameStarted = true;
+      }
     }
   });
 };
