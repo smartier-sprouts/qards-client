@@ -150,7 +150,7 @@ dropCardToDiscard(discardCard, callback) {
     phase2: false
   })
    discardPush(_this.state.gameId, _this.state.playerId, discardCard._id, function(data){
-    console.log(data)
+   //  console.log(data)
    })
   }
  callback();
@@ -183,7 +183,7 @@ pickUpDiscard(card, handPositionVar, disOrDraw){
         hand: _this.state.hand,
         phase1: false,
         phase2: true
-      }, ()=> console.log('phase2 in pickdraw after setting true', _this.state.phase2))
+      })
    })
     }
   }
@@ -241,6 +241,7 @@ renderDraggable(){
         <View>
             <Below position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-2]}/>
             <Bottom position={_this.state.position[9]} />
+
             {top}
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[0]} hand={_this.state.hand[0]}/>
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[1]} hand={_this.state.hand[1]}/>
@@ -261,7 +262,7 @@ renderDraggable(){
     let celebration = <View></View>;
 
     if (_this.state.winner) {
-      Message = _this.state.winner + ' has won!'; 
+      Message = _this.state.winner + ' has won!';
 
       stylio = {
           color: 'orange',
@@ -270,7 +271,7 @@ renderDraggable(){
           fontWeight: 'bold'
       }
       celebration = <Image style={styles.winnerImage} source={require('./card-images/celebrations2.png')} />;
-        
+
    } else {
      if (_this.state.message) {
        Message = _this.state.activeName + "'s turn"
@@ -282,9 +283,9 @@ renderDraggable(){
 
         return (
             <View style={styles.mainContainer}>
-            
+
             <View style={styles.navigationBar}>
-            <Button 
+            <Button
               title="< Quit"
               onPress={() =>
               navigate('Lobby')

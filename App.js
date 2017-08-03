@@ -15,6 +15,9 @@ import verifyLoginStatus from './services/verifyLoginStatus.js';
 import logout from './services/logout.js';
 
 import styles from './styles/styles.js';
+
+console.disableYellowBox = true;
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 class Welcome extends React.Component {
   constructor(props) {
