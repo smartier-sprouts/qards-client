@@ -259,23 +259,27 @@ renderDraggable(){
     let Message = '';
     let _this = this;
     let stylio = styles.bannerText;
+    let celebration = <View></View>;
 
     if (_this.state.winner) {
-      Message = _this.state.winner + ' has won!';
+      Message = _this.state.winner + ' has won!'; 
 
-      let stylio = {
-          color: 'white',
+      stylio = {
+          color: 'orange',
           textAlign : 'center',
-          fontSize: 80,
+          fontSize: 40,
           fontWeight: 'bold'
       }
-
+      celebration = <Image style={styles.winnerImage} source={require('./card-images/celebrations2.png')} />;
+      
    } else {
      if (_this.state.message) {
        Message = _this.state.activeName + "'s turn"
      }
    }
    const { navigate } = _this.props.navigation;
+
+
 
         return (
             <View style={styles.mainContainer}>
@@ -287,9 +291,9 @@ renderDraggable(){
               navigate('Lobby')
               }/>
               </View >
-
             <Text style={stylio}>{Message}</Text>
                 <Image source={require('./card-images/green_cloth12.jpg')} style={styles.backgroundImage}>
+                {celebration}
                 {this.renderDraggable()}
                 </Image>
             </View>
@@ -327,6 +331,13 @@ let styles = StyleSheet.create({
     circle      : {
         height : Window.height*(70/568),
         width  : Window.width*(72/320)
+    },
+    winnerImage : {
+      left: Window.width*0.1,
+      marginTop: Window.height*(50/568),
+      height : Window.height*(250/568),
+      width  : Window.width*(250/320),
+      zIndex: 2
     }
 });
 
