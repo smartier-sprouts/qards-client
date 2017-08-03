@@ -65,13 +65,13 @@ export default class PreGameArea extends React.Component {
     let playerId = this.state.playerId;
     let turn = this.state.turn;
     fetch('https://qards.herokuapp.com/api/dealCards/' + gameId)
-    .then((response) => {
-      navigate('GameArea', {
-        gameId: gameId,
-        playerId: playerId,
-        turn: turn
-      });
-    })
+    // .then((response) => {
+    //   navigate('GameArea', {
+    //     gameId: gameId,
+    //     playerId: playerId,
+    //     turn: turn
+    //   });
+    // })
     .catch((error) => {
       console.error(error);
     });
