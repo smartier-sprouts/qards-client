@@ -32,9 +32,12 @@ export default class Card extends Component {
               
               this.props.dropCardToDiscard(this.props.hand, function(){
 
-                  Animated.spring(          
+          
+
+                  Animated.timing(          
                     _this.state.pan,       
-                    {toValue:{x:0,y:0}}    
+                    {toValue:{x:0,y:0},
+                    duration: 1}    
                 ).start();
              
               });
@@ -60,7 +63,7 @@ export default class Card extends Component {
               handPositionVar = 7
             }
 
-            this.props.reOrderHand(this.props.hand, handPositionVar)
+            this.props.reOrderHand(this.props.hand, handPositionVar);
             Animated.timing(           
                 this.state.pan,         
                 {toValue:{x:0,y:0},
