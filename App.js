@@ -42,7 +42,7 @@ class Welcome extends React.Component {
       <View style={styles.bottomPart}>
       <TouchableHighlight 
         onPress={() => navigate('Lobby')}
-        underlayColor="transparent"
+        underlayColor='transparent'
         activeOpacity={0.7}>
         <View style={styles.playButton}>
           <Text style={styles.playButtonText}>
@@ -54,7 +54,7 @@ class Welcome extends React.Component {
         onPress={() => {
           this.setState({isLoggedIn: false}, () => { logout(); }); 
           }}
-        underlayColor="white"
+        underlayColor='white'
         activeOpacity={0.7}>
         <View>
           <Text style={styles.logoutButton}>

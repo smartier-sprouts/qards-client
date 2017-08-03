@@ -4,25 +4,6 @@ import { Constants } from 'expo';
 import { normalize, normalizeFont } from './normalize.js';
 const {width, height} = require('Dimensions').get('window');
 
-/*
-PixelRatio.get() === 1
-mdpi Android devices (160 dpi)
-PixelRatio.get() === 1.5
-hdpi Android devices (240 dpi)
-PixelRatio.get() === 2
-iPhone 4, 4S
-iPhone 5, 5c, 5s
-iPhone 6
-xhdpi Android devices (320 dpi)
-PixelRatio.get() === 3
-iPhone 6 plus
-xxhdpi Android devices (480 dpi)
-PixelRatio.get() === 3.5
-Nexus 6
-*/
-
-// if (PixelRatio.get() )
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -119,29 +100,42 @@ const styles = StyleSheet.create({
   },
 
   smallTitle: {
-    fontSize: 16,
+    fontSize: normalizeFont(2.2),
     justifyContent: 'flex-end',
     alignSelf: 'center',
     color: 'white',
-    paddingTop: 20,
-    paddingBottom: 10,
+    paddingTop: normalize(0),
+    paddingBottom: normalize(25),
     backgroundColor: 'transparent'
   },
 
   item: {
     padding: 10,
-    fontSize: 18,
+    fontSize: normalizeFont(2.5),
     height: 100,
   },
 
   gameTypesContainer: {
-    flex: (Platform.OS === 'ios') ? normalize(2) : normalize(.5),
+    flex: (Platform.OS === 'ios') ? normalize(3) : normalize(2),
     justifyContent: 'space-around',
     backgroundColor: 'transparent'
   },
 
   gameTypesPicker: {
-    flex: (Platform.OS === 'ios') ? .75 : .33,
+    flex: (Platform.OS === 'ios') ? 2 : .33,
+    flexDirection: 'column-reverse',
+    width: (Platform.OS === 'ios') ? 150 : 150,
+    backgroundColor: (Platform.OS === 'ios') ? 'transparent' : 'white'
+  },
+
+  gameOptionsGameTypesContainer: {
+    flex: (Platform.OS === 'ios') ? normalize(2.5) : normalize(.5),
+    justifyContent: 'space-around',
+    backgroundColor: 'transparent'
+  },
+
+  gameOptionsGameTypesPicker: {
+    flex: (Platform.OS === 'ios') ? 2 : .33,
     flexDirection: 'column-reverse',
     width: (Platform.OS === 'ios') ? 150 : 150,
     backgroundColor: (Platform.OS === 'ios') ? 'transparent' : 'white'
@@ -242,6 +236,32 @@ const styles = StyleSheet.create({
   playButtonText: {
     justifyContent: 'center',
     fontSize: (Platform.OS === 'ios') ? normalizeFont(5) : normalizeFont(4.5),
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'white'
+  },
+
+  createButtonContainer: {
+    paddingTop: (Platform.OS === 'ios') ? normalize(10) : normalize(0), 
+    paddingBottom: 30, 
+    alignSelf: 'center'
+  },
+  
+  createButton: {
+    backgroundColor: 'limegreen',
+    borderWidth: 20,
+    borderRadius: 30,
+    borderColor: 'limegreen',
+    height: (Platform.OS === 'ios') ? normalize(40) : normalize(25),
+    width: (Platform.OS === 'ios') ? normalize(230) : normalize(200),
+    alignItems: 'center',
+    padding: 10,
+    justifyContent: 'center'
+  },
+
+  createButtonText: {
+    justifyContent: 'center',
+    fontSize: normalizeFont(3),
     fontWeight: 'bold',
     textAlign: 'center',
     color: 'white'

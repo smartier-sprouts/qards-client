@@ -106,7 +106,11 @@ export default class Lobby extends React.Component {
                 onRefresh={this.getOpenGames}>
               </GameList>
             </View>
-            <TouchableHighlight style={{paddingBottom: 30}} onPress={() => navigate('GameOptions')}>
+            <TouchableHighlight 
+              underlayColor='transparent'
+              activeOpacity={0.7}
+              style={styles.createButtonContainer} 
+              onPress={() => navigate('GameOptions')}>
               <View style={styles.createButton}>
                 <Text style={styles.createButtonText}>CREATE A GAME</Text>
               </View>

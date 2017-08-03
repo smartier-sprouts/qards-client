@@ -84,11 +84,11 @@ export default class GameOptions extends React.Component {
             <View style={styles.createGameData}>
             </View>    
               <Text style={styles.smallTitle}>GAME TYPES</Text>
-              <View style={styles.gameTypesContainer}>
+              <View style={styles.gameOptionsGameTypesContainer}>
                 <Picker
                   selectedValue={this.state.game}
                   onValueChange={(itemValue, itemIndex) => this.setState({game: itemValue})}
-                  style={styles.gameTypesPicker}>
+                  style={styles.gameOptionsGameTypesPicker}>
                   <Picker.Item label="Gin Straight" value="Gin Straight" />
                   <Picker.Item label="Blackjack" value="Blackjack" />
                   <Picker.Item label="Rummy" value="Rummy" />
@@ -116,7 +116,11 @@ export default class GameOptions extends React.Component {
               tintColor='darkred'
             />
           </View>
-            <TouchableHighlight style={styles.launchButtonContainer} onPress={() => navigate('GameOptions')}>
+            <TouchableHighlight 
+              underlayColor='transparent'
+              activeOpacity={0.7}
+              style={styles.launchButtonContainer} 
+              onPress={() => navigate('GameOptions')}>
               <View style={styles.launchButton}>
                 <Text style={styles.launchButtonText}>LAUNCH GAME</Text>
               </View>
