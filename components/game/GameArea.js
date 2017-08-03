@@ -214,14 +214,6 @@ setAbove(isAbove){
   }
 }
 
-rageQuit() {
-  let _this = this;
-  console.log('RAGEEEEE')
-  _this.props.navigator.navigate('Home')
-  //<Button onClick={ _this.rageQuit } style={ styles.navigationBar} title="Quit" />
-}
-
-
 renderDraggable(){
     let _this = this;
     let eighth;
@@ -284,12 +276,17 @@ renderDraggable(){
        Message = _this.state.activeName + "'s turn"
      }
    }
+   const { navigate } = _this.props.navigation;
 
         return (
             <View style={styles.mainContainer}>
-            <View >
-            <Button onPress={ _this.rageQuit } style={ styles.navigationBar} title="< Quit" />
-            </View>
+            
+            <Button style={styles.navigationBar}
+              title="Quit"
+              onPress={() =>
+              navigate('Lobby')
+              }/>
+
             <Text style={stylio}>{Message}</Text>
                 <Image source={require('./card-images/green_cloth12.jpg')} style={styles.backgroundImage}>
                 {this.renderDraggable()}
@@ -310,12 +307,7 @@ let styles = StyleSheet.create({
         flex    : 1
     },
     navigationBar: {
-        flex  : 1,
-        backgroundColor: 'orange',
-        textAlign : 'left',
-        color: 'white',
-        height : Window.height*(3/568),
-        width : Window.width
+        textAlign : 'left'
     },
     container: {
         flex: 1,
