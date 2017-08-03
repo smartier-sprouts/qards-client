@@ -7,9 +7,7 @@ export default class WelcomeScreenTop extends React.Component {
   render() {
     return (
       <View style={styles.topPart}>
-        {Platform.OS === 'ios'
-        ? <Image source={ frontPic } style={{ width: 345, height: 195 }} />
-        : <Image source={ frontPic } style={{ width: 300, height: 165 }} />}
+        <Image source={frontPic} style={styles.frontPic}/>
       </View>
     );
   }

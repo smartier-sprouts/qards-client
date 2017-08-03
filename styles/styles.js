@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   topPart: {
@@ -103,14 +103,19 @@ const styles = StyleSheet.create({
   title: {
     flex: .8,
     paddingTop: 40,
-    paddingBottom: (Platform.OS === 'ios') ? 0 : 20,
+    paddingBottom: (Platform.OS === 'ios') ? 10 : 30,
     fontWeight: 'bold', 
     fontSize: (Platform.OS === 'ios') ? normalizeFont(5.5) : normalizeFont(5),
     justifyContent: 'flex-start',
     alignSelf: 'center',
     color: 'white',
     backgroundColor: 'transparent',
-    fontWeight: '800'
+    fontWeight: (Platform.OS === 'ios') ? '200' : '100'
+  },
+
+  frontPic: {
+    width: (Platform.OS === 'ios') ? normalize(290) : normalize(310),
+    height: (Platform.OS === 'ios') ? normalize(170) : normalize(180)
   },
 
   smallTitle: {
@@ -130,7 +135,7 @@ const styles = StyleSheet.create({
   },
 
   gameTypesContainer: {
-    flex: (Platform.OS === 'ios') ? 3.5 : 1.5,
+    flex: (Platform.OS === 'ios') ? normalize(2) : normalize(.5),
     justifyContent: 'space-around',
     backgroundColor: 'transparent'
   },
@@ -146,12 +151,6 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     color: 'white',
     borderWidth: 2
-  },
-
-  textInput: {
-    width: 175,
-    height: 35,
-    backgroundColor: 'white'
   },
 
   lowerGamesSection: {
@@ -180,9 +179,48 @@ const styles = StyleSheet.create({
   },
 
   createButton: {
-    borderWidth: 2,
+    borderWidth: 1,
     borderRadius: (Platform.OS === 'ios') ? 10 : 7,
     borderColor: 'white',
+  },
+
+  createGameData: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+    
+  textInputContainer: {
+    paddingTop: (Platform.OS === 'ios') ? normalize(20) : normalize(10),
+    flexDirection: 'row',
+    alignSelf: 'center',
+    borderBottomWidth: (Platform.OS === 'ios') ? 1 : 0,
+    borderColor: 'white',
+    width: (Platform.OS === 'ios') ? normalize(120) : normalize(120)
+  },
+
+  textInput: {
+    width: normalize(175),
+    height: normalize(35),
+    fontSize: normalizeFont(2),
+    backgroundColor: 'transparent'
+  },
+
+  publicStatusAndSwitch: {
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    paddingTop: (Platform.OS === 'ios') ? normalize(30): normalize(30)
+  },
+  
+  publicStatusText: {
+    fontSize: normalizeFont(2),
+    justifyContent: 'flex-end',
+    alignSelf: 'center',
+    color: 'white',
+    paddingTop: 20,
+    paddingBottom: 10,
+    backgroundColor: 'transparent'
   },
 
   buttonText: {
@@ -208,6 +246,33 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white'
   },
+
+  launchButtonContainer: {
+    paddingTop: (Platform.OS === 'ios') ? normalize(120) : normalize(90), 
+    paddingBottom: 30, 
+    alignSelf: 'center'
+  },
+  
+  launchButton: {
+    backgroundColor: 'limegreen',
+    borderWidth: 20,
+    borderRadius: 30,
+    borderColor: 'limegreen',
+    height: 50,
+    width: (Platform.OS === 'ios') ? normalize(230) : normalize(220),
+    alignItems: 'center',
+    padding: 10,
+    justifyContent: 'center'
+  },
+
+  launchButtonText: {
+    justifyContent: 'center',
+    fontSize: (Platform.OS === 'ios') ? normalizeFont(4) : normalizeFont(3.75),
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'white'
+  }
+
 
 
 });
