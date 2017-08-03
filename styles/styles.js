@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
   },
 
   logoutButton: {
-    paddingTop: 50,
-    fontSize: normalizeFont(3),
+    paddingTop: normalize(30),
+    fontSize: normalizeFont(2),
     color: 'white'
   },
 

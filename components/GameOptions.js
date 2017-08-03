@@ -26,10 +26,8 @@ export default class GameOptions extends React.Component {
         method: 'POST',
         body: JSON.stringify(newGameObj)
       })
-      .then( (response) => {
-        return response.json();
-      })
-      .then((responseJson) => {
+      .then(response => response.json())
+      .then(responseJson => {
         console.log('Response from Server after new game create POST: ', responseJson);//
         navigate('PreGameArea', {
           gameId: responseJson.gameId,
@@ -38,12 +36,12 @@ export default class GameOptions extends React.Component {
           isCreator: true
         });
       })
-      .catch((error) => { console.error('ERR Fetching for new game:', error); });
+      .catch(error => console.error('ERR Fetching for new game:', error));
     };
 
     const createGame = () => {
       AsyncStorage.getItem('asyncUserObj')
-        .then(data => { return JSON.parse(data); })
+        .then(data => JSON.parse(data))
         .then(userDataObj => {
           let newGameDataObj = {
             type: gameType,
@@ -60,8 +58,8 @@ export default class GameOptions extends React.Component {
           };
           return newGameDataObj;
         })
-        .then(gameDataObj => { requestNewGame(gameDataObj); })
-        .catch(err => { console.error('Bad New Game Req:', err); }
+        .then(gameDataObj => requestNewGame(gameDataObj))
+        .catch(err => console.error('Bad New Game Req:', err)
       );
     };
 
@@ -120,7 +118,7 @@ export default class GameOptions extends React.Component {
               underlayColor='transparent'
               activeOpacity={0.7}
               style={styles.launchButtonContainer} 
-              onPress={() => navigate('GameOptions')}>
+              onPress={this.launchGame}>
               <View style={styles.launchButton}>
                 <Text style={styles.launchButtonText}>LAUNCH GAME</Text>
               </View>
