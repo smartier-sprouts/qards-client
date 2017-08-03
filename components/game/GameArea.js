@@ -12,7 +12,6 @@ import discardPush from '../../services/api/discardPush.js';
 import pickDiscard from '../../services/api/pickDiscard.js';
 import pickDraw from '../../services/api/pickDraw.js';
 
-
 let _this;
 
 const runCheckDiscard = () => {
@@ -271,7 +270,7 @@ renderDraggable(){
           fontWeight: 'bold'
       }
       celebration = <Image style={styles.winnerImage} source={require('./card-images/celebrations2.png')} />;
-      
+        
    } else {
      if (_this.state.message) {
        Message = _this.state.activeName + "'s turn"
