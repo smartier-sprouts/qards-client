@@ -40,11 +40,6 @@ class Welcome extends React.Component {
     const { navigate } = this.props.navigation;
     return ( 
       <View style={styles.bottomPart}>
-      {/*
-        <Button style={styles.playButton} title="Let's Play"
-        onPress={() => navigate('Lobby')}
-      /> 
-    */}
       <TouchableHighlight 
         onPress={() => navigate('Lobby')}
         underlayColor="transparent"
@@ -96,7 +91,7 @@ import PreGameArea from './components/PreGameArea.js';
 
 const SimpleApp = StackNavigator({
   Home: { screen: Welcome, navigationOptions: { header: null } },
-  Lobby: { screen: Lobby },
+  Lobby: { screen: Lobby, navigationOptions: { header: null } },
   GameOptions: { screen: GameOptions },
   GinStraightRules: { screen: GinStraightRules },
   PreGameArea: { screen: PreGameArea },

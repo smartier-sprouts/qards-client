@@ -78,16 +78,16 @@ export default class Lobby extends React.Component {
     return (
       <Image source={require('../assets/background.png')} style={styles.backgroundImage}>
         <View style={styles.container}>
-          <Text style={styles.title}>Lobby</Text>
+          <Text style={styles.title}>LOBBY</Text>
           <View style={styles.gameTypesContainer}>
-            <Text style={styles.smallTitle}>Game Types</Text>
+            <Text style={styles.smallTitle}>GAME TYPES</Text>
             <Picker
               selectedValue={this.state.gameType}
               onValueChange={itemValue => this.setState({ gameType: itemValue })}
-              style={styles.picker} >
-              <Picker.Item key={1} label="Gin Straight" value="Gin Straight" />
-              <Picker.Item key={2} label="War" value="War" />
-              <Picker.Item key={3} label="Bluffshtop" value="Bluffshtop" />
+              style={styles.gameTypesPicker} >
+              <Picker.Item style={{color: 'white'}} key={1} label="Gin Straight" value="Gin Straight" />
+              <Picker.Item style={{color: 'white'}} key={2} label="War" value="War" />
+              <Picker.Item style={{color: 'white'}} key={3} label="Bluffshtop" value="Bluffshtop" />
             </Picker>
             <Button
               style={styles.rulesButton}
@@ -95,13 +95,21 @@ export default class Lobby extends React.Component {
               title="Rules"
             />
           </View>
-          <View style={styles.listContainer}>
-            <GameList
-              games={this.state.games.filter(game => game.type === this.state.gameType)}
-              onPressListItem={this.onPressListItem}
-              refreshing={this.state.refreshing}
-              onRefresh={this.getOpenGames}>
-            </GameList>
+          <View style={styles.lowerGamesSection}>
+            <View style={styles.listContainer}>
+              <Text style={styles.smallTitle}>AVAILABLE GAMES</Text>
+              <GameList
+                games={this.state.games.filter(game => game.type === this.state.gameType)}
+                onPressListItem={this.onPressListItem}
+                refreshing={this.state.refreshing}
+                onRefresh={this.getOpenGames}>
+              </GameList>
+            </View>
+            <TouchableHighlight style={{paddingBottom: 30}} onPress={() => navigate('GameOptions')}>
+              <View style={styles.createButton}>
+                <Text style={styles.createButtonText}>CREATE A GAME</Text>
+              </View>
+            </TouchableHighlight>
           </View>
         </View>
       </Image>

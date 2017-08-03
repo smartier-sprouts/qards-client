@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, TextInput, AppRegistry, Button, Picker, ActivityIndicator } from 'react-native';
+import { Platform,StyleSheet, Text, View, FlatList, TextInput, AppRegistry, Button, Picker, ActivityIndicator } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { ListItem } from 'react-native-elements';
 import styles from '../styles/styles.js';
@@ -13,7 +13,7 @@ export default class GameList extends React.Component {
   render() {
     return (
       <FlatList
-        borderRadius={40}
+        borderRadius={30}
         data={this.props.games}
         refreshing={this.props.refreshing}
         onRefresh={() => this.props.onRefresh()}
@@ -21,8 +21,8 @@ export default class GameList extends React.Component {
           item.key = item._id;
           const badge = {
             value: `👤${item.owners.length}`,
-            badgeContainerStyle: {right: 10, backgroundColor: '#00B6FF'},
-            badgeTextStyle: {fontSize: 14}
+            containerStyle: {right: 10, backgroundColor: 'white'},
+            textStyle: {color: 'black', fontSize: 14}
           };
           return (
             <ListItem
@@ -32,8 +32,10 @@ export default class GameList extends React.Component {
               key={item._id}
               title={item.name}
               subtitle={`Created by ${item.owners[0].name}`}
-              containerStyle={{backgroundColor: 'white'}}>
-              underlayColor={'orange'}
+              containerStyle={{backgroundColor: 'transparent', borderBottomWidth: 0, borderTopWidth: 0}}
+              titleStyle={{color: 'white', fontWeight: 'bold'}}
+              subtitleStyle={{color: 'lightgray'}}
+              underlayColor={'orange'}>
             </ListItem>
           );
         }}

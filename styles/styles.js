@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { Constants } from 'expo';
 
 const styles = StyleSheet.create({
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
-    paddingTop: 75
+    paddingTop: 85
   },
 
   bottomPart: {
@@ -31,46 +31,73 @@ const styles = StyleSheet.create({
     resizeMode: 'contain'
   },
 
-  welcomeTitle: {
-    color: 'green',
-    alignSelf: 'center',
-    fontSize: 120,
-    position: 'absolute',
-    backgroundColor: 'transparent'
+  loginButtonText: {
+    justifyContent: 'space-around',
+    fontSize: (Platform.OS === 'ios') ? 30 : 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'white'
+  },
+
+  loginLogo: {
+    width: 25,
+    height: 25,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    paddingRight: 5
+  },
+
+  fbButton: {
+    flexDirection: 'row',
+    backgroundColor: '#3b5998',
+    borderWidth: 20,
+    borderRadius: 30,
+    borderColor: '#3b5998',
+    height: (Platform.OS === 'ios') ? 50 : 40,
+    width: (Platform.OS === 'ios') ? 325 : 275,
+    alignItems: 'center',
+    padding: 10,
+    justifyContent: 'flex-end'
+  },
+
+  gglButton: {
+    backgroundColor: '#3F82F8',
+    borderWidth: 20,
+    borderRadius: 30,
+    borderColor: '#3F82F8',
+    height: 50,
+    width: 325,
+    alignItems: 'center',
+    padding: 10,
+    justifyContent: 'center'
+  },
+
+  logoutButton: {
+    paddingTop: 50,
+    fontSize: 20,
+    color: 'white'
   },
 
   title: {
-    paddingTop: 10,
-    flex: .25,
+    flex: .5,
+    paddingTop: 40,
     fontWeight: 'bold', 
-    fontSize: 60,
+    fontSize: 40,
     justifyContent: 'flex-start',
     alignSelf: 'center',
     color: 'white',
-    backgroundColor: 'transparent'
-  },
-
-  gameTypesContainer: {
-    flex: 1,
-    justifyContent: 'flex-start'
+    backgroundColor: 'transparent',
+    fontWeight: '800'
   },
 
   smallTitle: {
-    flex: .25,
     fontSize: 16,
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-end',
     alignSelf: 'center',
     color: 'white',
+    paddingTop: 20,
+    paddingBottom: 10,
     backgroundColor: 'transparent'
-  },
-
-  picker: {
-    flex: .5,
-    flexDirection: 'column-reverse',
-    justifyContent: 'flex-start',
-    width: 150,
-    height: 15,
-    backgroundColor: 'white'
   },
 
   item: {
@@ -79,9 +106,24 @@ const styles = StyleSheet.create({
     height: 100,
   },
 
-  pickerView: {
+  gameTypesContainer: {
+    flex: 3,
+    justifyContent: 'space-around',
+    backgroundColor: 'transparent',
+    height: 20
+  },
+
+  gameTypesPicker: {
     flex: 1,
-    backgroundColor: 'white'
+    flexDirection: 'column-reverse',
+    width: 150,
+    height: 15,
+    backgroundColor: 'transparent'
+  },
+
+  rulesButton: {
+    alignSelf: 'flex-end',
+    color: 'white'
   },
 
   textInput: {
@@ -90,30 +132,39 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
 
+  lowerGamesSection: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
   listContainer: {
+    flex: 5,
     paddingTop: 10,
     paddingRight: 20,
-    paddingBottom: 30,
+    paddingBottom: 10,
     paddingLeft: 20,
-    width: 380,
-    maxHeight: 350,
+    borderRadius: 20,
+    width: (Platform.OS === 'ios') ? 400 : 300,
+    maxHeight: (Platform.OS === 'ios') ? 400 : 350,
     backgroundColor: 'transparent'
   },
 
-  rulesButton: {
-    flex: .5,
-    alignSelf: 'flex-end',
-    color: '#1E8449',
-    borderWidth: 2,
-    borderColor: '#1E8449'
+  createButtonText: {
+    justifyContent: 'center',
+    color: 'white',
+    alignItems: 'center',
+    fontSize: 20,
+    padding: 10
   },
 
   createButton: {
-    color: 'darkgreen'
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: 'white',
   },
 
   buttonText: {
-    fontSize: 40
+    fontSize: (Platform.OS === 'ios') ? 40 : 30
   },
 
   buttonContainer: {
@@ -135,7 +186,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderColor: 'limegreen',
     height: 50,
-    width: 275,
+    width: (Platform.OS) ? 250 : 200,
     alignItems: 'center',
     padding: 10,
     justifyContent: 'center'
@@ -143,57 +194,12 @@ const styles = StyleSheet.create({
 
   playButtonText: {
     justifyContent: 'center',
-    fontSize: 40,
+    fontSize: (Platform.OS === 'ios') ? 35 : 30,
     fontWeight: 'bold',
     textAlign: 'center',
     color: 'white'
   },
 
-  loginLogo: {
-    width: 25,
-    height: 25,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start'
-  },
-
-  fbButton: {
-    flexDirection: 'row',
-    backgroundColor: '#3b5998',
-    borderWidth: 20,
-    borderRadius: 30,
-    borderColor: '#3b5998',
-    height: 50,
-    width: 325,
-    alignItems: 'center',
-    padding: 10,
-    justifyContent: 'flex-start'
-  },
-
-  gglButton: {
-    backgroundColor: '#3F82F8',
-    borderWidth: 20,
-    borderRadius: 30,
-    borderColor: '#3F82F8',
-    height: 50,
-    width: 325,
-    alignItems: 'center',
-    padding: 10,
-    justifyContent: 'center'
-  },
-
-  loginButtonText: {
-    justifyContent: 'space-around',
-    fontSize: 25,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: 'white'
-  },
-
-  logoutButton: {
-    paddingTop: 20,
-    fontSize: 20,
-    textDecorationColor: 'red'
-  }
 
 });
 
