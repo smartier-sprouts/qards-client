@@ -1,5 +1,27 @@
 import { Platform, StyleSheet } from 'react-native';
+import { PixelRatio } from 'react';
 import { Constants } from 'expo';
+import { normalize, normalizeFont } from './normalize.js';
+const {width, height} = require('Dimensions').get('window');
+
+/*
+PixelRatio.get() === 1
+mdpi Android devices (160 dpi)
+PixelRatio.get() === 1.5
+hdpi Android devices (240 dpi)
+PixelRatio.get() === 2
+iPhone 4, 4S
+iPhone 5, 5c, 5s
+iPhone 6
+xhdpi Android devices (320 dpi)
+PixelRatio.get() === 3
+iPhone 6 plus
+xxhdpi Android devices (480 dpi)
+PixelRatio.get() === 3.5
+Nexus 6
+*/
+
+// if (PixelRatio.get() )
 
 const styles = StyleSheet.create({
   container: {
@@ -33,7 +55,7 @@ const styles = StyleSheet.create({
 
   loginButtonText: {
     justifyContent: 'space-around',
-    fontSize: (Platform.OS === 'ios') ? 30 : 20,
+    fontSize: (Platform.OS === 'ios') ? normalizeFont(3.5) : normalizeFont(3),
     fontWeight: 'bold',
     textAlign: 'center',
     color: 'white'
@@ -53,8 +75,8 @@ const styles = StyleSheet.create({
     borderWidth: 20,
     borderRadius: 30,
     borderColor: '#3b5998',
-    height: (Platform.OS === 'ios') ? 50 : 40,
-    width: (Platform.OS === 'ios') ? 325 : 275,
+    height: (Platform.OS === 'ios') ? normalizeFont(7) : normalizeFont(5.5),
+    width: (Platform.OS === 'ios') ? normalize(240) : normalize(250),
     alignItems: 'center',
     padding: 10,
     justifyContent: 'flex-end'
@@ -74,17 +96,16 @@ const styles = StyleSheet.create({
 
   logoutButton: {
     paddingTop: 50,
-    fontSize: 20,
+    fontSize: normalizeFont(3),
     color: 'white'
   },
 
   title: {
-    flex: .5,
+    flex: .8,
     paddingTop: 40,
     paddingBottom: (Platform.OS === 'ios') ? 0 : 20,
     fontWeight: 'bold', 
-    fontSize: (Platform.OS === 'ios') ? 40 : 25,
-    height: 40,
+    fontSize: (Platform.OS === 'ios') ? normalizeFont(5.5) : normalizeFont(5),
     justifyContent: 'flex-start',
     alignSelf: 'center',
     color: 'white',
@@ -109,22 +130,22 @@ const styles = StyleSheet.create({
   },
 
   gameTypesContainer: {
-    flex: 3,
+    flex: (Platform.OS === 'ios') ? 3.5 : 1.5,
     justifyContent: 'space-around',
     backgroundColor: 'transparent'
   },
 
   gameTypesPicker: {
-    flex: .33,
+    flex: (Platform.OS === 'ios') ? .75 : .33,
     flexDirection: 'column-reverse',
     width: (Platform.OS === 'ios') ? 150 : 150,
-    paddingTop: (Platform.OS === 'ios') ? 30 : 0,
-    backgroundColor: (Platform.OS === 'ios') ? 'transparent' : 'transparent'
+    backgroundColor: (Platform.OS === 'ios') ? 'transparent' : 'white'
   },
 
   rulesButton: {
     alignSelf: 'flex-end',
-    color: 'white'
+    color: 'white',
+    borderWidth: 2
   },
 
   textInput: {
@@ -145,8 +166,8 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 20,
     borderRadius: 20,
-    width: (Platform.OS === 'ios') ? 400 : 350,
-    maxHeight: (Platform.OS === 'ios') ? 400 : 350,
+    width: (Platform.OS === 'ios') ? normalize(300) : normalize(320),
+    maxHeight: (Platform.OS === 'ios') ? normalize(270) : normalize(245),
     backgroundColor: 'transparent'
   },
 
@@ -165,7 +186,7 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
-    fontSize: (Platform.OS === 'ios') ? 40 : 30
+    fontSize: (Platform.OS === 'ios') ? normalizeFont(6) : normalizeFont(4.5)
   },
 
   playButton: {
@@ -174,7 +195,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderColor: 'limegreen',
     height: 50,
-    width: (Platform.OS) ? 250 : 200,
+    width: (Platform.OS) ? normalize(220) : normalize(170),
     alignItems: 'center',
     padding: 10,
     justifyContent: 'center'
@@ -182,7 +203,7 @@ const styles = StyleSheet.create({
 
   playButtonText: {
     justifyContent: 'center',
-    fontSize: (Platform.OS === 'ios') ? 35 : 30,
+    fontSize: (Platform.OS === 'ios') ? normalizeFont(5) : normalizeFont(4.5),
     fontWeight: 'bold',
     textAlign: 'center',
     color: 'white'

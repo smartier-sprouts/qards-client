@@ -75,6 +75,7 @@ export default class Lobby extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
+    console.log(Platform);
     return (
       <Image source={require('../assets/background.png')} style={styles.backgroundImage}>
         <View style={styles.container}>
