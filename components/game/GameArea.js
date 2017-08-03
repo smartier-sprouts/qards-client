@@ -225,9 +225,7 @@ renderDraggable(){
    let top;
    let below;
    let element = <View>
-                    <Below position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-2]}/>
                     <Discard pickUpDiscard={_this.pickUpDiscard } position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-1]}/>
-                    <Bottom position={_this.state.position[9]} />
                     <Pack position={_this.state.position[9]} hand={_this.state.draw[_this.state.draw.length-1]} pickUpDiscard={ _this.pickUpDiscard }/>
                  </View>
 
@@ -242,7 +240,8 @@ renderDraggable(){
 
     return (
         <View>
-            
+            <Below position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-2]}/>
+            <Bottom position={_this.state.position[9]} />
             {top}
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[0]} hand={_this.state.hand[0]}/>
             <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[1]} hand={_this.state.hand[1]}/>
@@ -265,7 +264,7 @@ renderDraggable(){
       Message = _this.state.winner + ' has won!';
 
       let stylio = {
-          color: 'black',
+          color: 'white',
           textAlign : 'center',
           fontSize: 80,
           fontWeight: 'bold'
@@ -281,11 +280,13 @@ renderDraggable(){
         return (
             <View style={styles.mainContainer}>
             
-            <Button style={styles.navigationBar}
-              title="Quit"
+            <View style={styles.navigationBar}>
+            <Button 
+              title="< Quit"
               onPress={() =>
               navigate('Lobby')
               }/>
+              </View >
 
             <Text style={stylio}>{Message}</Text>
                 <Image source={require('./card-images/green_cloth12.jpg')} style={styles.backgroundImage}>
@@ -304,21 +305,23 @@ let styles = StyleSheet.create({
         flex    : 1
     },
     backgroundImage: {
-        flex    : 1
+        flex    : 1,
+        resizeMode: 'cover'
     },
     navigationBar: {
-        textAlign : 'left'
+        right: Window.width*0.4,
+        paddingTop: Window.height*(10/568)
     },
     container: {
         flex: 1,
-        backgroundColor: '#D3D3D3',
         height : Window.height*(80/568),
         width : Window.width
     },
     bannerText: {
-        color: 'black',
+        color: 'white',
         textAlign : 'center',
-        fontSize: 20,
+        backgroundColor: '#008000',
+        fontSize: 25,
         fontWeight: 'bold'
     },
     circle      : {
