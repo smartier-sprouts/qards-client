@@ -21,22 +21,22 @@ export default class Discard extends Component {
 
           let handPositionVar;
 
-        if (Window.height*(gesture.moveY/568) > Window.height*(430/568)) {
-          if (Window.width*(gesture.moveX/320) < Window.width*(35/320)) {
+        if (viewHeight*(gesture.moveY/568) > viewHeight*(430/568)) {
+          if (viewWidth*(gesture.moveX/320) < viewWidth*(35/320)) {
             handPositionVar = 0
-          } else if (Window.width*(gesture.moveX/320) < Window.width*(70/320)) {
+          } else if (viewWidth*(gesture.moveX/320) < viewWidth*(70/320)) {
             handPositionVar = 1
-          } else if (Window.width*(gesture.moveX/320) < Window.width*(105/320)) {
+          } else if (viewWidth*(gesture.moveX/320) < viewWidth*(105/320)) {
             handPositionVar = 2
-          } else if (Window.width*(gesture.moveX/320) < Window.width*(140/320)) {
+          } else if (viewWidth*(gesture.moveX/320) < viewWidth*(140/320)) {
             handPositionVar = 3
-          } else if (Window.width*(gesture.moveX/320) < Window.width*(175/320)) {
+          } else if (viewWidth*(gesture.moveX/320) < viewWidth*(175/320)) {
             handPositionVar = 4
-          } else if (Window.width*(gesture.moveX/320) < Window.width*(210/320)) {
+          } else if (viewWidth*(gesture.moveX/320) < viewWidth*(210/320)) {
             handPositionVar = 5
-          } else if (Window.width*(gesture.moveX/320) < Window.width*(245/320)) {
+          } else if (viewWidth*(gesture.moveX/320) < viewWidth*(245/320)) {
             handPositionVar = 6
-          } else if (Window.width*(gesture.moveX/320) > Window.width*(245/320)) {
+          } else if (viewWidth*(gesture.moveX/320) > viewWidth*(245/320)) {
             handPositionVar = 7
           }
           this.props.pickUpDiscard(this.props.hand, handPositionVar, true);
