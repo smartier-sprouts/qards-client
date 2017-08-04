@@ -281,18 +281,23 @@ renderDraggable(){
 
 
         return (
-            <View style={styles.mainContainer}>
+        <View style={styles.mainContainer}>
+          <Text style={stylio}>{Message}</Text>
+          <Image source={require('./card-images/green_cloth12.jpg')} style={styles.backgroundImage}>
+          <View style={{marginTop: 30, flexDirection: 'row', align:'flex-end'}}>
+            <View style={{flex: 1}}>
+            </View>
+            <View style={{flex: 6, flexDirection: 'row'}}>
+              <Button
+                title=" Leave Game "
+                style={{borderWidth: 1, borderColor: 'blue',  padding: 40}}
+                onPress={() =>
+                navigate('Lobby')
+                }/>
+            </View>
+            <View  style={{flex: 8}}>
+            </View>
 
-
-            <Text style={stylio}>{Message}</Text>
-                <Image source={require('./card-images/green_cloth12.jpg')} style={styles.backgroundImage}>
-                  <View style={{marginTop: 30}}>
-                  <Button
-                    title="Quit"
-                    style={{borderWidth: 1, borderColor: 'blue',  padding: 40}}
-                    onPress={() =>
-                    navigate('Lobby')
-                    }/>
                   </View >
                 {celebration}
                 {this.renderDraggable()}
