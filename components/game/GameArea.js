@@ -225,13 +225,12 @@ class GameArea extends React.Component {
           <View style={{marginTop: 30, flexDirection: 'row', alignItems: 'flex-end', backgroundColor: 'transparent'}}>
             <View style={{flex: 1}}>
             </View>
-            <View style={{flex: 2.5, flexDirection: 'row', backgroundColor: 'transparent', alignItems: 'center', borderRadius: 50, overflow: 'hidden'}}>
+            <View style={{flex: 2.5, elevation: 1, flexDirection: 'row', backgroundColor: 'transparent', alignItems: 'center', borderRadius: 50, overflow: 'hidden'}}>
               <Button
                 title='LEAVE GAME'
-                color='red'
-                backgroundColor='red'
-                fontWeight='bold'
-                style={{padding: 40, backgroundColor: 'transparent', fontWeight: 'bold'}}
+                color='green'
+                backgroundColor='green'
+                style={{padding: 40, backgroundColor: 'transparent', borderRadius: 50, overflow: 'hidden', fontWeight: 'bold'}}
                 onPress={() =>
                   navigate('Lobby')
                 }/>
@@ -260,6 +259,7 @@ class GameArea extends React.Component {
       width: viewWidth
     },
     bannerText: {
+      paddingTop: 20,
       color: 'white',
       textAlign: 'center',
       backgroundColor: '#008000',
