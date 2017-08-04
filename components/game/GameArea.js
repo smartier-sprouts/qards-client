@@ -282,34 +282,33 @@ renderDraggable(){
      }
    }
    const { navigate } = _this.props.navigation;
-
-
-
-        return (
-        <View style={styles.mainContainer}>
-          <Text style={stylio}>{Message}</Text>
-          <Image source={require('./card-images/green_cloth12.jpg')} style={styles.backgroundImage}>
-          <View style={{marginTop: 30, flexDirection: 'row', align:'flex-end'}}>
+    return (
+      <View style={styles.mainContainer}>
+        <Text style={stylio}>{Message}</Text>
+        <Image source={require('./card-images/green_cloth12.jpg')} style={styles.backgroundImage}>
+          <View style={{marginTop: 30, flexDirection: 'row', alignItems: 'flex-end', backgroundColor: 'transparent'}}>
             <View style={{flex: 1}}>
             </View>
-            <View style={{flex: 6, flexDirection: 'row'}}>
+            <View style={{flex: 2.5, flexDirection: 'row', backgroundColor: 'transparent', alignItems: 'center'}}>
               <Button
-                title=" Leave Game "
-                style={{borderWidth: 1, borderColor: 'blue',  padding: 40}}
+                title='LEAVE GAME'
+                color='red'
+                backgroundColor='red'
+                fontWeight='bold'
+                style={{padding: 40, backgroundColor: 'transparent', fontWeight: 'bold'}}
                 onPress={() =>
-                navigate('Lobby')
+                  navigate('Lobby')
                 }/>
             </View>
-            <View  style={{flex: 8}}>
+            <View style={{flex: 8}}>
             </View>
-
-                  </View >
-                {celebration}
-                {this.renderDraggable()}
-                </Image>
-            </View>
-        );
-    }
+          </View>
+          {celebration}
+          {this.renderDraggable()}
+        </Image>
+      </View>
+    );
+  }
 }
 
 
@@ -333,6 +332,7 @@ let styles = StyleSheet.create({
         width : Window.width
     },
     bannerText: {
+        paddingTop: 20,
         color: 'white',
         textAlign : 'center',
         backgroundColor: '#008000',
