@@ -127,7 +127,6 @@ componentWillMount() {
   }
 )}
 
-
 dropCardToDiscard(discardCard, callback) {
   let _this = this;
 
@@ -284,15 +283,17 @@ renderDraggable(){
         return (
             <View style={styles.mainContainer}>
 
-            <View style={styles.navigationBar}>
-            <Button
-              title="< Quit"
-              onPress={() =>
-              navigate('Lobby')
-              }/>
-              </View >
+
             <Text style={stylio}>{Message}</Text>
                 <Image source={require('./card-images/green_cloth12.jpg')} style={styles.backgroundImage}>
+                  <View style={{marginTop: 30}}>
+                  <Button
+                    title="Quit"
+                    style={{borderWidth: 1, borderColor: 'blue',  padding: 40}}
+                    onPress={() =>
+                    navigate('Lobby')
+                    }/>
+                  </View >
                 {celebration}
                 {this.renderDraggable()}
                 </Image>
@@ -339,6 +340,7 @@ let styles = StyleSheet.create({
       width  : Window.width*(250/320),
       zIndex: 2
     }
+
 });
 
 export { runCheckDiscard, GameArea };
