@@ -41,9 +41,9 @@ class Welcome extends React.Component {
 
   renderLoggedInView() {
     const { navigate } = this.props.navigation;
-    return ( 
+    return (
       <View style={styles.bottomPart}>
-      <TouchableHighlight 
+      <TouchableHighlight
         onPress={() => navigate('Lobby')}
         underlayColor='transparent'
         activeOpacity={0.7}>
@@ -53,9 +53,9 @@ class Welcome extends React.Component {
           </Text>
         </View>
       </TouchableHighlight>
-      <TouchableHighlight 
+      <TouchableHighlight
         onPress={() => {
-          this.setState({isLoggedIn: false}, () => { logout(); }); 
+          this.setState({isLoggedIn: false}, () => { logout(); });
           }}
         underlayColor='white'
         activeOpacity={0.7}>
