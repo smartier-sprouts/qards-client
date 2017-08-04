@@ -32,9 +32,12 @@ export default class Card extends Component {
               
               this.props.dropCardToDiscard(this.props.hand, function(){
 
-                  Animated.spring(          
+          
+
+                  Animated.timing(          
                     _this.state.pan,       
-                    {toValue:{x:0,y:0}}    
+                    {toValue:{x:0,y:0},
+                    duration: 1}    
                 ).start();
              
               });
@@ -60,7 +63,7 @@ export default class Card extends Component {
               handPositionVar = 7
             }
 
-            this.props.reOrderHand(this.props.hand, handPositionVar)
+            this.props.reOrderHand(this.props.hand, handPositionVar);
             Animated.timing(           
                 this.state.pan,         
                 {toValue:{x:0,y:0},
@@ -139,7 +142,7 @@ renderDraggable(){
   
   card = <Image style={styles.circle}
                 resizeMode='contain' 
-                source={imageArray[_this.props.hand.pictureId]} />
+                source={_this.props.hand ? imageArray[_this.props.hand.pictureId] : imageArray[0] } />
 
     return (
         <View style={_this.props.position}>
