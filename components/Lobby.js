@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, TextInput, AsyncStorage, AppRegistry, Button, Picker } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TextInput, AsyncStorage, AppRegistry, Button, Picker, TouchableHighlight, Image } from 'react-native';
 import ReactNativeComponentTree from 'react-native/Libraries/Renderer/src/renderers/native/ReactNativeComponentTree'; // <~~ Rich doesn't think this is necessary
 import { StackNavigator } from 'react-navigation';
 
@@ -55,18 +55,19 @@ export default class Lobby extends React.Component {
 
     const joinExistingGame = () => {
       AsyncStorage.getItem('asyncUserObj')
-                  .then( (data) => { return JSON.parse(data); })
-                  .then( (userData) => {
-                    let postDataObj = { gameId: game._id,
-                                        player: {
-                                          name: userData.firstName,
-                                          username: userData.uID
-                                        }
-                                      };
-                    return postDataObj;
-                  })
-                  .then( (obj) => { postToJoinGame(obj); })
-                  .catch( (err) => console.error('Error building a joinGameObject:', err) );
+        .then(data => { return JSON.parse(data); })
+        .then(userData => {
+          let postDataObj = { 
+            gameId: game._id,
+            player: {
+              name: userData.firstName,
+              username: userData.uID
+            }
+          };
+          return postDataObj;
+        })
+        .then(obj => { postToJoinGame(obj); })
+        .catch(err => console.error('Error building a joinGameObject:', err) );
     };
 
     joinExistingGame();
@@ -75,40 +76,47 @@ export default class Lobby extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Lobby</Text>
-          <View>
-            <Text style={styles.smallTitle}>Games</Text>
-            <View style={styles.pickerView}>
-              <Picker
-                selectedValue={this.state.gameType}
-                onValueChange={(itemValue, itemIndex) => this.setState({ gameType: itemValue })} // Jon does itemIndex do anything??
-                style={styles.picker} >
-                <Picker.Item key={1} label="Gin Straight" value="Gin Straight" />
-                <Picker.Item key={2} label="War" value="War" />
-                <Picker.Item key={3} label="Bluffshtop" value="Bluffshtop" />
-              </Picker>
-            </View>
+      <Image source={require('../assets/background.png')} style={styles.backgroundImage}>
+        <View style={styles.container}>
+          <Text style={styles.title}>LOBBY</Text>
+          <View style={styles.gameTypesContainer}>
+            <Text style={styles.smallTitle}>GAME TYPES</Text>
+            <Picker
+              selectedValue={this.state.gameType}
+              onValueChange={itemValue => this.setState({ gameType: itemValue })}
+              style={styles.gameTypesPicker} >
+              <Picker.Item style={{textColor: 'white'}} key={1} label="Gin Straight" value="Gin Straight" />
+              <Picker.Item style={{textColor: 'white'}} key={2} label="War" value="War" />
+              <Picker.Item style={{textColor: 'white'}} key={3} label="Bluffshtop" value="Bluffshtop" />
+            </Picker>
             <Button
-              color='darkviolet'
+              style={styles.rulesButton}
               onPress={() => navigate(this.state.gameType.split(' ').join('') + 'Rules')}
               title="Rules"
             />
           </View>
-          <View style={styles.listContainer}>
-            <GameList
+          <View style={styles.lowerGamesSection}>
+            <View style={styles.listContainer}>
+              <Text style={styles.smallTitle}>AVAILABLE GAMES</Text>
+              <GameList
                 games={this.state.games.filter(game => game.type === this.state.gameType)}
                 onPressListItem={this.onPressListItem}
                 refreshing={this.state.refreshing}
                 onRefresh={this.getOpenGames}>
-            </GameList>
+              </GameList>
+            </View>
+            <TouchableHighlight 
+              underlayColor='transparent'
+              activeOpacity={0.7}
+              style={styles.createButtonContainer} 
+              onPress={() => navigate('GameOptions')}>
+              <View style={styles.createButton}>
+                <Text style={styles.createButtonText}>CREATE A GAME</Text>
+              </View>
+            </TouchableHighlight>
           </View>
-          <Button
-            color='darkviolet'
-            onPress={() => navigate('GameOptions')}
-            title="Create a Game"
-          />
-      </View>
+        </View>
+      </Image>
     );
   }
 }

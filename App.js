@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, AppRegistry, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, AppRegistry, Button, Image, TouchableHighlight } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 // import './setup/ReactotronConfig'; // <~~~ FOR DEBUGGING WITH REACTOTRON
 import * as firebase from 'firebase';
@@ -38,30 +38,46 @@ class Welcome extends React.Component {
 
   renderLoggedInView() {
     const { navigate } = this.props.navigation;
-    return ( <View style={styles.bottomPart}>
-      <Button title="Let's Play" color='darkviolet'
+    return ( 
+      <View style={styles.bottomPart}>
+      <TouchableHighlight 
         onPress={() => navigate('Lobby')}
-      />
-      <Button title="Logout" color='red'
+        underlayColor='transparent'
+        activeOpacity={0.7}>
+        <View style={styles.playButton}>
+          <Text style={styles.playButtonText}>
+            LET'S PLAY!
+          </Text>
+        </View>
+      </TouchableHighlight>
+      <TouchableHighlight 
         onPress={() => {
-          this.setState({isLoggedIn: false},
-            () => { logout(); }); // setState callback
-        }}
-      />
+          this.setState({isLoggedIn: false}, () => { logout(); }); 
+          }}
+        underlayColor='white'
+        activeOpacity={0.7}>
+        <View>
+          <Text style={styles.logoutButton}>
+            LOGOUT
+          </Text>
+        </View>
+      </TouchableHighlight>
       </View>
     );
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <WelcomeScreenTop />
-        {
-          this.state.isRetrievingData ? this.renderLoadingView()
-          : this.state.isLoggedIn ? this.renderLoggedInView()
-          : <WelcomeLogin chk={this.checkStatus} />
-        }
-      </View>
+      <Image source={require('./assets/background.png')} style={styles.backgroundImage}>
+        <View style={styles.container}>
+          <WelcomeScreenTop />
+          {
+            this.state.isRetrievingData ? this.renderLoadingView()
+            : this.state.isLoggedIn ? this.renderLoggedInView()
+            : <WelcomeLogin chk={this.checkStatus} />
+          }
+        </View>
+      </Image>
     );
   }
 }
@@ -75,10 +91,10 @@ import PreGameArea from './components/PreGameArea.js';
 
 const SimpleApp = StackNavigator({
   Home: { screen: Welcome, navigationOptions: { header: null } },
-  Lobby: { screen: Lobby },
-  GameOptions: { screen: GameOptions },
-  GinStraightRules: { screen: GinStraightRules },
-  PreGameArea: { screen: PreGameArea },
+  Lobby: { screen: Lobby, navigationOptions: { header: null } },
+  GameOptions: { screen: GameOptions, navigationOptions: { header: null } },
+  GinStraightRules: { screen: GinStraightRules, navigationOptions: { header: null } },
+  PreGameArea: { screen: PreGameArea, navigationOptions: { header: null } },
   GameArea: { screen: GameArea, navigationOptions: { header: null } }
 });
 

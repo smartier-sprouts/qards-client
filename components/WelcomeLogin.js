@@ -1,10 +1,8 @@
-import React, {Component} from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, Button, TouchableHighlight, Image } from 'react-native';
 import fbFirebaseAuth from '../services/fbFirebaseAuth.js';
-
 import Spinner from './Spinner.js';
 import styles from '../styles/styles.js';
-
 
 export default class WelcomeLogin extends Component {
   constructor(props){
@@ -12,20 +10,25 @@ export default class WelcomeLogin extends Component {
     this.state = {isDoingBackgroundStuff: false}
   }
 
-
   render() {
     return (
       <View style={styles.bottomPart}>
-          <Button color='steelblue'
-            title = "LOGIN WITH FACEBOOK"
-            style = {{ fontSize: 90 }}
-            onPress = {
-              async () => {
-                await fbFirebaseAuth();
-                this.props.chk();
-              }
-            }
-          />
+        <TouchableHighlight 
+          underlayColor='transparent'
+          activeOpacity={0.7}
+          onPress={
+            async () => {
+              await fbFirebaseAuth();
+              this.props.chk();
+            }}
+          >
+          <View style={styles.fbButton}>
+            <Image source={require('../assets/icons/logo_facebook.png')} style={styles.loginLogo}/>
+            <Text style={styles.loginButtonText}>
+              Sign in with Facebook
+            </Text>
+          </View>
+        </TouchableHighlight>
       </View>
     );
   }

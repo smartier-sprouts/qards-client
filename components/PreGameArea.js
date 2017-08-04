@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker } from 'react-native';
+import { Image, StyleSheet, Text, View, TextInput, AppRegistry, Button, Picker } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import styles from '../styles/styles.js';
 import socketStart from '../services/socket/socket.js';
@@ -79,15 +79,17 @@ export default class PreGameArea extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Get Ready to Play</Text>
-        <Text style={styles.smallTitle}>Number of players: {this.state.numberOfPlayers}</Text>
-        {this.state.isCreator ? <Button
-            color='darkviolet'
-            onPress={this.createGame}
-            title="Start Game"
-          /> : null}
-      </View>
+      <Image source={require('../assets/background.png')} style={styles.backgroundImage}>
+        <View style={styles.container}>
+          <Text style={styles.title}>Get Ready to Play</Text>
+          <Text style={styles.smallTitle}>Number of players: {this.state.numberOfPlayers}</Text>
+          {this.state.isCreator ? <Button
+              color='darkviolet'
+              onPress={this.createGame}
+              title="Start Game"
+            /> : null}
+        </View>
+      </Image>
     );
   }
 }
