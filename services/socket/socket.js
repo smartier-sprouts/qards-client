@@ -12,7 +12,8 @@ const socketStart = (gameId, cb, cb2) => {
   socket.on(gameId, function (data) {
     // console.log('we got a message in gameId!!!', data);
     if (data.checkDiscard) {
-        runCheckDiscard();
+      console.log('check discard');
+      runCheckDiscard();
     } else if (data.players) {
       cb(data.players);
     } else if (data.gameStarted) {
