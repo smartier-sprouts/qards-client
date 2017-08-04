@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 
   loginButtonText: {
     justifyContent: 'space-around',
-    fontSize: (Platform.OS === 'ios') ? normalizeFont(3.5) : normalizeFont(3),
+    fontSize: normalizeFont(3),
     fontWeight: 'bold',
     textAlign: 'center',
     color: 'white'
@@ -53,14 +53,13 @@ const styles = StyleSheet.create({
   fbButton: {
     flexDirection: 'row',
     backgroundColor: '#3b5998',
-    borderWidth: 20,
-    borderRadius: 30,
+    borderRadius: normalize(30),
     borderColor: '#3b5998',
-    height: (Platform.OS === 'ios') ? normalizeFont(7) : normalizeFont(5.5),
-    width: (Platform.OS === 'ios') ? normalize(240) : normalize(250),
+    height: (Platform.OS === 'ios') ? normalize(40) : normalize(35),
+    width: (Platform.OS === 'ios') ? normalize(240) : normalize(220),
     alignItems: 'center',
     padding: 10,
-    justifyContent: 'flex-end'
+    justifyContent: 'center'
   },
 
   gglButton: {
@@ -82,10 +81,9 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    flex: .8,
+    flex: 1,
     paddingTop: 40,
     paddingBottom: (Platform.OS === 'ios') ? 10 : 30,
-    fontWeight: 'bold', 
     fontSize: (Platform.OS === 'ios') ? normalizeFont(5.5) : normalizeFont(5),
     justifyContent: 'flex-start',
     alignSelf: 'center',
@@ -95,8 +93,8 @@ const styles = StyleSheet.create({
   },
 
   frontPic: {
-    width: (Platform.OS === 'ios') ? normalize(290) : normalize(310),
-    height: (Platform.OS === 'ios') ? normalize(170) : normalize(180)
+    width: (Platform.OS === 'ios') ? normalize(290) : normalize(250),
+    height: (Platform.OS === 'ios') ? normalize(170) : normalize(145)
   },
 
   smallTitle: {
@@ -116,15 +114,15 @@ const styles = StyleSheet.create({
   },
 
   gameTypesContainer: {
-    flex: (Platform.OS === 'ios') ? normalize(3) : normalize(2),
+    flex: (Platform.OS === 'ios') ? normalize(4) : normalize(1),
     justifyContent: 'space-around',
     backgroundColor: 'transparent'
   },
 
   gameTypesPicker: {
-    flex: (Platform.OS === 'ios') ? 2 : .33,
+    flex: (Platform.OS === 'ios') ? normalize(2) : normalize(.5),
     flexDirection: 'column-reverse',
-    width: (Platform.OS === 'ios') ? 150 : 150,
+    width: (Platform.OS === 'ios') ? normalize(150) : normalize(150),
     backgroundColor: (Platform.OS === 'ios') ? 'transparent' : 'white'
   },
 
@@ -135,9 +133,9 @@ const styles = StyleSheet.create({
   },
 
   gameOptionsGameTypesPicker: {
-    flex: (Platform.OS === 'ios') ? 2 : .33,
+    flex: (Platform.OS === 'ios') ? normalize(2) : normalize(.33),
     flexDirection: 'column-reverse',
-    width: (Platform.OS === 'ios') ? 150 : 150,
+    width: (Platform.OS === 'ios') ? normalize(150) : normalize(150),
     backgroundColor: (Platform.OS === 'ios') ? 'transparent' : 'white'
   },
 
@@ -149,7 +147,7 @@ const styles = StyleSheet.create({
 
   lowerGamesSection: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   listContainer: {
@@ -159,7 +157,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 20,
     borderRadius: 20,
-    width: (Platform.OS === 'ios') ? normalize(300) : normalize(320),
+    width: (Platform.OS === 'ios') ? normalize(300) : normalize(280),
     maxHeight: (Platform.OS === 'ios') ? normalize(270) : normalize(245),
     backgroundColor: 'transparent'
   },
@@ -168,8 +166,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'white',
     alignItems: 'center',
-    fontSize: (Platform.OS === 'ios') ? 20 : 12,
-    padding: (Platform.OS === 'ios') ? 10 : 7
+    fontSize: (Platform.OS === 'ios') ? normalizeFont(3) : normalize(1.9),
+    padding: (Platform.OS === 'ios') ? normalize(10) : normalize(7)
   },
 
   createButton: {
@@ -223,11 +221,10 @@ const styles = StyleSheet.create({
 
   playButton: {
     backgroundColor: 'limegreen',
-    borderWidth: 20,
-    borderRadius: 30,
+    borderRadius: normalize(24),
     borderColor: 'limegreen',
-    height: 50,
-    width: (Platform.OS) ? normalize(220) : normalize(170),
+    height: normalize(40),
+    width: (Platform.OS) ? normalize(220) : normalize(30),
     alignItems: 'center',
     padding: 10,
     justifyContent: 'center'
@@ -278,7 +275,7 @@ const styles = StyleSheet.create({
     borderWidth: 20,
     borderRadius: 30,
     borderColor: 'limegreen',
-    height: 50,
+    height: (Platform.OS === 'ios') ? normalize(35) : normalize(30),
     width: (Platform.OS === 'ios') ? normalize(230) : normalize(220),
     alignItems: 'center',
     padding: 10,
@@ -287,12 +284,101 @@ const styles = StyleSheet.create({
 
   launchButtonText: {
     justifyContent: 'center',
-    fontSize: (Platform.OS === 'ios') ? normalizeFont(4) : normalizeFont(3.75),
+    fontSize: normalizeFont(3),
     fontWeight: 'bold',
     textAlign: 'center',
     color: 'white'
-  }
+  },
 
+  startButtonContainer: {
+    paddingTop: (Platform.OS === 'ios') ? normalize(120) : normalize(90), 
+    paddingBottom: 30, 
+    alignSelf: 'center'
+  },
+  
+  startButton: {
+    backgroundColor: 'limegreen',
+    borderWidth: 20,
+    borderRadius: 30,
+    borderColor: 'limegreen',
+    height: (Platform.OS === 'ios') ? normalize(35) : normalize(30),
+    width: (Platform.OS === 'ios') ? normalize(230) : normalize(220),
+    alignItems: 'center',
+    padding: 10,
+    justifyContent: 'center'
+  },
+
+  startButtonText: {
+    justifyContent: 'center',
+    fontSize: normalizeFont(3),
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'white'
+  },
+
+  waitingText: {
+    fontSize: normalizeFont(5)
+  },
+
+  rulesContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    backgroundColor: 'transparent',
+    paddingTop: normalize(30),
+    paddingBottom: normalize(30)
+  },
+
+  rulesTitleContainer: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    maxHeight: (Platform.OS === 'ios') ? normalize(30) : normalize(60),
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  rulesTitle: {
+    fontSize: (Platform.OS === 'ios') ? normalizeFont(5.5) : normalizeFont(5),
+    color: 'white',
+    fontWeight: '200'
+  },
+
+  rulesScrollView: {
+    flex: 7,
+    paddingTop: normalize(0),
+    maxHeight: normalize(450),
+    backgroundColor: 'transparent',
+  },
+
+  rulesBody: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    padding: normalize(20),
+    fontSize: normalizeFont(2.95),
+    backgroundColor: 'transparent',
+    color: 'white'
+  },
+
+  preGameContainer: {
+    flex: 1,
+    justifyContent: 'center'
+  },
+
+  preGameTitle: {
+    fontSize: normalizeFont(4),
+    justifyContent: 'flex-end',
+    color: 'white'
+  },
+
+  preGameSubtitle: {
+    justifyContent: 'flex-start',
+    color: 'white'
+  },
+
+  preGameNumber: {
+    fontSize: normalizeFont(7),
+    color: 'white'
+  }
 
 
 });

@@ -15,7 +15,7 @@ export default class GameOptions extends React.Component {
     this.handleSwitchChange = this.handleSwitchChange.bind(this);
   }
 
- launchGame() {
+  launchGame() {
     const { navigate } = this.props.navigation;
     const gameType = this.state.game;
     const gameName = this.state.gameName;
@@ -26,9 +26,11 @@ export default class GameOptions extends React.Component {
         method: 'POST',
         body: JSON.stringify(newGameObj)
       })
-      .then(response => response.json())
-      .then(responseJson => {
-        console.log('Response from Server after new game create POST: ', responseJson);//
+      .then( (response) => {
+        return response.json();
+      })
+      .then((responseJson) => {
+  console.log('Response from Server after new game create POST: ', responseJson);//
         navigate('PreGameArea', {
           gameId: responseJson.gameId,
           playerId: responseJson.player._id,
@@ -36,35 +38,35 @@ export default class GameOptions extends React.Component {
           isCreator: true
         });
       })
-      .catch(error => console.error('ERR Fetching for new game:', error));
+      .catch((error) => { console.error('ERR Fetching for new game:', error); });
     };
 
     const createGame = () => {
       AsyncStorage.getItem('asyncUserObj')
-        .then(data => JSON.parse(data))
-        .then(userDataObj => {
-          let newGameDataObj = {
-            type: gameType,
-            name: gameName,
-            public: true,
-            open: true,
-            complete: false,
-            winner: null,
-            owners: [{
-              name: userDataObj.firstName,
-              username: userDataObj.uID,
-              turn: 0
-            }]
-          };
-          return newGameDataObj;
-        })
-        .then(gameDataObj => requestNewGame(gameDataObj))
-        .catch(err => console.error('Bad New Game Req:', err)
-      );
+                  .then( (data) => { return JSON.parse(data); })
+                  .then( (userDataObj) => {
+                      let newGameDataObj = {
+                            type: gameType,
+                            name: gameName,
+                            public: true,
+                            open: true,
+                            complete: false,
+                            winner: null,
+                            owners: [{
+                              name: userDataObj.firstName,
+                              username: userDataObj.uID,
+                              turn: 0
+                            }]
+                          };
+                    return newGameDataObj;
+                  })
+                  .then( (gameDataObj) => { requestNewGame(gameDataObj); })
+                  .catch( (err) => { console.error('Bad New Game Req:', err); });
     };
 
     createGame();
   }
+
 
   handleSwitchChange() {
     let isPublic = this.state.isPublic;

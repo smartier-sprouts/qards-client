@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, StyleSheet, Text, View, FlatList, TextInput, AsyncStorage, AppRegistry, Button, Picker, TouchableHighlight, Image } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TextInput, AsyncStorage, AppRegistry, Button, Picker, TouchableHighlight, Image } from 'react-native';
 import ReactNativeComponentTree from 'react-native/Libraries/Renderer/src/renderers/native/ReactNativeComponentTree'; // <~~ Rich doesn't think this is necessary
 import { StackNavigator } from 'react-navigation';
 
@@ -75,7 +75,6 @@ export default class Lobby extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    console.log(Platform);
     return (
       <Image source={require('../assets/background.png')} style={styles.backgroundImage}>
         <View style={styles.container}>

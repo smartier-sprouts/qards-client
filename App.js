@@ -93,8 +93,8 @@ const SimpleApp = StackNavigator({
   Home: { screen: Welcome, navigationOptions: { header: null } },
   Lobby: { screen: Lobby, navigationOptions: { header: null } },
   GameOptions: { screen: GameOptions, navigationOptions: { header: null } },
-  GinStraightRules: { screen: GinStraightRules },
-  PreGameArea: { screen: PreGameArea },
+  GinStraightRules: { screen: GinStraightRules, navigationOptions: { header: null } },
+  PreGameArea: { screen: PreGameArea, navigationOptions: { header: null } },
   GameArea: { screen: GameArea, navigationOptions: { header: null } }
 });
 
