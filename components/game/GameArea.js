@@ -44,6 +44,20 @@ const viewWidth = Dimensions.get('window').width;
 class GameArea extends React.Component {
   constructor(props) {
     super(props);
+
+    this.originPos = [
+      {position: 'absolute', top: viewHeight * (360 / 568), left: 0 },
+      {position: 'absolute', top: viewHeight * (360 / 568), left: viewWidth * (35 / 320) },
+      {position: 'absolute', top: viewHeight * (360 / 568), left: viewWidth * (70 / 320) },
+      {position: 'absolute', top: viewHeight * (360 / 568), left: viewWidth * (105 / 320) },
+      {position: 'absolute', top: viewHeight * (360 / 568), left: viewWidth * (140 / 320) },
+      {position: 'absolute', top: viewHeight * (360 / 568), left: viewWidth * (175 / 320) },
+      {position: 'absolute', top: viewHeight * (360 / 568), left: viewWidth * (210 / 320) },
+      {position: 'absolute', top: viewHeight * (360 / 568), left: viewWidth * (245 / 320) },
+      {position: 'absolute', top: viewHeight * (50 / 568) , left: viewWidth * (225 / 320) },
+      {position: 'absolute', top: viewHeight * (50 / 568) , left: 0}
+    ];
+
     this.state = {
         position: this.originPos,
         message: 1,
@@ -59,19 +73,6 @@ class GameArea extends React.Component {
         playerId: '',
         playerName: ''
     };
-
-    this.originPos = [
-      {position: 'absolute', top: viewHeight * (360 / 568), left: 0 },
-      {position: 'absolute', top: viewHeight * (360 / 568), left: viewWidth * (35/320) },
-      {position: 'absolute', top: viewHeight * (360 / 568), left: viewWidth * (70/320) },
-      {position: 'absolute', top: viewHeight * (360 / 568), left: viewWidth * (105/320) },
-      {position: 'absolute', top: viewHeight * (360 / 568), left: viewWidth * (140/320) },
-      {position: 'absolute', top: viewHeight * (360 / 568), left: viewWidth * (175/320) },
-      {position: 'absolute', top: viewHeight * (360 / 568), left: viewWidth * (210/320) },
-      {position: 'absolute', top: viewHeight * (360 / 568), left: viewWidth * (245/320) },
-      {position: 'absolute', top: viewHeight * (50 / 568) , left: viewWidth * (225/320) },
-      {position: 'absolute', top: viewHeight * (50 / 568) , left: 0}
-    ];
     this.dropCardToDiscard = this.dropCardToDiscard.bind(this);
     this.pickUpDiscard = this.pickUpDiscard.bind(this);
     this.reOrderHand = this.reOrderHand.bind(this);
@@ -158,10 +159,10 @@ class GameArea extends React.Component {
     if (_this.state.hand.length > 7) {
       eighth = <Card reOrderHand={ _this.reOrderHand } dropCardToDiscard={ _this.dropCardToDiscard } position={_this.state.position[7]} hand={_this.state.hand[7]}/> ;
     }
-    let element = (<View>
-                    <Discard pickUpDiscard={_this.pickUpDiscard } position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length-1]}/>
-                    <Pack position={_this.state.position[9]} hand={_this.state.draw[_this.state.draw.length-1]} pickUpDiscard={ _this.pickUpDiscard }/>
-                 </View>);
+    let element = <View>
+                    <Discard pickUpDiscard={_this.pickUpDiscard } position={_this.state.position[8]} hand={_this.state.discard[_this.state.discard.length - 1]}/>
+                    <Pack position={_this.state.position[9]} hand={_this.state.draw[_this.state.draw.length - 1]} pickUpDiscard={ _this.pickUpDiscard }/>
+                 </View>;
 
     if (_this.state.phase2) {
       top = element;
@@ -190,8 +191,8 @@ class GameArea extends React.Component {
   }
 
   render() {
-    const { navigate } = _this.props.navigation;
     let _this = this;
+    const { navigate } = _this.props.navigation;
     let gameBoardMsg = '';
     let stylio = styles.bannerText;
     let celebration = <View></View>;
@@ -224,7 +225,7 @@ class GameArea extends React.Component {
           <View style={{marginTop: 30, flexDirection: 'row', alignItems: 'flex-end', backgroundColor: 'transparent'}}>
             <View style={{flex: 1}}>
             </View>
-            <View style={{flex: 2.5, flexDirection: 'row', backgroundColor: 'transparent', alignItems: 'center'}}>
+            <View style={{flex: 2.5, flexDirection: 'row', backgroundColor: 'transparent', alignItems: 'center', borderRadius: 50, overflow: 'hidden'}}>
               <Button
                 title='LEAVE GAME'
                 color='red'
