@@ -85,11 +85,21 @@ export default class PreGameArea extends React.Component {
           </Text>
           <Text style={styles.preGameSubtitle}>NUMBER OF PLAYERS:</Text>
           <Text style={styles.preGameNumber}>{this.state.numberOfPlayers}</Text>
-          {this.state.isCreator ? <Button
-              color='darkviolet'
+          {this.state.isCreator 
+          ? <Button
+              color='red'
               onPress={this.createGame}
-              title="Start Game"
-            /> : null}
+              title="START GAME"
+            /> 
+          : <View style={styles.waitingContainer}>
+              <Text style={styles.waitingText}>
+                WAITING FOR CREATOR
+              </Text>
+              <Text style={styles.waitingText}>
+                TO PRESS START...
+              </Text>
+            </View>
+          }
         </View>
       </Image>
     );

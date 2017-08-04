@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   },
 
   gameTypesContainer: {
-    flex: (Platform.OS === 'ios') ? normalize(4) : normalize(2.5),
+    flex: (Platform.OS === 'ios') ? normalize(5) : normalize(2.5),
     justifyContent: 'space-around',
     backgroundColor: 'transparent'
   },
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
 
   createButtonContainer: {
     paddingTop: (Platform.OS === 'ios') ? normalize(10) : normalize(0), 
-    paddingBottom: 30, 
+    paddingBottom: normalize(30),
     alignSelf: 'center'
   },
   
@@ -357,14 +357,23 @@ const styles = StyleSheet.create({
     color: 'white'
   },
 
+  waitingContainer: {
+    paddingTop: normalize(30),
+    alignSelf: 'center'
+  },
+
   waitingText: {
-    fontSize: normalizeFont(5)
+    fontSize: normalizeFont(3),
+    color: 'white',
+    backgroundColor: 'transparent',
+    alignSelf: 'center'
   },
 
   preGameContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'transparent'
   },
 
   preGameTitle: {
