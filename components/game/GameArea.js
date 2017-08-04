@@ -26,7 +26,8 @@ const runCheckDiscard = () => {
       }, function(){
         if (_this.state.playerTurnNum === _this.state.activeTurn && !_this.state.phase2) {
             _this.setState({
-              phase1: true
+              phase1: true,
+              playerName: _this.state.activeName
             })
         }
         if (_this.state.playerTurnNum !== _this.state.activeTurn) {
@@ -99,7 +100,8 @@ class GameArea extends React.Component {
         hand : [{'pictureId': 0}, {'pictureId': 0},{'pictureId': 0},{'pictureId': 0},{'pictureId': 0},{'pictureId': 0},{'pictureId': 0}],
         discard : [{'pictureId': 0}],
         gameId: '',
-        playerId: ''
+        playerId: '',
+        playerName: ''
     };
     this.dropCardToDiscard = this.dropCardToDiscard.bind(this);
     this.pickUpDiscard = this.pickUpDiscard.bind(this);
@@ -269,8 +271,11 @@ renderDraggable(){
           fontSize: 40,
           fontWeight: 'bold'
       }
-      celebration = <Image style={styles.winnerImage} source={require('./card-images/celebrations2.png')} />;
-
+      if (_this.state.playerName === _this.state.winner) {
+        celebration = <Image style={styles.winnerImage} source={require('./card-images/celebrations2.png')} />;
+      } else {
+        celebration = <Image style={styles.winnerImage} source={require('./card-images/loser.png')} />;
+      }
    } else {
      if (_this.state.message) {
        Message = _this.state.activeName + "'s turn"
