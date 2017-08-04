@@ -114,13 +114,13 @@ const styles = StyleSheet.create({
   },
 
   gameTypesContainer: {
-    flex: (Platform.OS === 'ios') ? normalize(4) : normalize(1),
+    flex: (Platform.OS === 'ios') ? normalize(5) : normalize(2.5),
     justifyContent: 'space-around',
     backgroundColor: 'transparent'
   },
 
   gameTypesPicker: {
-    flex: (Platform.OS === 'ios') ? normalize(2) : normalize(.5),
+    flex: (Platform.OS === 'ios') ? normalize(2) : normalize(1),
     flexDirection: 'column-reverse',
     width: (Platform.OS === 'ios') ? normalize(150) : normalize(150),
     backgroundColor: (Platform.OS === 'ios') ? 'transparent' : 'white'
@@ -144,6 +144,47 @@ const styles = StyleSheet.create({
     color: 'white',
     borderWidth: 2
   },
+
+  rulesContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    backgroundColor: 'transparent',
+    paddingTop: normalize(30),
+    paddingBottom: normalize(30)
+  },
+
+  rulesTitleContainer: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    maxHeight: (Platform.OS === 'ios') ? normalize(30) : normalize(60),
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  rulesTitle: {
+    fontSize: (Platform.OS === 'ios') ? normalizeFont(5.5) : normalizeFont(4),
+    color: 'white',
+    fontWeight: '200'
+  },
+
+  rulesScrollView: {
+    flex: 7,
+    paddingTop: normalize(0),
+    maxHeight: normalize(480),
+    backgroundColor: 'transparent',
+    borderRadius: (Platform.OS === 'ios') ? normalize(40) : normalize(40)
+  },
+
+  rulesBody: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    padding: (Platform.OS === 'ios') ? normalize(20) : normalize(22),
+    fontSize: (Platform.OS === 'ios') ? normalizeFont(2.95) : normalizeFont(2.5),
+    backgroundColor: 'transparent',
+    color: 'white'
+  },
+
 
   lowerGamesSection: {
     justifyContent: 'center',
@@ -240,7 +281,7 @@ const styles = StyleSheet.create({
 
   createButtonContainer: {
     paddingTop: (Platform.OS === 'ios') ? normalize(10) : normalize(0), 
-    paddingBottom: 30, 
+    paddingBottom: normalize(30),
     alignSelf: 'center'
   },
   
@@ -316,68 +357,53 @@ const styles = StyleSheet.create({
     color: 'white'
   },
 
-  waitingText: {
-    fontSize: normalizeFont(5)
-  },
-
-  rulesContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    backgroundColor: 'transparent',
+  waitingContainer: {
     paddingTop: normalize(30),
-    paddingBottom: normalize(30)
+    alignSelf: 'center'
   },
 
-  rulesTitleContainer: {
-    flex: 1,
-    backgroundColor: 'transparent',
-    maxHeight: (Platform.OS === 'ios') ? normalize(30) : normalize(60),
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-
-  rulesTitle: {
-    fontSize: (Platform.OS === 'ios') ? normalizeFont(5.5) : normalizeFont(5),
+  waitingText: {
+    fontSize: normalizeFont(3),
     color: 'white',
-    fontWeight: '200'
-  },
-
-  rulesScrollView: {
-    flex: 7,
-    paddingTop: normalize(0),
-    maxHeight: normalize(450),
     backgroundColor: 'transparent',
-  },
-
-  rulesBody: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    padding: normalize(20),
-    fontSize: normalizeFont(2.95),
-    backgroundColor: 'transparent',
-    color: 'white'
+    alignSelf: 'center'
   },
 
   preGameContainer: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent'
   },
 
   preGameTitle: {
-    fontSize: normalizeFont(4),
-    justifyContent: 'flex-end',
-    color: 'white'
+    paddingTop: 40,
+    paddingBottom: (Platform.OS === 'ios') ? 10 : 30,
+    fontSize: (Platform.OS === 'ios') ? normalizeFont(5) : normalizeFont(4.5),
+    color: 'white',
+    backgroundColor: 'transparent',
+    fontWeight: (Platform.OS === 'ios') ? 'bold' : 'bold'
+  },
+  
+  preGameLine: {
+    paddingBottom: (Platform.OS === 'ios') ? 10 : 30,
+    fontSize: (Platform.OS === 'ios') ? normalizeFont(5.5) : normalizeFont(4.5),
+    color: 'white',
+    backgroundColor: 'transparent',
+    fontWeight: (Platform.OS === 'ios') ? '100' : '100'
   },
 
   preGameSubtitle: {
-    justifyContent: 'flex-start',
-    color: 'white'
+    fontSize: (Platform.OS === 'ios') ? normalizeFont(4) : normalizeFont(3.5),
+    color: 'white',
+    backgroundColor: 'transparent'
   },
 
   preGameNumber: {
-    fontSize: normalizeFont(7),
-    color: 'white'
+    fontSize: normalizeFont(10),
+    fontWeight: 'bold',
+    color: 'white',
+    backgroundColor: 'transparent'
   }
 
 
