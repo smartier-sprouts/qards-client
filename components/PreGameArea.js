@@ -36,28 +36,24 @@ export default class PreGameArea extends React.Component {
   componentDidMount() {
     const { navigate } = this.props.navigation;
     socketStart(this.state.gameId, (count)=> {
-      this.setState({
-        numberOfPlayers: count
-      }) },
-      () => {
+      this.setState({numberOfPlayers: count});
+    }, () => {
          fetch('https://qards.herokuapp.com/api/hasStarted/' + this.state.gameId)
-         .then((response) => {
-           return response.json();
-         })
-         .then((responseJson) => {
+         .then(response => { return response.json(); })
+         .then(responseJson => {
            if (responseJson) {
              navigate('GameArea', {
                gameId: this.state.gameId,
                playerId: this.state.playerId,
                turn: this.state.turn
              });
+           } else {
+             console.log('no responseJson');
            }
          })
-         .catch((error) => {
-           console.error(error);
-         });
-       })
-  }
+         .catch(error => console.error(error));
+      });
+    }
 
   createGame() {
     const { navigate } = this.props.navigation;
@@ -80,9 +76,15 @@ export default class PreGameArea extends React.Component {
   render() {
     return (
       <Image source={require('../assets/background.png')} style={styles.backgroundImage}>
-        <View style={styles.container}>
-          <Text style={styles.title}>Get Ready to Play</Text>
-          <Text style={styles.smallTitle}>Number of players: {this.state.numberOfPlayers}</Text>
+        <View style={styles.preGameContainer}>
+          <Text style={styles.preGameTitle}>
+          GET READY TO PLAY
+          </Text>
+          <Text style={styles.preGameLine}>
+          ___________________
+          </Text>
+          <Text style={styles.preGameSubtitle}>NUMBER OF PLAYERS:</Text>
+          <Text style={styles.preGameNumber}>{this.state.numberOfPlayers}</Text>
           {this.state.isCreator ? <Button
               color='darkviolet'
               onPress={this.createGame}
@@ -93,3 +95,23 @@ export default class PreGameArea extends React.Component {
     );
   }
 }
+
+/*
+The TouchableHighlight portion of this code does not work for reasons unknown to me
+<Image source={require('../assets/background.png')} style={styles.backgroundImage}>
+  <View style={styles.container}>
+    <Text style={styles.title}>GET READY TO PLAY</Text>
+    <Text style={styles.smallTitle}>Number of players: {this.state.numberOfPlayers}</Text>
+    {this.state.isCreator ? <TouchableHighlight 
+        onPress={this.createGame}
+        underlayColor='transparent'
+        activeOpacity={0.7}>
+        <View style={styles.startButton}>
+          <Text style={styles.startButtonText}>
+            START GAME
+          </Text>
+        </View>
+      </TouchableHighlight> : null}
+  </View>
+</Image>
+*/
